@@ -1,0 +1,122 @@
+@import "../../styles/global.scss";
+
+.NavBar {
+  background-color: $primary-container;
+  z-index: 10;
+  .logo{
+    max-width: 140px;
+  }
+}
+.NavBar__Logo {
+  margin: 16px 28px;
+  width: 120px;
+}
+
+.navbar-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDMwIDMwIj48cGF0aCBzdHJva2U9IiMzZjZiZTgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik00IDdoMjJNNCAxNWgyMk00IDIzaDIyIi8+PC9zdmc+") !important;
+  width: 2rem;
+  height: 2rem;
+}
+
+.navbar-dark .navbar-toggler {
+  border-color: transparent !important;
+}
+.NavBar__List {
+  margin-top: 2rem;
+}
+.NavBar__Item {
+  padding: 0.5rem 0.5rem;
+}
+.NavBar__Link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #1f1d37;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+.NavBar__Link:hover {
+  text-decoration: none;
+  color: #3f6be8;
+}
+
+.navbar_item-title-active {
+  text-decoration: none;
+  color: $secondary !important;
+}
+
+.NavBar_Side {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  &-contact {
+    @include primaryBtn;
+    white-space: nowrap;
+    a{
+      color: inherit;
+    }
+  }
+  p {
+    color: #1f1d37;
+    margin: 0 2em 0 2.5em;
+  }
+  @media screen and (max-width: $breakpoint-xl) {
+    margin-left: 40px;
+    font-size: 1.3em;
+    &-contact {
+      font-size: 0.9em;
+    }
+    p {
+      font-size: 1em;
+      margin: 0 2em;
+    }
+  }
+}
+
+@media screen and (min-width: $breakpoint-xl) {
+  .NavBar {
+    display: flex;
+    flex-direction: row;
+    & > a {
+      flex-grow: 0;
+      margin: 0 0 0 2em;
+    }
+  }
+  .NavBar__Logo {
+    width: 143px;
+    margin-left: 58px;
+  }
+  .NavBar__Collapse {
+    /* DESKTOP */
+    align-items: center;
+    .NavBar_links {
+      flex-grow: 1;
+    }
+  }
+  .NavBar__List {
+    margin-top: 0rem;
+  }
+  .NavBar__Item {
+    margin-right: 2.5rem;
+    margin-top: 0.5em;
+    white-space: nowrap;
+  }
+  .NavBar_Side {
+    margin-right: 1em;
+  }
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  height: 54px;
+  width: 54px;
+  position: relative;
+  img {
+    color: white;
+    margin: 0 0 3px 0;
+  }
+}

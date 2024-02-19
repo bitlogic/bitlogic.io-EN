@@ -1,0 +1,81 @@
+@import "../../styles/global.scss";
+
+.container-text {
+  .text {
+    color: $primary;
+    .title {
+      .titleText {
+        text-transform: uppercase;
+        margin-top: 2rem;
+      }
+    }
+    .description {
+      background-color: $primary-container;
+      border-radius: 10px;
+      p:first-child {
+        padding-top: 29px;
+      }
+      p {
+        color: $primary;
+        padding: 0rem 0.5rem;
+      }
+    }
+  }
+  .container-markdown {
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+
+    .notTitle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: $primary;
+      border-radius: 20px;
+      background-color: $primary-container;
+      padding: 0rem 1rem;
+
+      p:first-child {
+        padding-top: 29px;
+      }
+
+      h6 {
+        margin-bottom: 0px;
+
+        &:last-child {
+          padding-bottom: 29px;
+        }
+        strong {
+          font-size: 16px !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $breakpoint-md) {
+  .container-text {
+    .text {
+      .title {
+        flex-basis: 20%;
+        padding-top: 4rem;
+      }
+      .description {
+        margin-left: 2rem;
+        margin-top: 6rem;
+        margin-bottom: 3rem;
+        flex-basis: 80%;
+      }
+    }
+  }
+}
+@media screen and (min-width: $breakpoint-xl) {
+  .container-text {
+    .text {
+      .description {
+        p {
+          padding: 0rem 2rem;
+        }
+      }
+    }
+  }
+}
