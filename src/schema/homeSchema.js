@@ -1,6 +1,6 @@
 const homeSchema = `
 
-type StrapiHome implements Node {
+type StrapiEnglishHome implements Node {
     body: JSON
     published_at(
       formatString: String

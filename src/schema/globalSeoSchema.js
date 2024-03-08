@@ -1,5 +1,5 @@
 const globalSeoSchema = `
-type StrapiGlobalSeo implements Node {
+type StrapiEnglishGlobalSeo implements Node {
     id: ID!
     parent: Node
     children: [Node!]!
@@ -37,7 +37,7 @@ type StrapiGlobalSeo implements Node {
   }
 
 
-type StrapiGlobalConfig implements Node {
+type StrapiEnglishGlobalConfig implements Node {
     id: ID!
     parent: Node
     children: [Node!]!

@@ -3,11 +3,11 @@ import { useStaticQuery, graphql } from "gatsby"
 const useFooter = () => {
   return useStaticQuery(graphql`
     {
-      allStrapiLayout {
+      allStrapiLayout: allStrapiEnglishLayout {
         nodes {
           navbar {
             navButton {
-              landing_page {
+              landing_page:english_landing_page {
                 slug
               }
               url

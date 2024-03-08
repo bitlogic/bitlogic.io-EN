@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from "gatsby"
 const useContactPage = () => {
   return useStaticQuery(graphql`
     {
-      allStrapiProfessional {
+      allStrapiProfessional: allStrapiEnglishProfessional {
         nodes {
           quote
           position

@@ -1,5 +1,5 @@
 const landingSchema = `
-type StrapiLandingPage implements Node {
+type StrapiEnglishLandingPage implements Node {
     body: JSON
     name: String
     slug: String

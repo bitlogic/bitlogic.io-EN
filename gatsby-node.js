@@ -44,7 +44,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // CREACION DE PAGINAS DE BLOG
   const { data: blogQueryData } = await graphql(`
     query Articles {
-      allStrapiArticle {
+      allStrapiArticle: allStrapiEnglishArticle {
         nodes {
           slug
         }
@@ -68,7 +68,7 @@ exports.createPages = async ({ graphql, actions }) => {
   // CREACION DE LANDING PAGES
   const { data: LandingQueryData } = await graphql(`
     query Landings {
-      allStrapiLandingPage {
+      allStrapiLandingPage: allStrapiEnglishLandingPage {
         nodes {
           slug
         }

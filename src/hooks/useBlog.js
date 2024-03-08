@@ -3,12 +3,12 @@ import { useStaticQuery, graphql } from "gatsby"
 const useBlog = () => {
   const query = useStaticQuery(graphql`
     {
-      allStrapiBlogCategory {
+      allStrapiBlogCategory:allStrapiEnglishBlogCategory {
         nodes {
           name
         }
       }
-      allStrapiArticle(sort: { fields: published_at, order: DESC }) {
+      allStrapiArticle:allStrapiEnglishArticle(sort: { fields: published_at, order: DESC }) {
         nodes {
           title
           summary
@@ -26,7 +26,7 @@ const useBlog = () => {
           }
         }
       }
-      allStrapiBlogPage {
+      allStrapiBlogPage: allStrapiEnglishBlogPage {
         nodes {
           seo: pageMetadata {
             pageTitle
@@ -42,7 +42,7 @@ const useBlog = () => {
               content
               id
               url
-              landing_page {
+              landing_page:english_landing_page {
                 name
                 slug
                 id

@@ -149,7 +149,7 @@ const LandingPage = ({ data, location }) => {
 
 export const query = graphql`
   query($slug: String!) {
-    allStrapiLandingPage(filter: { slug: { eq: $slug } }) {
+    allStrapiLandingPage:allStrapiEnglishLandingPage(filter: { slug: { eq: $slug } }) {
       nodes {
         body
         name

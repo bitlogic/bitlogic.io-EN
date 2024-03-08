@@ -1,5 +1,5 @@
 const blogSchema = `
-type StrapiBlogCategory implements Node {
+type StrapiEnglishBlogCategory implements Node {
     id: ID!
     parent: Node
     children: [Node!]!
@@ -250,7 +250,7 @@ type StrapiBlogCategory implements Node {
     slug: String
   }
   
-  type StrapiArticle implements Node {
+  type StrapiEnglishArticle implements Node {
     id: ID!
     parent: Node
     children: [Node!]!
@@ -416,7 +416,7 @@ type StrapiBlogCategory implements Node {
     ): Date
   }
   
-  type StrapiBlogPage implements Node {
+  type StrapiEnglishBlogPage implements Node {
     id: ID!
     parent: Node
     children: [Node!]!

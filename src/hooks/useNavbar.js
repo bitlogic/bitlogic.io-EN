@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from "gatsby"
 const useNavbar = () => {
   return useStaticQuery(graphql`
     {
-      allStrapiLayout {
+      allStrapiLayout:allStrapiEnglishLayout {
         nodes {
           navbar {
             navButton {
@@ -45,13 +45,13 @@ const useNavbar = () => {
           }
         }
       }
-      allStrapiLandingPage {
+      allStrapiLandingPage: allStrapiEnglishLandingPage {
         nodes {
           body
           name
         }
       }
-      allStrapiHome {
+      allStrapiHome:allStrapiEnglishHome {
         nodes {
           body
         }

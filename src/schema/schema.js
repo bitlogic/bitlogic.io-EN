@@ -1,6 +1,6 @@
 const schema = `
 
-type StrapiLandingPage implements Node {
+type StrapiEnglishLandingPage implements Node {
   body: JSON
   name: String
   slug: String
@@ -29,7 +29,7 @@ type StrapiLandingPage implements Node {
   internal: Internal!
 }
 
-type StrapiHome implements Node {
+type StrapiEnglishHome implements Node {
   body: JSON
   published_at(
     formatString: String
@@ -155,7 +155,7 @@ type StrapiServices implements Node {
   iconDarkMode: LocalFile
 }
 
-type StrapiGlobalSeo implements Node {
+type StrapiEnglishGlobalSeo implements Node {
   id: ID!
   parent: Node
   children: [Node!]!
@@ -547,7 +547,7 @@ type StrapiBitwayPageSectionsGalleryImage {
   imageDark: LocalFile
 }
 
-type StrapiBlogCategory implements Node {
+type StrapiEnglishBlogCategory implements Node {
   id: ID!
   parent: Node
   children: [Node!]!
@@ -847,7 +847,7 @@ type StrapiBlogCategoryArticles {
   slug: String
 }
 
-type StrapiArticle implements Node {
+type StrapiEnglishArticle implements Node {
   id: ID!
   parent: Node
   children: [Node!]!
@@ -1048,7 +1048,7 @@ type StrapiArticleBlog_categories {
   ): Date
 }
 
-type StrapiBlogPage implements Node {
+type StrapiEnglishBlogPage implements Node {
   id: ID!
   parent: Node
   children: [Node!]!
@@ -1101,7 +1101,7 @@ type StrapiBlogPagePageMetadata {
   pageKeywords: String
 }
 
-type StrapiContactPage implements Node {
+type StrapiEnglishContactPage implements Node {
   id: ID!
   parent: Node
   children: [Node!]!
@@ -1149,7 +1149,7 @@ type LocalFile {
   localFile: File @link(from: "localFile___NODE")
 }
 
-type StrapiGlobalConfig implements Node {
+type StrapiEnglishGlobalConfig implements Node {
   id: ID!
   parent: Node
   children: [Node!]!

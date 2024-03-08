@@ -69,7 +69,7 @@ const BlogDetail = ({ data }) => {
 
 export const query = graphql`
   query($slug: String!) {
-    allStrapiArticle(filter: { slug: { eq: $slug } }) {
+    allStrapiArticle:allStrapiEnglishArticle(filter: { slug: { eq: $slug } }) {
       nodes {
         title
         description

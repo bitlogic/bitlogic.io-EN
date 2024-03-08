@@ -358,7 +358,7 @@ type StrapiLayoutNavbarNavButtonLanding_page {
     localFile: File
   }
   
-  type StrapiLayout implements Node {
+  type StrapiEnglishLayout implements Node {
     id: ID!
     parent: Node
     children: [Node!]!

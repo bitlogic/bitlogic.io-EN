@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from "gatsby"
 const useGlobalConfig = () => {
   const query = useStaticQuery(graphql`
     {
-      allStrapiGlobalConfig {
+      allStrapiGlobalConfig: allStrapiEnglishGlobalConfig {
         nodes {
           script {
             enable

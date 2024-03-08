@@ -1,5 +1,5 @@
 const blogSchema = `
-type StrapiProfessional implements Node {
+type StrapiEnglishProfessional implements Node {
     id: ID!
     parent: Node
     children: [Node!]!

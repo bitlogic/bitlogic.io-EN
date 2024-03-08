@@ -1,6 +1,6 @@
 const caseSchema = `
 
-type StrapiCase implements Node {
+type StrapiEnglishCase implements Node {
     id: ID!
     parent: Node
     children: [Node!]!

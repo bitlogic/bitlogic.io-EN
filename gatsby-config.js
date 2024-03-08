@@ -3,7 +3,8 @@ module.exports = {
     title: `Bitlogic`,
     description: `Bitlogic Web es una empresa dedicada al diseño, ingeniería y desarrollo ágil de productos de software, especializada en la transformación digital de instituciones educativas .`,
     author: `Bitlogic.io`,
-    siteUrl: process.env.SITE_URL,    
+    //siteUrl: process.env.SITE_URL,    
+    siteUrl: 'https://bitlogic.io',
   },
   plugins: [
     `gatsby-plugin-sitemap`,
@@ -32,7 +33,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: process.env.SITE_URL,
+        //siteUrl: process.env.SITE_URL,
+        siteUrl: 'https://bitlogic.io',
       },
     },
     {
@@ -40,22 +42,38 @@ module.exports = {
       options: {
         // apiURL: `http://lb-bitlogic-strapi-dev-48805770.sa-east-1.elb.amazonaws.com:1337`,
         // apiURL: `https://strapi.bitlogic.io`,
-        apiURL: process.env.STRAPI_URL,
+        //apiURL: process.env.STRAPI_URL,
+        apiURL: 'http://127.0.0.1:1337',
         queryLimit: 1000,
         collectionTypes: [
+
           `article`,
           `blog-category`,
           `landing-page`,
           `case`,
           `icon`,
           `professional`,
+
+          `english-article`,
+          `english-blog-category`,
+          `english-landing-page`,
+          `english-case`,
+          `icon`,
+          `english-professional`,
         ],
         singleTypes: [
+
           `global-seo`,
           `home`,
           `blog-page`,
           `global-config`,
           `layout`,
+
+          `english-global-seo`,
+          `english-home`,
+          `english-blog-page`,
+          `english-global-config`,
+          `english-layout`,
         ],
       },
     },
