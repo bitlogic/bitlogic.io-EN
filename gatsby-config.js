@@ -51,6 +51,7 @@ module.exports = {
           `english-landing-page`,
           `english-case`,
           `english-professional`,
+          `icon`
         ],
         singleTypes: [
           `english-global-seo`,
