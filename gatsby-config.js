@@ -58,7 +58,6 @@ module.exports = {
           `english-blog-category`,
           `english-landing-page`,
           `english-case`,
-          `icon`,
           `english-professional`,
         ],
         singleTypes: [
