@@ -46,14 +46,6 @@ module.exports = {
         //apiURL: 'http://127.0.0.1:1337',
         queryLimit: 1000,
         collectionTypes: [
-
-          `article`,
-          `blog-category`,
-          `landing-page`,
-          `case`,
-          `icon`,
-          `professional`,
-
           `english-article`,
           `english-blog-category`,
           `english-landing-page`,
@@ -61,13 +53,6 @@ module.exports = {
           `english-professional`,
         ],
         singleTypes: [
-
-          `global-seo`,
-          `home`,
-          `blog-page`,
-          `global-config`,
-          `layout`,
-
           `english-global-seo`,
           `english-home`,
           `english-blog-page`,

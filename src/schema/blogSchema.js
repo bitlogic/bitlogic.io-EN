@@ -277,6 +277,7 @@ type StrapiEnglishBlogCategory implements Node {
       locale: String
     ): Date
     image: LocalFile
+    imagePage: LocalFile
     blog_categories: [StrapiArticleBlog_categories]
     strapiId: Int
     slug: String
@@ -620,7 +621,7 @@ type StrapiEnglishBlogCategory implements Node {
     id: Int
     content: String
     url: String
-    landing_page: StrapiBlogPageBannerButtonLanding_page
+    english_landing_page: StrapiBlogPageBannerButtonLanding_page
   }
   type StrapiBlogPageBannerButtonLanding_page {
     id: Int

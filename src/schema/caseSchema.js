@@ -36,7 +36,7 @@ type StrapiEnglishCase implements Node {
     id: Int
     content: String
     url: String
-    landing_page: StrapiCaseButtonLanding_page
+    english_landing_page: StrapiCaseButtonLanding_page
   }
   
   type StrapiCaseButtonLanding_page {
