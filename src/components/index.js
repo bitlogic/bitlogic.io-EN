@@ -17,6 +17,7 @@ import BannerTop from "./Banners/BannerTop"
 import BannerHead from "./BannerHead/BannerHead"
 import Professionals from "./Professionals/Professionals"
 import FeaturedBlogs from './FeaturedBlogs/FeaturedBlogs'
+import Layaout from './layout'
 
 export {
   Cards,
@@ -38,4 +39,5 @@ export {
   BannerHead,
   Professionals,
   FeaturedBlogs,
+  Layaout
 }

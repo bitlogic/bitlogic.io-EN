@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import MarkdownView from "react-showdown"
-import HubspotForm from "react-hubspot-form"
+// import HubspotForm from "react-hubspot-form"
 import Lottie from 'react-lottie'
 import "./Form.scss"
 
@@ -93,7 +93,7 @@ const Form = ({ location, data }) => {
         </div>
         <div className="col-12 col-md-6">
           <div className="hubspot-form-wrapper">
-            <HubspotForm portalId={portalId} formId={formId} css="" />
+            {/* <HubspotForm portalId={portalId} formId={formId} css="" /> */}
           </div>
         </div>
       </div>
