@@ -17,7 +17,7 @@ const useNavbar = () => {
               url
               label
               singleType
-              landing {
+              landing: english_landing_page {
                 slug
                 name
               }

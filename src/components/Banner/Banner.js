@@ -53,7 +53,7 @@ const Banner = ({ data }) => {
   return (
     <div
       className={`banner ${variant}`}
-      id={data.strapi_component + "-" + data.id}
+      id={data?.strapi_component + "-" + data?.id}
     >
       {variant === "background" ?
         <div className="bgImage" style={{

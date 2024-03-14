@@ -44,7 +44,7 @@ const NavBar = () => {
           {navbarData && (
             <div className="NavBar_links">
               <AnimatedNavbar
-                homeComponents={navbarData.allStrapiHome?.nodes[0].body}
+                // homeComponents={navbarData.allStrapiHome?.nodes[0].body}
                 landingComponents={navbarData.allStrapiLandingPage?.nodes}
                 navbarItems={
                   navbarData.allStrapiLayout?.nodes[0].navbar?.navbarItem

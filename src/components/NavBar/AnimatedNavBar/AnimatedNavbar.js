@@ -8,19 +8,23 @@ import Dropdown from "./DropdownContainer/Dropdown"
 const AnimatedNavbar = ({ landingComponents, navbarItems = [], duration }) => {
   const navbarConfig = [
     ...navbarItems.map(navItem => {
-      let res 
+      let res
       if (navItem.singleType) {
         res = {
           title: navItem.label,
           slug: navItem.singleType,
-          dropdown: () => <Dropdown sections={null} />,
+          dropdown: () => (
+            <Dropdown sections={null} />
+          ),
         }
       } else if (navItem.landing) {
         res = {
           title: navItem.label,
           slug: navItem.landing.slug,
           dropdown: () =>
-            navItem.dropdown ? (
+            navItem.dropdown &&
+              landingComponents.find(landing =>
+                landing.name === navItem.landing.name).body.length > 0 ? (
               <Dropdown
                 sections={landingComponents
                   .find(landing => landing.name === navItem.landing.name).body}
@@ -34,7 +38,9 @@ const AnimatedNavbar = ({ landingComponents, navbarItems = [], duration }) => {
         res = {
           title: navItem.label,
           slug: navItem.url,
-          dropdown: () => <Dropdown sections={null} />,
+          dropdown: () => (
+            <Dropdown sections={null} />
+          ),
         }
       }
       return res
@@ -74,13 +80,14 @@ const AnimatedNavbar = ({ landingComponents, navbarItems = [], duration }) => {
   let PrevDropdown
   let direction
 
-  const currentIndex = activeIndex[activeIndex.length - 1]
+  const currentIndex =
+    activeIndex.length > 0 && activeIndex[activeIndex.length - 1]
   const prevIndex =
     activeIndex.length > 1 && activeIndex[activeIndex.length - 2]
 
-  if (typeof currentIndex === "number")
+  if (typeof currentIndex === "number" && activeIndex.length > 0)
     CurrentDropdown = navbarConfig[currentIndex].dropdown
-  if (typeof prevIndex === "number") {
+  if (typeof prevIndex === "number" && activeIndex.length > 1) {
     PrevDropdown = navbarConfig[prevIndex].dropdown
     direction = currentIndex > prevIndex ? "right" : "left"
   }

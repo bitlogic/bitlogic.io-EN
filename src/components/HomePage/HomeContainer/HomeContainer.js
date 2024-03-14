@@ -15,23 +15,23 @@ import OneSection from "../../DualSection/OneSection"
 import Text from "../../Text/Text"
 import BannerList from "../../BannerList/BannerList"
 const bodyComponents = {
-  "components.banner": data => <Banner data={data} />,
-  "home.transition": data => <AnimatedTransitionContinous data={data} />,
-  "home.quote": data => <Quote data={data} />,
-  "home.video-background": data => <VideoBackground data={data} />,
-  "components.text": data => <Text data={data} />,
+  "components.banner": data => <Banner data={data} key={data.id} />,
+  "home.transition": data => <AnimatedTransitionContinous data={data} key={data.id} />,
+  "home.quote": data => <Quote data={data} key={data.id} />,
+  "home.video-background": data => <VideoBackground data={data} key={data.id} />,
+  "components.text": data => <Text data={data} key={data.id} />,
   "home.dual-section": data =>
     data.dualSectionPart.length === 1 ? (
-      <OneSection data={data} />
+      <OneSection data={data} key={data.id} />
     ) : (
-      <DualSection data={data} />
+      <DualSection data={data} key={data.id} />
     ),
-  "components.banner-list": data => <BannerList data={data} />,
+  "components.banner-list": data => <BannerList data={data} key={data.id} />,
 }
 
 const Home = ({ location }) => {
   const data = useHomePage()
-  
+
   const { pageTitle, pageDescription, pageKeywords } =
     data?.allStrapiHome?.nodes[0]?.pageMetadata || {}
 
