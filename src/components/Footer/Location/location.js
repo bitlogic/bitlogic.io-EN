@@ -6,11 +6,11 @@ import "./location.scss";
 export default function Location() {
     const data = useFooter();
     const dataFooter = data?.allStrapiLayout?.nodes[0].footer;
-
+   
     const location = dataFooter.location?.iconText.map((item) => {
         return (
             <p className="icon-text d-flex">
-                <FaIcon type={item.icon.type} code={item.icon.code} />
+              {item.icon && <FaIcon type={item.icon.type} code={item.icon.code} /> }
                 {item.name}
             </p>
         )
