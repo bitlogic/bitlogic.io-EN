@@ -3,7 +3,6 @@ import Seo from "./Seo/Seo"
 import CasesSection from "./CasesSection/CasesSection"
 import CasesList from "./CasesSection/CasesList"
 import LogosSection from "./LogosSection/logosSection"
-import Form from "./Form/Form"
 import Banner from "./Banner/Banner"
 import BannerList from "./BannerList/BannerList"
 import ExpandGrid from "./expandGrid/ExpandGrid"
@@ -18,6 +17,7 @@ import BannerHead from "./BannerHead/BannerHead"
 import Professionals from "./Professionals/Professionals"
 import FeaturedBlogs from './FeaturedBlogs/FeaturedBlogs'
 import Layaout from './layout'
+import PipedriveForm from "./Form/PipedriveForm"
 
 export {
   Cards,
@@ -25,7 +25,6 @@ export {
   CasesSection,
   Seo,
   LogosSection,
-  Form,
   Banner,
   BannerList,
   ExpandGrid,
@@ -39,5 +38,6 @@ export {
   BannerHead,
   Professionals,
   FeaturedBlogs,
-  Layaout
+  Layaout,
+  PipedriveForm
 }

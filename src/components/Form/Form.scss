@@ -3,22 +3,17 @@
 .form {
   color: $primary;
   padding: 5rem 0;
+
   .title {
     text-transform: uppercase;
   }
-  .hubspot-form-wrapper {
+
+  .form-wrapper {
     background-color: $bg-form;
     border-radius: 10px;
-    padding: 2rem;
-    padding-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    > div {
-      width: 100%;
-    }
+    padding: 2rem 2rem 1rem;
   }
+
   &__img {
     img {
       padding: 3rem 1rem;
@@ -29,6 +24,7 @@
       max-width: 350px !important;
     }
   }
+
   &__content {
     p {
       font-weight: $bold;
@@ -36,6 +32,7 @@
     }
   }
 }
+
 @media screen and (min-width: $breakpoint-lg) {
   .form {
     &__content {
