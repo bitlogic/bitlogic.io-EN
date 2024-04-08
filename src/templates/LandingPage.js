@@ -10,7 +10,7 @@ import {
   CasesList,
   LogosSection,
   Banner,
-  Form,
+  PipedriveForm,
   BannerList,
   ExpandGrid,
   Catsone,
@@ -65,9 +65,9 @@ const LandingPage = ({ data, location }) => {
         <LogosSection data={component} />
       ) : null
 
-    const form =
-      component.strapi_component === "components.form" ? (
-        <Form data={component} location={location} />
+    const pipedriveForm =
+      component.strapi_component === "components.pipedrive-form" ? (
+        <PipedriveForm data={component} />
       ) : null
 
     const banner =
@@ -126,7 +126,7 @@ const LandingPage = ({ data, location }) => {
           {catsone}
           {text}
           {logosSection}
-          {form}
+          {pipedriveForm}
           {videoBackground}
           {quote}
           {dualSection}
