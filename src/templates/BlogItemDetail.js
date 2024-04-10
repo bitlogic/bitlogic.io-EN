@@ -15,7 +15,7 @@ const BlogDetail = ({ data }) => {
   const bannerTop = imagePage ? { title, imagePage }  : { title, image }
 
   let { summary } = author
-  
+
   return (
     <Layout>
       <Seo title={title} />
@@ -25,6 +25,7 @@ const BlogDetail = ({ data }) => {
           <div className="detail__description">
             <MarkdownView
               markdown={description}
+              dangerouslySetInnerHTML={{ __html: description }}
             />
             {/* <ReactMarkdown source={description} /> */}
             <div className="detail__description-author">
