@@ -28,6 +28,7 @@ export default function Text({ data }) {
           <MarkdownView
             markdown={description}
             className="notTitle"
+            dangerouslySetInnerHTML={{ __html: description }}
           />
         </div>
       )}

@@ -27,7 +27,8 @@ const CasesList = () => {
           <h6 className="caseExpanded__subtitle">{caso.subtitle}</h6>              
           )}
           <div className="caseExpanded__descr">
-          <MarkdownView markdown={caso.description} />
+          <MarkdownView markdown={caso.description} 
+           dangerouslySetInnerHTML={{ __html: caso.description }}/>
           </div>
         </div>
         <div className="col-12 col-md-5 row caseQuote">

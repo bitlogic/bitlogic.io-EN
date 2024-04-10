@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "gatsby"
-import ReactMarkdown from "react-markdown"
+import MarkdownView from "react-showdown"
+//import ReactMarkdown from "react-markdown"
 import Lottie from 'react-lottie'
 import { useTheme } from "../../context/themeContext"
 
@@ -69,7 +70,11 @@ const Banner = ({ data }) => {
             <div className="col-12 col-lg-6">
               {/* {variant === "hero" ? <h1>{title}</h1> : <h2>{title}</h2>} */}
               {showTitle()}
-              <ReactMarkdown source={summary} className="banner-markdown" />
+              {<MarkdownView
+              markdown={summary}
+              dangerouslySetInnerHTML={{ __html: summary}}
+            />}
+             {/* <ReactMarkdown source={summary} className="banner-markdown" />*/}
               {addButton}
             </div>
           </div>
