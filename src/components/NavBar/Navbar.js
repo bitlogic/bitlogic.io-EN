@@ -5,8 +5,8 @@ import Navbar from "react-bootstrap/Navbar"
 import AnimatedNavbar from "./AnimatedNavBar/AnimatedNavbar"
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
-import { useNavbar } from "../../hooks/index"
-import menusvg from '../../images/menu.svg'
+import { useNavbar, useLandingUrl } from "../../hooks/index"
+// import menusvg from '../../images/menu.svg'
 import { useTheme } from "../../context/themeContext"
 // theme images
 import moon from "../../images/moon-solid.svg"
@@ -15,6 +15,9 @@ import sun from "../../images/sun.svg"
 const NavBar = () => {
   const { theme, toggleTheme } = useTheme()
   const navbarData = useNavbar()
+  const getUrl = useLandingUrl();
+
+  const landings = navbarData.allStrapiLandingPage.nodes;
 
   const logoLight = getImage(
     navbarData.allStrapiLayout?.nodes[0].navbar?.logo?.localFile
@@ -45,7 +48,7 @@ const NavBar = () => {
             <div className="NavBar_links">
               <AnimatedNavbar
                 // homeComponents={navbarData.allStrapiHome?.nodes[0].body}
-                landingComponents={navbarData.allStrapiLandingPage?.nodes}
+                landings={landings}
                 navbarItems={
                   navbarData.allStrapiLayout?.nodes[0].navbar?.navbarItem
                 }
@@ -59,8 +62,8 @@ const NavBar = () => {
                 <Link
                   to={
                     navbarButton.landing_page
-                      ? "/" + navbarButton.landing_page.slug
-                      : ""
+                      ? getUrl(navbarButton.landing_page.slug)
+                      : `${navbarButton.url ? navbarButton.url : ""}`
                   }
                 >
                   {navbarButton.content}
