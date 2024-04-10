@@ -3,6 +3,7 @@ type StrapiEnglishLandingPage implements Node {
     body: JSON
     name: String
     slug: String
+    parent_page: StrapiLandingPageParentPage
     published_at(
       formatString: String
       fromNow: Boolean
@@ -34,6 +35,32 @@ type StrapiEnglishLandingPage implements Node {
     pageTitle: String
     pageDescription: String
     pageKeywords: String
+  }
+
+  type StrapiLandingPageParentPage {
+    id: ID!
+    name: String
+    slug: String
+    seo: StrapiLandingPageSeo
+    parent_page: Int
+    created_at(
+      formatString: String
+      fromNow: Boolean
+      difference: String
+      locale: String
+    ): Date
+    published_at(
+      formatString: String
+      fromNow: Boolean
+      difference: String
+      locale: String
+    ): Date
+    updated_at(
+      formatString: String
+      fromNow: Boolean
+      difference: String
+      locale: String
+    ): Date
   }
 
   type LocalFile {

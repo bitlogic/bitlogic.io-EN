@@ -30,6 +30,7 @@ export default function Text({ data }) {
             markdown={description}
             dangerouslySetInnerHTML={{ __html: description }}
             className="notTitle"
+            dangerouslySetInnerHTML={{ __html: description }}
           />
         </div>
       )}

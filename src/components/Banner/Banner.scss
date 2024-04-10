@@ -34,7 +34,7 @@
     }
   }
   &.hero {
-    height: auto;
+    //height: auto;
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: end;
@@ -286,7 +286,7 @@
       .imagen {
         -webkit-box-pack: end;
         -ms-flex-pack: end;
-        justify-content: flex-end;
+        //justify-content: flex-end;
       }
     }
   }
@@ -305,7 +305,7 @@
       .imagen {
         -webkit-box-pack: end;
         -ms-flex-pack: end;
-        justify-content: flex-end;
+        //justify-content: flex-end;
         .cont-lottie {
           width: 600px;
           height: 600px;
@@ -317,14 +317,14 @@
       position: relative;
       -webkit-box-align: center;
       -ms-flex-align: center;
-      align-items: center;
+      //align-items: center;
       .imagen {
         max-height: 300px;
         overflow: hidden;
         padding: 0;
         -webkit-box-pack: end;
         -ms-flex-pack: end;
-        justify-content: flex-end;
+        //justify-content: flex-end;
         img {
           max-width: 400px;
         }
@@ -334,7 +334,7 @@
         position: absolute;
         padding-top: 0;
         padding-bottom: 0;
-        left: 50%;
+        left: 70%;
         top: 50%;
         -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
@@ -506,12 +506,12 @@
       height: 600px;
       position: relative;
       .imagen {
-        max-height: 600px;
+        max-height: 800px;
         overflow: hidden;
         padding: 0;
         .cont-lottie {
-          width: 650px;
-          height: 650px;
+          width: 700px;
+          height: 600px;
         }
       }
 

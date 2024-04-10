@@ -102,7 +102,8 @@ const ExpandedListItem = ({ index, data, isFirst }) => {
               <div style={isFirst ? { opacity: "1" } : {}}>
                 <h4>{data.title}</h4>
                 <div className="additional-content-markdown">
-                  <MarkdownView markdown={data.text} />
+                  <MarkdownView markdown={data.text}
+                   dangerouslySetInnerHTML={{ __html: data.text }} />
                 </div>
                 {data.landing_page && (
                   <Link to={"/" + data.landing_page?.slug}>Ver más</Link>

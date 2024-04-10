@@ -63,7 +63,8 @@ const Quote = ({
                 alt="quote author"
               />
               <div className="flex-grow-1 align-self-center">
-                <MarkdownView markdown={profileDescription} className="markdown" />
+                <MarkdownView markdown={profileDescription} className="markdown" 
+                 dangerouslySetInnerHTML={{ __html: profileDescription }}/>
               </div>
             </div>
           )}

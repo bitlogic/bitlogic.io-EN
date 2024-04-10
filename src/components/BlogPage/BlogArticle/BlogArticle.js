@@ -20,7 +20,9 @@ const BlogArticle = ({ title, summary, image, slug, text }) => {
       <div className="article__description">
         <h6>{`${title}`}</h6>
         <div>
-          <MarkdownView markdown={`${summary}`} />
+          <MarkdownView 
+          markdown={`${summary}` }
+          dangerouslySetInnerHTML={{ __html: summary }} />
           {/* <ReactMarkdown source={`${summary} ...`} /> */}
         </div>
         <div className="article__link">

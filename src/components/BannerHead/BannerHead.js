@@ -36,7 +36,7 @@ const BannerHead = ({ data }) => {
   return (
     <div class="banner d-flex justify-content-center">
       <div class="banner__image">{checkImage()}</div>
-      {title && <MarkdownView markdown={title} />}
+      {title && <MarkdownView markdown={title}  dangerouslySetInnerHTML={{ __html: title }}/>}
     </div>
   )
 }

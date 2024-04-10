@@ -32,7 +32,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     homeSchema.value +
     iconSchema.value +
     landingSchema.value +
-    layoutSchema.value + 
+    layoutSchema.value +
     professionalsSchema.value +
     generalSchema.value
   createTypes(typeDefs)
@@ -71,6 +71,9 @@ exports.createPages = async ({ graphql, actions }) => {
       allStrapiLandingPage: allStrapiEnglishLandingPage {
         nodes {
           slug
+          parent_page {
+            slug
+          }
         }
       }
     }
@@ -80,10 +83,27 @@ exports.createPages = async ({ graphql, actions }) => {
     reporter.panicOnBuild("Error creando paginas de landing")
   }
 
-  LandingQueryData.allStrapiLandingPage.nodes.forEach(node => {
+  const landings = LandingQueryData.allStrapiLandingPage.nodes;
+
+  function getUrl(node) {
+    if (!node) return ""
+
+    if (node.parent_page) {
+      const parentPage = landings.find((landing) =>
+        landing.slug === node.parent_page.slug
+      )
+      const parentUrl = getUrl(parentPage)
+      return `${parentUrl}/${node.slug}`
+    }
+
+    return `/${node.slug}`
+  }
+
+  landings.forEach(node => {
     const LandingPage = path.resolve("./src/templates/LandingPage.js")
+    const url = getUrl(node)
     createPage({
-      path: "/" + node.slug,
+      path: url,
       component: LandingPage,
       context: { slug: node.slug },
     })
