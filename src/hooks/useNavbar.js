@@ -7,22 +7,21 @@ const useNavbar = () => {
         nodes {
           navbar {
             navButton {
-              landing_page {
+              content
+              url
+              landing_page: english_landing_page {
                 slug
               }
-              url
-              content
             }
             navbarItem {
-              url
+              id
               label
+              dropdown
+              url
               singleType
               landing: english_landing_page {
                 slug
-                name
               }
-              dropdown
-              id
             }
             logo {
               localFile {
@@ -47,8 +46,12 @@ const useNavbar = () => {
       }
       allStrapiLandingPage: allStrapiEnglishLandingPage {
         nodes {
-          body
           name
+          slug
+          body
+          parent_page {
+            slug
+          }
         }
       }
       allStrapiHome:allStrapiEnglishHome {
@@ -61,4 +64,4 @@ const useNavbar = () => {
   `)
 }
 
-export default useNavbar
+export default useNavbar;

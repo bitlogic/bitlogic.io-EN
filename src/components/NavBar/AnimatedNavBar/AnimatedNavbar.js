@@ -4,15 +4,18 @@ import NavbarItem from "./Navbar/NavbarItem"
 import { Flipper } from "react-flip-toolkit"
 import DropdownContainer from "./DropdownContainer"
 import Dropdown from "./DropdownContainer/Dropdown"
+import { useLandingUrl } from "../../../hooks"
 
-const AnimatedNavbar = ({ landingComponents, navbarItems = [], duration }) => {
+const AnimatedNavbar = ({ landings, navbarItems = [], duration }) => {
+  const getUrl = useLandingUrl()
+
   const navbarConfig = [
     ...navbarItems.map(navItem => {
       let res
       if (navItem.singleType) {
         res = {
           title: navItem.label,
-          slug: navItem.singleType,
+          slug: '/' + navItem.singleType,
           dropdown: () => (
             <Dropdown sections={null} />
           ),
@@ -20,15 +23,15 @@ const AnimatedNavbar = ({ landingComponents, navbarItems = [], duration }) => {
       } else if (navItem.landing) {
         res = {
           title: navItem.label,
-          slug: navItem.landing.slug,
+          slug: getUrl(navItem.landing.slug),
           dropdown: () =>
             navItem.dropdown &&
-              landingComponents.find(landing =>
-                landing.name === navItem.landing.name).body.length > 0 ? (
+              landings.find(landing =>
+                landing.name === navItem.landing.name) ? (
               <Dropdown
-                sections={landingComponents
-                  .find(landing => landing.name === navItem.landing.name).body}
-                slug={navItem.landing.slug}
+                sections={landings
+                  .find(landing => landing.name === navItem.landing.name)?.body}
+                slug={getUrl(navItem.landing.slug)}
               />
             ) : (
               <Dropdown sections={null} />
@@ -101,7 +104,7 @@ const AnimatedNavbar = ({ landingComponents, navbarItems = [], duration }) => {
         {navbarConfig.map((n, index) => {
           return (
             <NavbarItem
-              to={"/" + n?.slug}
+              to={n.slug}
               key={n?.title}
               title={n?.title}
               index={index}

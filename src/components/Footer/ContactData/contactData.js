@@ -1,13 +1,14 @@
 import { Link } from "gatsby"
 import React from "react"
-import { useFooter } from "../../../hooks"
+import { useFooter, useLandingUrl } from "../../../hooks"
 import FaIcon from "../../FaIcon/FaIcon"
 import "./contactData.scss"
 
 export default function ContactData() {
   const data = useFooter()
   const dataFooter = data?.allStrapiLayout?.nodes[0]?.footer
-  const dataNav = data?.allStrapiLayout?.nodes[0].navbar?.navButton
+  const navButton = data?.allStrapiLayout?.nodes[0].navbar?.navButton
+  const getUrl = useLandingUrl()
 
   const contact = dataFooter?.contact?.iconText.map(item => {
     return (
@@ -26,10 +27,9 @@ export default function ContactData() {
 
         <div className="ContactData__Item__link">
           <Link
-            to={
-              dataNav?.landing_page
-                ? "/" + dataNav?.landing_page.slug
-                : ""
+            to={navButton.landing_page
+              ? getUrl(navButton.landing_page.slug)
+              : `${navButton.url ? navButton.url : ''}`
             }
           >
             {dataFooter?.internalLink?.name}
