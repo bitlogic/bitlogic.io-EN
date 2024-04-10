@@ -23,7 +23,7 @@ const FeaturedBlogs = ({ data }) => {
       <h6 className="px-md-3">{data.subtitle}</h6>
 
       <div className="featured-blogs">
-        {data.articles
+        {data.english_articles
           .sort(compareDates)
           .slice(0, 3)
           .map((item, idx) => (

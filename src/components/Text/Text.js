@@ -19,6 +19,7 @@ export default function Text({ data }) {
           </div>
           <MarkdownView
             markdown={description}
+            dangerouslySetInnerHTML={{ __html: description }}
             className="description"
             style={{margin: !bgImage && '0rem'}}
           />
@@ -27,6 +28,7 @@ export default function Text({ data }) {
         <div className="container container-markdown" style={{padding: !bgImage && '0rem'}}>
           <MarkdownView
             markdown={description}
+            dangerouslySetInnerHTML={{ __html: description }}
             className="notTitle"
           />
         </div>

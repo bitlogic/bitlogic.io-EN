@@ -4,10 +4,10 @@ import { useCases } from "../../hooks/index"
 import "./CasesSection.scss"
 
 const CasesSection = ({ data }) => {
-  const { title, cases } = data
+  const { title, english_cases } = data
   const casesData = useCases()
 
-  const casos = cases.map(caso =>
+  const casos = english_cases.map(caso =>
     casesData?.allStrapiCase?.nodes.find(ca => ca.strapiId === caso.id)
   )
   const casesCards = casos.map((caso, idx) => {

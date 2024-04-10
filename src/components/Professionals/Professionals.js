@@ -5,10 +5,10 @@ import "./Professionals.scss"
 import { FaLinkedinIn } from "react-icons/fa"
 
 const Professionals = ({ data }) => {
-  const { title, summary, professionals } = data
+  const { title, summary, eng_professionals } = data
   const professionalsData = useProfessionals()
 
-  const professionalsList = professionals.map(pro =>
+  const professionalsList = eng_professionals.map(pro =>
     professionalsData?.allStrapiProfessional?.nodes.find(professional => professional.strapiId === pro.id)  
   ).slice(0,6)
 
