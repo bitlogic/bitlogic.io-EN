@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Link } from "gatsby"
 import MarkdownView from "react-showdown"
 //import ReactMarkdown from "react-markdown"
 import Lottie from 'react-lottie'
 import { useTheme } from "../../context/themeContext"
-
+import { useLandingUrl } from '../../hooks'
 import "./Banner.scss"
 
 const Banner = ({ data }) => {
   const { theme } = useTheme()
-  const title = data?.title
-  const variant = data?.variant
-  const summary = data?.summary
-  const animation = data?.animation
-  const image = data?.image
-  const imageDark = data?.imageDark
-  const button = data?.button
+  const { title, variant, summary, animation, image, imageDark, button } = data
+  const getUrl = useLandingUrl()
+
   const diagonalReverseState =
     variant === "diagonalReverse" ? "col-md-4" : "col-lg-6"
 
@@ -29,7 +25,7 @@ const Banner = ({ data }) => {
 
   const addButton = button &&
     (button?.landing_page ? (
-      <Link to={`../${button.landing_page.slug}`} className="button">
+      <Link to={getUrl(button.landing_page.slug)} className="button">
         {button.content}
       </Link>
     ) : (
@@ -71,10 +67,10 @@ const Banner = ({ data }) => {
               {/* {variant === "hero" ? <h1>{title}</h1> : <h2>{title}</h2>} */}
               {showTitle()}
               {<MarkdownView
-              markdown={summary}
-              dangerouslySetInnerHTML={{ __html: summary}}
-            />}
-             {/* <ReactMarkdown source={summary} className="banner-markdown" />*/}
+                markdown={summary}
+                dangerouslySetInnerHTML={{ __html: summary }}
+              />}
+              {/* <ReactMarkdown source={summary} className="banner-markdown" />*/}
               {addButton}
             </div>
           </div>
@@ -88,7 +84,10 @@ const Banner = ({ data }) => {
             {image?.url ?
               <img
                 src={theme === "dark" && imageDark ? imageDark?.url : image?.url}
-                alt={title}
+                alt={image.alternativeText
+                  ? image.alternativeText
+                  : title
+                }
               /> :
               <div className="cont-lottie">
                 {animation && <Lottie options={{

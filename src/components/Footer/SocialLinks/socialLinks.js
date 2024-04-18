@@ -20,6 +20,7 @@ export default function SocialLinks() {
         target="_blank"
         className={`btn-social m-2 btn-social-icon btn-${item.icon?.name}`}
         rel="noreferrer"
+        aria-label={`External Link - ${item?.name}`}
       >
         <FaIcon type={item.icon?.type} code={item.icon?.code} />
       </a>
@@ -32,12 +33,19 @@ export default function SocialLinks() {
       <div className="SocialMedia__Links d-flex justify-content-center justify-content-md-start px-3 px-md-2 px-xxl-3 text-md-start col-12 col-md-5 col-lg-4 col-xl-3">
         {socialMedia}
       </div>
+      {logo && (
+        <div className="SocialMedia__Logo text-center text-md-start mt-2 ps-md-3 col-12 col-md-7 col-lg-8 col-xl-9">
+          <Link to="/">
+            <GatsbyImage
+              image={logo}
+              alt={dataFooter.logo.alternativeText
+                ? dataFooter.logo.alternativeText
+                : 'Bitlogic - Home'}
+            />
+          </Link>
+        </div>
+      )}
 
-      <div className="SocialMedia__Logo text-center text-md-start mt-2 ps-md-3 col-12 col-md-7 col-lg-8 col-xl-9">
-        <Link to="/">
-          <GatsbyImage image={logo} />
-        </Link>
-      </div>
 
     </div>
   )

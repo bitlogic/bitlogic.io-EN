@@ -11,18 +11,27 @@ const BlogArticle = ({ title, summary, image, slug, text }) => {
       {image?.localFile ? (
         <GatsbyImage
           image={getImage(image?.localFile)}
-          alt={title}
+          alt={image.alternativeText
+            ? image.alternativeText
+            : title
+          }
           className="article__image"
         />
       ) : (
-        <img src={image?.url} alt={title} className="article__image" />
+        <img src={image?.url}
+          alt={image.alternativeText
+            ? image.alternativeText
+            : title
+          }
+          className="article__image"
+        />
       )}
       <div className="article__description">
         <h6>{`${title}`}</h6>
         <div>
-          <MarkdownView 
-          markdown={`${summary}` }
-          dangerouslySetInnerHTML={{ __html: summary }} />
+          <MarkdownView
+            markdown={`${summary}`}
+            dangerouslySetInnerHTML={{ __html: summary }} />
           {/* <ReactMarkdown source={`${summary} ...`} /> */}
         </div>
         <div className="article__link">

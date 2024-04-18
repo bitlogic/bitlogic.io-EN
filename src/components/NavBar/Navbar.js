@@ -31,12 +31,17 @@ const NavBar = () => {
   return (
     <>
       <Navbar variant="dark" expand="xl" className="NavBar">
-        <Link to="/" className="NavBar__Logo" >
-          <GatsbyImage
-            image={theme === "dark" && logoDark ? logoDark : logoLight}
-            alt={"bitlogic"}
-            className="logo"
-          />
+        <Link to="/" className="NavBar__Logo">
+          {logoLight && (
+            <GatsbyImage
+              image={theme === "dark" && logoDark ? logoDark : logoLight}
+              alt={logoLight.alternativeText
+                ? `${logoLight.alternativeText} - Home`
+                : "Bitlogic - Home"
+              }
+              className="logo"
+            />
+          )}
         </Link>
         <Navbar.Toggle
           className="NavBar__Toggler"
