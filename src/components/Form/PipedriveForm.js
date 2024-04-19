@@ -26,6 +26,7 @@ const PipedriveForm = ({ data }) => {
             <MarkdownView
               markdown={content}
               className="form__content text-start"
+              dangerouslySetInnerHTML={{ __html: content }}
             />
           )}
           <div className="form__img text-center text-md-start">
