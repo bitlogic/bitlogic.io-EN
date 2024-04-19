@@ -9,14 +9,14 @@ export default function Navegation() {
   const dataNav = data?.navbar
   const getUrl = useLandingUrl()
 
-  const navbarItems = dataNav.navbarItem.map((navItem) => {
+  const navbarItems = dataNav.navbarItem.map((navItem, index) => {
 
     const url = navItem.singleType ? '/' + navItem.singleType :
       navItem.landing ? getUrl(navItem?.landing?.slug) :
         `${navItem.url ? navItem.url : ''}`
 
     return (
-      < li className="mb-2" >
+      <li className="mb-2" key={`${navItem.label}-${index}`} >
         <Link to={url}>{navItem.label}</Link>
       </li >
     )

@@ -51,7 +51,7 @@ const ListItem = ({ index, onClick, data }) => {
       stagger="card"
       shouldInvert={shouldFlip(index)}
     >
-      <div className="listItem" onClick={() => onClick(index)}>
+      <button className="listItem" onClick={() => onClick(index)} aria-label="Flip Cad" >
         <Flipped inverseFlipId={createCardFlipId(index)}>
           <div className="listItemContent">
             <div className="listItem-more">
@@ -67,7 +67,7 @@ const ListItem = ({ index, onClick, data }) => {
             </Flipped>
           </div>
         </Flipped>
-      </div>
+      </button>
     </Flipped>
   )
 }
@@ -103,7 +103,7 @@ const ExpandedListItem = ({ index, data, isFirst }) => {
                 <h4>{data.title}</h4>
                 <div className="additional-content-markdown">
                   <MarkdownView markdown={data.text}
-                   dangerouslySetInnerHTML={{ __html: data.text }} />
+                    dangerouslySetInnerHTML={{ __html: data.text }} />
                 </div>
                 {data.landing_page && (
                   <Link to={"/" + data.landing_page?.slug}>Ver más</Link>
@@ -122,7 +122,7 @@ const AnimatedList = ({ items }) => {
   const [isFirst, setIsFirst] = useState(true)
   useEffect(() => {
     setItemsArray(prev => ({ ...prev, focused: items[0].id }))
-  }, [])
+  }, [items])
 
   const onClick = index => {
     for (let i = 0; i < items.length; i++) {

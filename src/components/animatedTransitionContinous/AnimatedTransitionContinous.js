@@ -15,14 +15,22 @@ const AnimatedTransitionContinous = ({
     <div className="m-scroll">
       <div className="m-scroll__title">
         <div className={text ? "" : "m-scroll__title-image"}>
-          {longerText.split("-").map(innerText => (
-            <div className="m-scroll__title-inner">
+          {longerText.split("-").map((innerText, index) => (
+            <div className="m-scroll__title-inner" key={index}>
               {imagePosition === "first" && (
-                <img src={image?.url} alt="" />
+                <img src={image?.url}
+                  alt={image?.alternativeText
+                    ? image.alternativeText
+                    : 'Transition-Image'}
+                />
               )}
-              <h1 style={{color: color}}>{innerText || ""}</h1>
+              <h1 style={{ color: color }}>{innerText || ""}</h1>
               {(imagePosition === "last" || !imagePosition) && (
-                <img src={image?.url} alt="" />
+                <img src={image?.url}
+                  alt={image?.alternativeText
+                    ? image.alternativeText
+                    : 'Transition-Image'}
+                />
               )}
             </div>
           ))}

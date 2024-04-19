@@ -10,10 +10,17 @@
         font-size: 18px;
         width: 80%;
       }
+
       .icon-text {
+        margin-bottom: 1.45rem;
+
         svg {
           margin-right: 10px;
         }
+      }
+
+      .icon-text:last-child {
+        margin-bottom: 0;
       }
     }
   }

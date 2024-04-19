@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import showdown from "showdown"
+// import showdown from "showdown"
 // import ReactMarkdown from "react-markdown"
 import MarkdownView from "react-showdown"
 import Layout from "../components/layout"
@@ -12,9 +12,9 @@ import "./BlogItemDetail.scss"
 const BlogDetail = ({ data }) => {
   const { title, description, image, imagePage, author } = data?.allStrapiArticle?.nodes[0]
 
-  const bannerTop = imagePage ? { title, imagePage }  : { title, image }
+  const bannerTop = imagePage ? { title, imagePage } : { title, image }
 
-  let { summary } = author
+  // let { summary } = author
 
   return (
     <Layout>
@@ -34,7 +34,10 @@ const BlogDetail = ({ data }) => {
                   <div className="detail__box-author-image">
                     <GatsbyImage
                       image={getImage(author?.image?.localFile)}
-                      alt={author?.name}
+                      alt={author.image.alternativeText
+                        ? author.image.alternativeText
+                        : author?.name
+                      }
                     />
                   </div>
                   <div className="detail__box-autor-description">
@@ -76,6 +79,7 @@ export const query = graphql`
         description
         slug
         image {
+          alternativeText
           localFile {
             childImageSharp {
               gatsbyImageData
@@ -83,6 +87,7 @@ export const query = graphql`
           }
         }
         imagePage{
+          alternativeText
           localFile {
             childImageSharp {
               gatsbyImageData
@@ -94,6 +99,7 @@ export const query = graphql`
           subTitle
           summary
           image {
+            alternativeText
             localFile {
               childImageSharp {
                 gatsbyImageData(width: 150, height: 150)

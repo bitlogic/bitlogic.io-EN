@@ -32,7 +32,11 @@ const PipedriveForm = ({ data }) => {
           <div className="form__img text-center text-md-start">
             {image?.url ?
               <img
-                src={image?.url} alt="hero"
+                src={image?.url}
+                alt={image.alternativeText
+                  ? image.alternativeText
+                  : `${title}`
+                }
               /> :
               <>
                 {animation && <Lottie options={{

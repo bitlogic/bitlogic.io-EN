@@ -9,10 +9,9 @@ import 'react-multi-carousel/lib/styles.css'
 const LogosSection = ({ data }) => {
   const { title, summary, media } = data
   const { theme } = useTheme()
-
   const logoList = media.map(logo => {
     return (
-      <div className="logos__image">
+      <div className="logos__image" key={`${logo.name}-${logo.id}`}>
         <img
           src={
             theme === "dark" && logo.imageDark
@@ -45,13 +44,13 @@ const LogosSection = ({ data }) => {
   };
   const CustomLeftArrow = ({ onClick }) => {
     return <FontAwesomeIcon
-      class="react-multiple-carousel__arrow react-multiple-carousel__arrow--left custom-arrow left"
+      className="react-multiple-carousel__arrow react-multiple-carousel__arrow--left custom-arrow left"
       icon="fa-solid fa-chevron-left"
       onClick={() => onClick()} />;
   };
   const CustomRightArrow = ({ onClick }) => {
     return <FontAwesomeIcon
-      class="react-multiple-carousel__arrow react-multiple-carousel__arrow--right custom-arrow right"
+      className="react-multiple-carousel__arrow react-multiple-carousel__arrow--right custom-arrow right"
       icon="fa-solid fa-chevron-right"
       onClick={() => onClick()} />;
   };
