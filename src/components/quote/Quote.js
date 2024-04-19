@@ -58,8 +58,8 @@ const Quote = ({
 
         <div className="quote-person">
           <h4 className="quote-person-title">{title}</h4>
-          <MarkdownView markdown={description} className="quote-person-text" 
-           dangerouslySetInnerHTML={{ __html: description }}/>
+          <MarkdownView markdown={description} className="quote-person-text"
+            dangerouslySetInnerHTML={{ __html: description }} />
 
           {profile && (
             <div className="quote-profile make-it-fast my-3 my-md-2 my-xl-4 d-flex gap-3 justify-content-between">
@@ -71,7 +71,7 @@ const Quote = ({
                 }
               />
               <div className="flex-grow-1 align-self-center">
-                <MarkdownView markdown={profileDescription } className="markdown"
+                <MarkdownView markdown={profileDescription} className="markdown"
                   dangerouslySetInnerHTML={{ __html: profileDescription }} />
               </div>
             </div>
