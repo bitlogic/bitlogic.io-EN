@@ -16,11 +16,10 @@ const OneSection = ({ data: { id, strapi_component, dualSectionPart } }) => {
     <div
       className="one_sec-background"
       style={{
-        backgroundImage: `url(${
-          theme === "dark" && backgroundImageDark?.url
-            ? backgroundImageDark?.url
-            : backgroundImage?.url
-        })`,
+        backgroundImage: `url(${theme === "dark" && backgroundImageDark?.url
+          ? backgroundImageDark?.url
+          : backgroundImage?.url
+          })`,
       }}
     >
       <div className="container one_sec" id={strapi_component + "-" + id}>
@@ -28,11 +27,19 @@ const OneSection = ({ data: { id, strapi_component, dualSectionPart } }) => {
           <h4>{title}</h4>
           <h4 className="one_sec-title-body">{description}</h4>
           <button className="NavBar_Side-contact">
-            <ButtonLink button={button} />
+            <ButtonLink
+              aria-label={`Navigate to ${button.content}`}
+              button={button}
+            />
           </button>
         </div>
         <div className="one_sec-img">
-          <img src={image?.url} alt="one_sec" />
+          <img src={image?.url}
+            alt={image.alternativeText
+              ? image.alternativeText
+              : `${title}`
+            }
+          />
         </div>
       </div>
     </div>

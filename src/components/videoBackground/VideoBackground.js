@@ -45,7 +45,7 @@ const VideoBackground = ({
     <div
       //className={`${backgroundImage && "pt-1 pb-1"}`}
       style={{
-        backgroundImage: `url(http://localhost:1337${backgroundImage?.url})`, backgroundRepeatY: 'no-repeat', backgroundPosition:"center"
+        backgroundImage: `url(${backgroundImage?.url})`, backgroundRepeatY: 'no-repeat', backgroundPosition: "center"
       }}
     >
       <div
@@ -54,7 +54,7 @@ const VideoBackground = ({
       >
         <section
           className="videoBackground"
-          //style={{ marginTop: backgroundImage && 30 }}
+        //style={{ marginTop: backgroundImage && 30 }}
         >
           {(video?.url !== null && video?.url !== undefined) ?
             <video
@@ -97,7 +97,10 @@ const VideoBackground = ({
             <div className="videoBackground-card">
               <h5>{description}</h5>
               <button className="px-4">
-                <ButtonLink button={button} />
+                <ButtonLink
+                  button={button}
+                  aria-label={`View ${button?.content}`}
+                />
               </button>
             </div>
           }

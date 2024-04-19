@@ -14,21 +14,29 @@ const CasesList = () => {
     const profileImg = getImage(caso.quote?.profile?.localFile)
 
     return (
-      <div className="col-12 row caseExpanded my-3" id={caso.title}>
+      <div className="col-12 row caseExpanded my-3" id={caso.title} key={`${caso.title}-${caso.strapiId}`}>
         <div className="col-12">
-          <GatsbyImage image={image} alt="alt" className="caseExpanded__img" />
+          {image && (
+            <GatsbyImage image={image}
+              className="caseExpanded__img"
+              alt={caso.image.alternativeText
+                ? caso.image.alternativeText
+                : `${caso.title}-${caso.strapiId}`
+              }
+            />
+          )}
         </div>
         <div className="col-12 col-md-7">
-            {caso.title && (
-                <h5 className="pt-3 pb-2 caseExpanded__title">{caso.title}</h5>
-            )}
-          
+          {caso.title && (
+            <h5 className="pt-3 pb-2 caseExpanded__title">{caso.title}</h5>
+          )}
+
           {caso.subtitle && (
-          <h6 className="caseExpanded__subtitle">{caso.subtitle}</h6>              
+            <h6 className="caseExpanded__subtitle">{caso.subtitle}</h6>
           )}
           <div className="caseExpanded__descr">
-          <MarkdownView markdown={caso.description} 
-           dangerouslySetInnerHTML={{ __html: caso.description }}/>
+            <MarkdownView markdown={caso.description}
+              dangerouslySetInnerHTML={{ __html: caso.description }} />
           </div>
         </div>
         <div className="col-12 col-md-5 row caseQuote">
@@ -38,10 +46,16 @@ const CasesList = () => {
           <p className="caseQuote__descr col-9 col-md-12">
             "{caso.quote.description}"
           </p>
-          <GatsbyImage
-            image={profileImg}
-            className="ml-md-3 caseQuote__profileImg col-3 col-md-12"
-          />
+          {profileImg && (
+            <GatsbyImage
+              image={profileImg}
+              alt={caso.quote?.profile?.alternativeText
+                ? caso.quote?.profile?.alternativeText
+                : `${caso.quote?.title}-${caso.strapiId}`
+              }
+              className="ml-md-3 caseQuote__profileImg col-3 col-md-12"
+            />
+          )}
         </div>
         <div className="col-12">
           <h6 className="caseExpanded__share">Compartílo en tus redes sociales</h6>

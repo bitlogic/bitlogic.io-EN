@@ -24,6 +24,7 @@ const useNavbar = () => {
               }
             }
             logo {
+              alternativeText
               localFile {
                 childImageSharp {
                   gatsbyImageData(
@@ -33,6 +34,7 @@ const useNavbar = () => {
               }
             }
             logoDark {
+              alternativeText
               localFile {
                 childImageSharp {
                   gatsbyImageData(

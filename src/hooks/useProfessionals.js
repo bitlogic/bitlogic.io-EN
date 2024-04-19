@@ -12,6 +12,7 @@ const useContactPage = () => {
           strapiId
           id
           photo {
+            alternativeText
             localFile {
               childImageSharp {
                 gatsbyImageData

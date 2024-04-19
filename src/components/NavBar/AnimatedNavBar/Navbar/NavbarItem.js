@@ -7,15 +7,13 @@ const NavbarItem = ({ title, children, index, to, ...props }) => {
     props.onMouseEnter(index)
   }
   return (
-    <li
-      className="navbar_item"
-      onMouseEnter={onMouseEnter}
-      onFocus={onMouseEnter}
-    >
+    <li className="navbar_item">
       <Link
         activeClassName="navbar_item-title-active"
         to={to}
         className="navbar_item-title"
+        onMouseEnter={onMouseEnter}
+        onFocus={onMouseEnter}
       >
         {title}
       </Link>
