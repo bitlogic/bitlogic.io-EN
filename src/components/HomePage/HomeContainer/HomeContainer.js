@@ -21,7 +21,7 @@ const Home = ({ location }) => {
       )}
       {/* Dynamic zone */}
       <CustomSection
-        sections={data.allStrapiHome.nodes[0].body}
+        sections={data?.allStrapiHome?.nodes[0]?.body}
       />
     </Layout>
   )

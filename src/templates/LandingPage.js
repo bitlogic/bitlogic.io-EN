@@ -9,7 +9,7 @@ const LandingPage = ({ data, location }) => {
   return (
     <Layout location={location} options={{ hasHeader: true }}>
       <Seo title={pageData.name} />
-      <CustomSection sections={pageData.body} />
+      <CustomSection sections={pageData?.body} />
     </Layout>
   )
 }
