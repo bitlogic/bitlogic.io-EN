@@ -18,6 +18,7 @@ import Professionals from "./Professionals/Professionals"
 import FeaturedBlogs from './FeaturedBlogs/FeaturedBlogs'
 import Layaout from './layout'
 import PipedriveForm from "./Form/PipedriveForm"
+import CustomSection from "./CustomSection/CustomSection"
 
 export {
   Cards,
@@ -39,5 +40,6 @@ export {
   Professionals,
   FeaturedBlogs,
   Layaout,
-  PipedriveForm
+  PipedriveForm,
+  CustomSection,
 }
