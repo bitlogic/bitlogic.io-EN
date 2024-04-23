@@ -17,20 +17,23 @@ export default function Text({ data }) {
           <div className="title">
             <h2 className="titleText pt-5 ps-md-0 pt-md-3">{title}</h2>
           </div>
+          <div  className="description">
           <MarkdownView
             markdown={description}
             dangerouslySetInnerHTML={{ __html: description }}
-            className="description"
             style={{margin: !bgImage && '0rem'}}
           />
+          </div>
         </div>
       ) : (
         <div className="container container-markdown" style={{padding: !bgImage && '0rem'}}>
+        <div className="notTitle">
           <MarkdownView
             markdown={description}
             dangerouslySetInnerHTML={{ __html: description }}
-            className="notTitle"
+            
           />
+          </div>
         </div>
       )}
     </div>
