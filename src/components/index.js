@@ -1,4 +1,3 @@
-import Cards from "./Cards/Cards"
 import Seo from "./Seo/Seo"
 import CasesSection from "./CasesSection/CasesSection"
 import CasesList from "./CasesSection/CasesList"
@@ -21,7 +20,6 @@ import PipedriveForm from "./Form/PipedriveForm"
 import CustomSection from "./CustomSection/CustomSection"
 
 export {
-  Cards,
   CasesList,
   CasesSection,
   Seo,
