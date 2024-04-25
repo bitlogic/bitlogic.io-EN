@@ -45,7 +45,7 @@ export default function BannerList({ data }) {
           {title}
           {data.contactForm && (
             <button>
-              <a href={data.concactFormAnchor}>Contáctanos</a>
+              <a href={data.concactFormAnchor}>{data.callToAction}</a>
             </button>
           )}
         </h1>
@@ -54,7 +54,7 @@ export default function BannerList({ data }) {
         </div>
         {data.contactForm && (
           <button className="bannerList__buttonMobile">
-            <a href={data.concactFormAnchor}>Contáctanos</a>
+            <a href={data.concactFormAnchor}>{data.callToAction}</a>
           </button>
         )}
 

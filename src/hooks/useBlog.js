@@ -29,6 +29,7 @@ const useBlog = () => {
       }
       allStrapiBlogPage: allStrapiEnglishBlogPage {
         nodes {
+          
           seo: pageMetadata {
             pageTitle
             pageKeywords
@@ -55,6 +56,7 @@ const useBlog = () => {
             }
             animation
           }
+          callToAction  
         }
       }
     }

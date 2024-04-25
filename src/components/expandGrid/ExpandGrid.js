@@ -16,8 +16,8 @@ const ExpandGrid = ({ data }) => {
       className="expandGrid-background"
       style={{
         backgroundImage: `url(${theme === "dark" && backgroundImageDark
-          ? "http://localhost:1337" + backgroundImageDark
-          : "http://localhost:1337" + backgroundImage
+          ? backgroundImageDark
+          : backgroundImage
           })`,
       }}
     >
@@ -29,7 +29,8 @@ const ExpandGrid = ({ data }) => {
           <div className="expandGrid-body">
             <h2>{data.title}</h2>
             <h6 className="px-md-3">{data.subtitle}</h6>
-            <AnimatedList items={data.items.slice(0, 4)} />
+            <AnimatedList items={data.items.slice(0, 4)} 
+            callToAction={data.callToAction}/>
           </div>
         </section>
       </div>
@@ -72,7 +73,7 @@ const ListItem = ({ index, onClick, data }) => {
   )
 }
 
-const ExpandedListItem = ({ index, data, isFirst }) => {
+const ExpandedListItem = ({ index, data, isFirst , callToAction }) => {
   const scrollRef = useRef(null)
   return (
     <Flipped
@@ -106,7 +107,7 @@ const ExpandedListItem = ({ index, data, isFirst }) => {
                     dangerouslySetInnerHTML={{ __html: data.text }} />
                 </div>
                 {data.landing_page && (
-                  <Link to={"/" + data.landing_page?.slug}>Ver más</Link>
+                  <Link to={"/" + data.landing_page?.slug}>{callToAction}</Link>
                 )}
               </div>
             </div>
@@ -117,7 +118,7 @@ const ExpandedListItem = ({ index, data, isFirst }) => {
   )
 }
 
-const AnimatedList = ({ items }) => {
+const AnimatedList = ({ items, callToAction }) => {
   const [itemsArray, setItemsArray] = useState({ items, focused: null })
   const [isFirst, setIsFirst] = useState(true)
   useEffect(() => {
@@ -163,6 +164,7 @@ const AnimatedList = ({ items }) => {
                   index={itemsArray.focused}
                   data={item}
                   scrollToRef={scrollToRef}
+                  callToAction={callToAction}
                 />
               ) : (
                 <ListItem
