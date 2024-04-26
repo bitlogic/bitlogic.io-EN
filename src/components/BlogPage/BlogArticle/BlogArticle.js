@@ -37,6 +37,7 @@ const BlogArticle = ({ title, summary, image, slug, text }) => {
         <div className="article__link">
           <Link to={slug}>
             <small>{text}</small>
+            
           </Link>
         </div>
       </div>

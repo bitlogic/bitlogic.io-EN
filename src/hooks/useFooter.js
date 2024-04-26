@@ -75,6 +75,10 @@ const useFooter = () => {
             }
             subscription {
               title
+              landing: english_landing_page {
+                slug
+              }
+              callToAction
             }
           }
         }

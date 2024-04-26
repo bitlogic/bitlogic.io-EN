@@ -116,6 +116,33 @@ type StrapiLayoutNavbarNavButtonLanding_page {
   type StrapiLayoutFooterSubscription {
     id: Int
     title: String
+    callToAction: String
+    english_landing_page: StrapiLayoutFooterSubscriptionEnglishLandingPage
+
+  }
+
+  type StrapiLayoutFooterSubscriptionEnglishLandingPage{
+    id: Int
+    name: String
+    slug: String
+    published_at(
+      formatString: String
+      fromNow: Boolean
+      difference: String
+      locale: String
+    ): Date
+    created_at(
+      formatString: String
+      fromNow: Boolean
+      difference: String
+      locale: String
+    ): Date
+    updated_at(
+      formatString: String
+      fromNow: Boolean
+      difference: String
+      locale: String
+    ): Date
   }
   
   type StrapiLayoutFooterNavegation {

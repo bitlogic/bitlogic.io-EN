@@ -2,6 +2,7 @@ import { Link } from "gatsby"
 import React, { useEffect, useRef, useState } from "react"
 import { Flipper, Flipped } from "react-flip-toolkit"
 import MarkdownView from "react-showdown"
+import { useLandingUrl } from "../../hooks"
 import { useTheme } from "../../context/themeContext"
 import "./expandGrid.scss"
 
@@ -16,8 +17,8 @@ const ExpandGrid = ({ data }) => {
       className="expandGrid-background"
       style={{
         backgroundImage: `url(${theme === "dark" && backgroundImageDark
-          ? "http://localhost:1337" + backgroundImageDark
-          : "http://localhost:1337" + backgroundImage
+          ? backgroundImageDark
+          : backgroundImage
           })`,
       }}
     >
@@ -29,7 +30,8 @@ const ExpandGrid = ({ data }) => {
           <div className="expandGrid-body">
             <h2>{data.title}</h2>
             <h6 className="px-md-3">{data.subtitle}</h6>
-            <AnimatedList items={data.items.slice(0, 4)} />
+            <AnimatedList items={data.items.slice(0, 4)} 
+            callToAction={data.callToAction}/>
           </div>
         </section>
       </div>
@@ -72,7 +74,8 @@ const ListItem = ({ index, onClick, data }) => {
   )
 }
 
-const ExpandedListItem = ({ index, data, isFirst }) => {
+const ExpandedListItem = ({ index, data, isFirst , callToAction }) => {
+  const getUrl = useLandingUrl()
   const scrollRef = useRef(null)
   return (
     <Flipped
@@ -105,8 +108,8 @@ const ExpandedListItem = ({ index, data, isFirst }) => {
                   <MarkdownView markdown={data.text}
                     dangerouslySetInnerHTML={{ __html: data.text }} />
                 </div>
-                {data.landing_page && (
-                  <Link to={"/" + data.landing_page?.slug}>Ver más</Link>
+                {data.english_landing_page && (
+                  <Link to={getUrl(data?.english_landing_page.slug)}>{callToAction}</Link>
                 )}
               </div>
             </div>
@@ -117,7 +120,7 @@ const ExpandedListItem = ({ index, data, isFirst }) => {
   )
 }
 
-const AnimatedList = ({ items }) => {
+const AnimatedList = ({ items, callToAction }) => {
   const [itemsArray, setItemsArray] = useState({ items, focused: null })
   const [isFirst, setIsFirst] = useState(true)
   useEffect(() => {
@@ -163,6 +166,7 @@ const AnimatedList = ({ items }) => {
                   index={itemsArray.focused}
                   data={item}
                   scrollToRef={scrollToRef}
+                  callToAction={callToAction}
                 />
               ) : (
                 <ListItem
