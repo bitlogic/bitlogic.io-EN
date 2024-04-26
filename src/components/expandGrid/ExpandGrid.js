@@ -2,6 +2,7 @@ import { Link } from "gatsby"
 import React, { useEffect, useRef, useState } from "react"
 import { Flipper, Flipped } from "react-flip-toolkit"
 import MarkdownView from "react-showdown"
+import { useLandingUrl } from "../../hooks"
 import { useTheme } from "../../context/themeContext"
 import "./expandGrid.scss"
 
@@ -74,6 +75,7 @@ const ListItem = ({ index, onClick, data }) => {
 }
 
 const ExpandedListItem = ({ index, data, isFirst , callToAction }) => {
+  const getUrl = useLandingUrl()
   const scrollRef = useRef(null)
   return (
     <Flipped
@@ -106,8 +108,8 @@ const ExpandedListItem = ({ index, data, isFirst , callToAction }) => {
                   <MarkdownView markdown={data.text}
                     dangerouslySetInnerHTML={{ __html: data.text }} />
                 </div>
-                {data.landing_page && (
-                  <Link to={"/" + data.landing_page?.slug}>{callToAction}</Link>
+                {data.english_landing_page && (
+                  <Link to={getUrl(data?.english_landing_page.slug)}>{callToAction}</Link>
                 )}
               </div>
             </div>
