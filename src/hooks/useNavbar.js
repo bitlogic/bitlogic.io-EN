@@ -44,6 +44,48 @@ const useNavbar = () => {
               }
             }
           }
+          Menu {
+            title
+            id
+            visible
+            dropdown
+            url
+            english_landing_page {
+              slug
+            }
+            dropdownItems {
+              id
+              label
+              icon {
+                alternativeText
+                url
+                localFile {
+                  childrenImageSharp {
+                    gatsbyImageData
+                  }
+                }
+              }
+            }
+            toplevelItem {
+              id
+              label
+              text
+              url
+              icon {
+                localFile {
+                  childrenImageSharp {
+                    gatsbyImageData(
+                      placeholder: BLURRED
+                    )
+                  }
+                }
+                alternativeText
+              }
+              english_landing_page {
+                slug
+              }
+            }
+          }
         }
       }
       allStrapiLandingPage: allStrapiEnglishLandingPage {
