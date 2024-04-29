@@ -6,46 +6,35 @@ import DropdownContainer from "./DropdownContainer"
 import Dropdown from "./DropdownContainer/Dropdown"
 import { useLandingUrl } from "../../../hooks"
 
-const AnimatedNavbar = ({ landings, navbarItems = [], duration }) => {
+const AnimatedNavbar = ({ navbarItems = [], duration }) => {
   const getUrl = useLandingUrl()
+
+  const url = (item) => {
+    if (item.dropdown) return ''
+    
+    const landing = getUrl(item?.english_landing_page?.slug);
+
+    if (landing) return landing
+
+    let slug = item?.url ? item.url : ''
+
+    return slug
+  }
+
 
   const navbarConfig = [
     ...navbarItems.map(navItem => {
-      let res
-      if (navItem.singleType) {
-        res = {
-          title: navItem.label,
-          slug: '/' + navItem.singleType,
-          dropdown: () => (
-            <Dropdown sections={null} />
-          ),
-        }
-      } else if (navItem.landing) {
-        res = {
-          title: navItem.label,
-          slug: getUrl(navItem.landing.slug),
-          dropdown: () =>
-            navItem.dropdown &&
-              landings.find(landing =>
-                landing.name === navItem.landing.name) ? (
-              <Dropdown
-                sections={landings
-                  .find(landing => landing.name === navItem.landing.name)?.body}
-                slug={getUrl(navItem.landing.slug)}
-              />
-            ) : (
-              <Dropdown sections={null} />
-            ),
-        }
-      } else if (navItem.url) {
-        res = {
-          title: navItem.label,
-          slug: navItem.url,
-          dropdown: () => (
-            <Dropdown sections={null} />
-          ),
+      let res = {
+        title: navItem.title,
+        slug: url(navItem),
+        dropdown: () => {
+          if (navItem.dropdown) {
+            return <Dropdown sections={navItem?.dropdownItems} topLevel={navItem?.toplevelItem} />
+          }
+          return <Dropdown sections={null} topLevel={null}/>
         }
       }
+
       return res
     }),
   ]

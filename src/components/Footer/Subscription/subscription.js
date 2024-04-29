@@ -14,12 +14,12 @@ export default function Subscription() {
       <div>
         <div className="ContactData__Form d-flex flex-md-column justify-content-between">
           <button className="col-5">
-            <Link to={getUrl(dataSubscription.landing.slug)} >{dataSubscription?.callToAction}</Link>
+            <Link to={getUrl(dataSubscription?.landing?.slug)} >{dataSubscription?.callToAction}</Link>
           </button>
         </div>
       </div>
       <button className="col-5 contactData-mobile_button">
-        <Link to={getUrl(dataSubscription.landing.slug)} >{dataSubscription?.title}</Link>
+        <Link to={getUrl(dataSubscription?.landing?.slug)} >{dataSubscription?.title}</Link>
       </button>
     </div>
   )

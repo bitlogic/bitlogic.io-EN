@@ -17,7 +17,7 @@ const NavBar = () => {
   const navbarData = useNavbar()
   const getUrl = useLandingUrl();
 
-  const landings = navbarData.allStrapiLandingPage.nodes;
+  const menuData = navbarData.allStrapiLayout?.nodes[0].Menu
 
   const logoLight = getImage(
     navbarData.allStrapiLayout?.nodes[0].navbar?.logo?.localFile
@@ -49,13 +49,12 @@ const NavBar = () => {
         />
         <Navbar.Collapse id="basic-navbar-nav" className="NavBar__Collapse">
           {/* Menu Links */}
-          {navbarData && (
+          {menuData && (
             <div className="NavBar_links">
               <AnimatedNavbar
                 // homeComponents={navbarData.allStrapiHome?.nodes[0].body}
-                landings={landings}
                 navbarItems={
-                  navbarData.allStrapiLayout?.nodes[0].navbar?.navbarItem
+                  menuData
                 }
                 duration={300}
               />
