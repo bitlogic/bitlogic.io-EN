@@ -40,16 +40,11 @@ const CasesSection = ({ data }) => {
             <h5 className="case__descr_title">{caso?.title}</h5>
             <p className="case__descr_text">"{caso?.quote?.description}"</p>
           </div>
-          {caso.button?.landing_page && (
-            <a href={getUrl(caso.button?.landing_page?.slug) + "/#" + caso?.title}>
-              <button>{caso?.button?.content}</button>
-            </a>
-          )}
-          {caso.button?.url && (
-            <a href={caso.button?.url}>
-              <button>{caso?.button?.content}</button>
-            </a>
-          )}
+          {caso.button && (
+        <a href={caso.button?.landing_page ? getUrl(caso.button?.landing_page?.slug) + "/#" + caso?.title : caso?.button?.url}>
+          <button>{caso.button.content}</button>
+        </a>
+      )}
         </div>
       </div>
     )
