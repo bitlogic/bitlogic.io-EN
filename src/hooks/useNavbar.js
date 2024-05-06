@@ -61,9 +61,14 @@ const useNavbar = () => {
                 url
                 localFile {
                   childrenImageSharp {
-                    gatsbyImageData
+                    gatsbyImageData(
+                      placeholder: BLURRED
+                    )
                   }
                 }
+              }
+              english_landing_page {
+                slug
               }
             }
             toplevelItem {
