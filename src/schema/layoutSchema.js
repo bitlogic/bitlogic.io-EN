@@ -19,7 +19,7 @@ type StrapiLayoutFooter {
     dropdown:Boolean
     english_landing_page: StrapiMenuEnglishLandingPage
     landing_page: StrapiMenuLandingPage
-    topLevelItem: StrapiMenuDropdownItem
+    toplevelItem: StrapiMenuDropdownItem
     dropdownItems: [StrapiMenuDropdownItem]
   }
 

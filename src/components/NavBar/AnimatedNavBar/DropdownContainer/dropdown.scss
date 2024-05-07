@@ -3,15 +3,22 @@
   &_elem {
     width: 18.5rem;
     &-section {
-      padding: 28px;
+      padding-top: 28px;
+      padding-right: 28px;
+      padding-bottom: 14px;
+      padding-left: 28px;
       position: relative;
     }
     &-link {
       font-size: 18px;
       margin-top: 0;
-      margin-bottom: 1rem;
+      margin-bottom: 0.3rem;
+      padding-bottom: 0.3rem;
       &-inner{
         color: $primary;
+      }
+      &-topLevelLink {
+        padding-bottom: 0.1rem;
       }
     }
   }
@@ -19,6 +26,18 @@
 
 .promote_layer {
   will-change: transform;
+}
+
+.navItemP {
+  margin-left: 1.7rem;
+  font-size: 14px;
+  padding-bottom: 0.5rem;
+}
+
+.navbarItemIcon {
+  width: 28px !important;
+  align-self: center;
+  margin-right: 5px
 }
 
 .fade_content {
