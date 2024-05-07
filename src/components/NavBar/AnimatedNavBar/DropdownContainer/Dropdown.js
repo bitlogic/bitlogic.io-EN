@@ -15,7 +15,7 @@ const Dropdown = ({ sections, topLevel }) => {
 
     const slug = item?.url ? item.url : '';
 
-    if (slug.startsWith("http://")) {
+    if (slug.startsWith("http://" || "https://")) {
       return slug;
     } else {
       return { pathname: slug };
@@ -59,7 +59,7 @@ const Dropdown = ({ sections, topLevel }) => {
                   alt={section.icon.alternativeText ? section.icon.alternativeText : 'NavLink Icon'}
                   className="navbarItemIcon"
                 />
-                {url(section).startsWith("http://") ? (
+                {url(section).startsWith("http://" || "https://") ? (
                   <a href={url(section)} className="dropdown_elem-link-inner">{section.label}</a>
                 ) : (
                   <Link
