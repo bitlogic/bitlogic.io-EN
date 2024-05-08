@@ -7,19 +7,19 @@ const useFooter = () => {
         nodes {
           navbar {
             navButton {
-              landing_page:english_landing_page {
+              content
+              url
+              landing_page: english_landing_page {
                 slug
               }
-              url
-              content
             }
             navbarItem {
-              url
               label
+              url
               singleType
-              landing {
-                slug
+              landing: english_landing_page {
                 name
+                slug
               }
             }
           }
@@ -51,6 +51,7 @@ const useFooter = () => {
               }
             }
             logo {
+              alternativeText
               localFile {
                 childImageSharp {
                   gatsbyImageData(width: 139, height: 41)
@@ -74,6 +75,10 @@ const useFooter = () => {
             }
             subscription {
               title
+              landing: english_landing_page {
+                slug
+              }
+              callToAction
             }
           }
         }

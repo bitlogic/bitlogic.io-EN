@@ -14,6 +14,7 @@ const useBlog = () => {
           summary
           slug
           image {
+            alternativeText
             localFile {
               childImageSharp {
                 gatsbyImageData
@@ -28,6 +29,7 @@ const useBlog = () => {
       }
       allStrapiBlogPage: allStrapiEnglishBlogPage {
         nodes {
+          
           seo: pageMetadata {
             pageTitle
             pageKeywords
@@ -49,10 +51,12 @@ const useBlog = () => {
               }
             }
             image {
+              alternativeText
               url
             }
             animation
           }
+          callToAction  
         }
       }
     }

@@ -7,24 +7,24 @@ const useNavbar = () => {
         nodes {
           navbar {
             navButton {
-              landing_page {
+              content
+              url
+              landing_page: english_landing_page {
                 slug
               }
-              url
-              content
             }
             navbarItem {
-              url
-              label
-              singleType
-              landing {
-                slug
-                name
-              }
-              dropdown
               id
+              label
+              dropdown
+              url
+              singleType
+              landing: english_landing_page {
+                slug
+              }
             }
             logo {
+              alternativeText
               localFile {
                 childImageSharp {
                   gatsbyImageData(
@@ -34,6 +34,7 @@ const useNavbar = () => {
               }
             }
             logoDark {
+              alternativeText
               localFile {
                 childImageSharp {
                   gatsbyImageData(
@@ -43,12 +44,63 @@ const useNavbar = () => {
               }
             }
           }
+          Menu {
+            title
+            id
+            visible
+            dropdown
+            url
+            english_landing_page {
+              slug
+            }
+            dropdownItems {
+              id
+              label
+              icon {
+                alternativeText
+                url
+                localFile {
+                  childrenImageSharp {
+                    gatsbyImageData(
+                      placeholder: BLURRED
+                    )
+                  }
+                }
+              }
+              english_landing_page {
+                slug
+              }
+            }
+            toplevelItem {
+              id
+              label
+              text
+              url
+              icon {
+                localFile {
+                  childrenImageSharp {
+                    gatsbyImageData(
+                      placeholder: BLURRED
+                    )
+                  }
+                }
+                alternativeText
+              }
+              english_landing_page {
+                slug
+              }
+            }
+          }
         }
       }
       allStrapiLandingPage: allStrapiEnglishLandingPage {
         nodes {
-          body
           name
+          slug
+          body
+          parent_page {
+            slug
+          }
         }
       }
       allStrapiHome:allStrapiEnglishHome {
@@ -61,4 +113,4 @@ const useNavbar = () => {
   `)
 }
 
-export default useNavbar
+export default useNavbar;

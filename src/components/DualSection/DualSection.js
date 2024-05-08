@@ -7,12 +7,18 @@ export default function DualSection({ data }) {
   const listSectionParts = dualSectionParts.map(section => (
     <div
       key={section.id}
-      className={`dualSection ${
-        section.length === 3 ? "col - md - 4" : "col - md - 6"
-      } my-2 p-md-3 p-xl-4`}
+      className={`dualSection my-2 p-md-3 p-xl-4 ${section.length === 3
+        ? "col - md - 4"
+        : "col - md - 6"
+        }`}
     >
       <div className="dualSection__image">
-        <img src={section.image.url} alt="naturaleza" />
+        <img src={section.image.url}
+          alt={section.image.alternativeText
+            ? section.image.alternativeText
+            : `${section.title}`
+          }
+        />
       </div>
 
       <div className="dualSection__textContainer">
@@ -20,7 +26,10 @@ export default function DualSection({ data }) {
         <p>{section.description}</p>
         {section.button && (
           <button className="px-4">
-            <ButtonLink button={section.button} />
+            <ButtonLink
+              aria-label={`Navigate to ${section.button?.content}`}
+              button={section.button}
+            />
           </button>
         )}
       </div>

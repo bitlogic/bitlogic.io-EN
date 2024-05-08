@@ -1,5 +1,5 @@
 import React from "react"
-
+import { useBlog } from "../../hooks"
 import "./featuredBlogs.scss"
 import BlogArticle from "../BlogPage/BlogArticle/BlogArticle"
 
@@ -14,6 +14,9 @@ const compareDates = (a, b) => {
 }
 
 const FeaturedBlogs = ({ data }) => {
+  const blogData = useBlog()
+  const {callToAction} = blogData.allStrapiBlogPage.nodes[0]
+
   return (
     <div
       className="container featured pb-3"
@@ -23,7 +26,7 @@ const FeaturedBlogs = ({ data }) => {
       <h6 className="px-md-3">{data.subtitle}</h6>
 
       <div className="featured-blogs">
-        {data.articles
+        {data.english_articles
           .sort(compareDates)
           .slice(0, 3)
           .map((item, idx) => (
@@ -33,7 +36,7 @@ const FeaturedBlogs = ({ data }) => {
               title={item.title}
               summary={item.summary}
               slug={"/blog/" + item.slug}
-              text="Ver más"
+              text={callToAction}
             />
           ))}
       </div>

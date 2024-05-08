@@ -43,18 +43,18 @@ const VideoBackground = ({
 
   return (
     <div
-      className={`${backgroundImage && "pt-5 pb-3"}`}
+      //className={`${backgroundImage && "pt-1 pb-1"}`}
       style={{
-        backgroundImage: `url(${backgroundImage?.url})`, backgroundRepeatY: 'no-repeat',
+        backgroundImage: `url(${backgroundImage?.url})`, backgroundRepeatY: 'no-repeat', backgroundPosition: "center"
       }}
     >
       <div
-        className="container px-md-0 px-lg-3 videoBackground-container"
+        className="container px-md-0 px-lg-0 videoBackground-container"
         id={strapi_component + "-" + id}
       >
         <section
           className="videoBackground"
-          style={{ marginTop: backgroundImage && 130 }}
+        //style={{ marginTop: backgroundImage && 30 }}
         >
           {(video?.url !== null && video?.url !== undefined) ?
             <video
@@ -97,7 +97,10 @@ const VideoBackground = ({
             <div className="videoBackground-card">
               <h5>{description}</h5>
               <button className="px-4">
-                <ButtonLink button={button} />
+                <ButtonLink
+                  button={button}
+                  aria-label={`View ${button?.content}`}
+                />
               </button>
             </div>
           }

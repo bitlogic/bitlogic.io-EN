@@ -4,39 +4,37 @@ import NavbarItem from "./Navbar/NavbarItem"
 import { Flipper } from "react-flip-toolkit"
 import DropdownContainer from "./DropdownContainer"
 import Dropdown from "./DropdownContainer/Dropdown"
+import { useLandingUrl } from "../../../hooks"
 
-const AnimatedNavbar = ({ landingComponents, navbarItems = [], duration }) => {
+const AnimatedNavbar = ({ navbarItems = [], duration }) => {
+  const getUrl = useLandingUrl()
+
+  const url = (item) => {
+    if (item.dropdown) return ''
+    
+    const landing = getUrl(item?.english_landing_page?.slug);
+
+    if (landing) return landing
+
+    let slug = item?.url ? item.url : ''
+
+    return slug
+  }
+
+
   const navbarConfig = [
     ...navbarItems.map(navItem => {
-      let res 
-      if (navItem.singleType) {
-        res = {
-          title: navItem.label,
-          slug: navItem.singleType,
-          dropdown: () => <Dropdown sections={null} />,
-        }
-      } else if (navItem.landing) {
-        res = {
-          title: navItem.label,
-          slug: navItem.landing.slug,
-          dropdown: () =>
-            navItem.dropdown ? (
-              <Dropdown
-                sections={landingComponents
-                  .find(landing => landing.name === navItem.landing.name).body}
-                slug={navItem.landing.slug}
-              />
-            ) : (
-              <Dropdown sections={null} />
-            ),
-        }
-      } else if (navItem.url) {
-        res = {
-          title: navItem.label,
-          slug: navItem.url,
-          dropdown: () => <Dropdown sections={null} />,
+      let res = {
+        title: navItem.title,
+        slug: url(navItem),
+        dropdown: () => {
+          if (navItem.dropdown) {
+            return <Dropdown sections={navItem?.dropdownItems} topLevel={navItem?.toplevelItem} />
+          }
+          return <Dropdown sections={null} topLevel={null}/>
         }
       }
+
       return res
     }),
   ]
@@ -74,13 +72,14 @@ const AnimatedNavbar = ({ landingComponents, navbarItems = [], duration }) => {
   let PrevDropdown
   let direction
 
-  const currentIndex = activeIndex[activeIndex.length - 1]
+  const currentIndex =
+    activeIndex.length > 0 && activeIndex[activeIndex.length - 1]
   const prevIndex =
     activeIndex.length > 1 && activeIndex[activeIndex.length - 2]
 
-  if (typeof currentIndex === "number")
+  if (typeof currentIndex === "number" && activeIndex.length > 0)
     CurrentDropdown = navbarConfig[currentIndex].dropdown
-  if (typeof prevIndex === "number") {
+  if (typeof prevIndex === "number" && activeIndex.length > 1) {
     PrevDropdown = navbarConfig[prevIndex].dropdown
     direction = currentIndex > prevIndex ? "right" : "left"
   }
@@ -94,7 +93,7 @@ const AnimatedNavbar = ({ landingComponents, navbarItems = [], duration }) => {
         {navbarConfig.map((n, index) => {
           return (
             <NavbarItem
-              to={"/" + n?.slug}
+              to={n.slug}
               key={n?.title}
               title={n?.title}
               index={index}
