@@ -2,17 +2,17 @@ import React, { useEffect, useRef, useState } from "react"
 import ButtonLink from "../ButtonLink/ButtonLink"
 import "./videoBackground.scss"
 
-const VideoBackground = ({
-  data: { video, description, button, strapi_component, id, backgroundImage, videoUrl },
-}) => {
+const VideoBackground = ({ data }) => {
+
+  const { video, description, button, strapi_component, id, backgroundImage, videoUrl } = data;
   const [isVideoPause, setIsVideoPause] = useState(false)
   const videoRef = useRef(null)
 
   const pausePlay = () => {
     if (isVideoPause) {
-      videoRef.current.play()
+      videoRef?.current?.play()
     } else {
-      videoRef.current.pause()
+      videoRef?.current?.pause()
     }
     setIsVideoPause(prev => !prev)
   }
@@ -24,7 +24,7 @@ const VideoBackground = ({
         : undefined
 
     if (isVideoPauseLocal === "true") {
-      videoRef.current.pause()
+      videoRef?.current?.pause()
       setIsVideoPause(isVideoPauseLocal)
     }
   }, [])
@@ -56,7 +56,7 @@ const VideoBackground = ({
           className="videoBackground"
         //style={{ marginTop: backgroundImage && 30 }}
         >
-          {(video?.url !== null && video?.url !== undefined) ?
+          {(video?.url !== null && video?.url !== undefined) ? (
             <video
               className="video"
               ref={videoRef}
@@ -67,41 +67,42 @@ const VideoBackground = ({
               type="video/mp4"
               controls={false}
               onClick={pausePlay}
-            /> : (videoUrl !== null && videoUrl !== undefined) && (
-              <>
-                {(url !== undefined && code !== undefined) && (
-                  <iframe
-                    className="video"
-                    loading="lazy"
-                    type="text/html"
-                    srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;
+            />
+          ) : (videoUrl !== null && videoUrl !== undefined) && (
+            <>
+              {(url !== undefined && code !== undefined) && (
+                <iframe
+                  className="video"
+                  loading="lazy"
+                  type="text/html"
+                  srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;
                     width:100%;height:100%;object-fit: cover;top:0;bottom:0}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;margin:auto;text-shadow:0 0 0.5em black}</style>
                     <a href=${url + "?rel=0"}>
                     <img src=https://img.youtube.com/vi/${code}/hqdefault.jpg alt='Video' height='100%'>
                     <span>▶</span></a>`}
-                    src={url + "?rel=0"}
-                    frameBorder="0"
-                    allowFullScreen
-                    title="benefits_video"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    webkitallowfullscreen="true"
-                    mozallowfullscreen="true"
-                  ></iframe>
-                )
-                }
-              </>
-            )
-          }
+                  src={url + "?rel=0"}
+                  frameBorder="0"
+                  allowFullScreen
+                  title="benefits_video"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  webkitallowfullscreen="true"
+                  mozallowfullscreen="true"
+                ></iframe>
+              )}
+            </>
+          )}
 
           {description &&
             <div className="videoBackground-card">
               <h5>{description}</h5>
-              <button className="px-4">
-                <ButtonLink
-                  button={button}
-                  aria-label={`View ${button?.content}`}
-                />
-              </button>
+              {button && (
+                <button className="px-4">
+                  <ButtonLink
+                    button={button}
+                    aria-label={`View ${button?.content}`}
+                  />
+                </button>
+              )}
             </div>
           }
         </section>

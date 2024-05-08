@@ -39,6 +39,7 @@ const OneSection = ({ data: { id, strapi_component, dualSectionPart } }) => {
               ? image.alternativeText
               : `${title}`
             }
+            loading="lazy"
           />
         </div>
       </div>

@@ -32,6 +32,7 @@ const Professionals = ({ data }) => {
                 ? pro.photo.alternativeText
                 : name
               }
+              loading='lazy'
             />
           )}
         </div>

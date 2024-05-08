@@ -18,6 +18,7 @@ export default function DualSection({ data }) {
             ? section.image.alternativeText
             : `${section.title}`
           }
+          loading="lazy"
         />
       </div>
 

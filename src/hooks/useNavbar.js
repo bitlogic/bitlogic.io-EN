@@ -13,16 +13,6 @@ const useNavbar = () => {
                 slug
               }
             }
-            navbarItem {
-              id
-              label
-              dropdown
-              url
-              singleType
-              landing: english_landing_page {
-                slug
-              }
-            }
             logo {
               alternativeText
               localFile {
