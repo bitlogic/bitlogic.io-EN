@@ -32,6 +32,7 @@
   margin-left: 1.7rem;
   font-size: 14px;
   padding-bottom: 0.5rem;
+  color: $primary;
 }
 
 .navbarItemIcon {
@@ -72,6 +73,10 @@
   align-items: center;
   position: relative;
   top: -20px;
+  @media only screen and (min-width: 768px) {
+    align-items: start;
+    padding-left: 50px;
+  }
   &-background {
     filter: brightness(120%);
     transform-origin: 0 0;
