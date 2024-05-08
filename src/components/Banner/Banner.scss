@@ -1,6 +1,8 @@
 @import "../../styles/global.scss";
 
 .banner {
+  width: 100%;
+  height: 100%;
 
   &__wrapper {
     color: $primary;
@@ -103,10 +105,6 @@
         text-align: left;
         word-wrap: initial;
       }
-
-      .banner-markdown {
-        display: none;
-      }
     }
   }
 
@@ -134,18 +132,14 @@
         text-align: center;
         word-wrap: initial;
       }
-
-      .banner-markdown {
-        display: none;
-      }
     }
   }
 
   &.diagonal {
     background-color: $bg-diagonal;
+    padding: 32px 0;
 
     .banner__wrapper {
-      margin: 32px auto;
       min-height: 300px;
     }
 
@@ -162,8 +156,6 @@
     .imagen {
       img {
         width: 100%;
-        height: -webkit-fit-content;
-        height: -moz-fit-content;
         height: fit-content;
         min-height: 100%;
       }
@@ -178,10 +170,6 @@
         color: #607ee7;
         margin-bottom: 0;
         word-wrap: initial;
-      }
-
-      .banner-markdown {
-        display: none;
       }
     }
   }
@@ -212,59 +200,11 @@
         margin-bottom: 0;
         word-wrap: initial;
       }
-
-      .banner-markdown {
-        display: none;
-      }
     }
   }
 
   .gatsby-image-wrapper {
     display: block;
-  }
-
-  .banner-markdown {
-    font-size: 30px;
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-size: 32px;
-      font-weight: 600;
-      margin-bottom: 0;
-    }
-
-    p {
-      margin-bottom: 0;
-    }
-
-    p,
-    a,
-    span,
-    small,
-    li,
-    i,
-    em {
-
-      span,
-      strong,
-      small,
-      i,
-      b,
-      em {
-        font-size: 30px;
-      }
-
-      font-size: 30px;
-    }
-
-    strong,
-    b {
-      font-weight: 600;
-    }
   }
 
   @media screen and (min-width: $breakpoint-md) {
@@ -369,10 +309,11 @@
     }
 
     &.diagonal {
+      padding: 0;
+
       .banner__wrapper {
         flex-direction: row;
         gap: 32px;
-        margin: 32px auto;
       }
 
       .imagen {
@@ -382,8 +323,6 @@
         padding: 0;
         -webkit-clip-path: polygon(17% 0, 100% 0, 100% 55%, 91% 100%, 0 100%);
         clip-path: polygon(17% 0, 100% 0, 100% 55%, 91% 100%, 0 100%);
-        -webkit-box-pack: end;
-        -ms-flex-pack: end;
         flex: 2;
 
         img {
@@ -394,19 +333,18 @@
       }
 
       .title {
-        padding-top: 0;
-        padding-bottom: 0;
+        padding: 20px 0;
         flex: 1;
 
         h2 {
           margin-bottom: 1rem;
-          padding-right: 3rem;
+          // padding-right: 3rem;
           max-width: 300px;
         }
 
         h3 {
           font-weight: 400;
-          padding-right: 3rem;
+          // padding-right: 3rem;
         }
       }
     }
@@ -415,7 +353,6 @@
       .banner__wrapper {
         height: 400px;
         flex-direction: row-reverse;
-        // margin-right: 150px;
         max-width: 90%;
         margin-right: inherit;
         padding: 0;
@@ -440,7 +377,6 @@
         justify-content: center;
         align-items: center;
         height: 100%;
-        width: 40%;
         background-color: $bg-diagonal;
         -webkit-clip-path: polygon(0 0, 92% 0, 100% 45%, 100% 100%, 17% 100%);
         clip-path: polygon(0 0, 92% 0, 100% 45%, 100% 100%, 17% 100%);
@@ -565,20 +501,10 @@
 
     &.diagonal {
       .banner__wrapper {
-        gap: 32px;
+        max-height: 450px;
       }
 
       .imagen {
-        height: fit-content;
-        // width: 100%;
-        flex: 2;
-
-        img {
-          width: 100%;
-          height: 400px;
-          // height: 100%;
-        }
-
         .cont-lottie {
           width: 100%;
           height: 400px;
@@ -586,11 +512,9 @@
       }
 
       .title {
-        flex: 1;
-
         h2 {
           margin-bottom: 1rem;
-          padding-right: 3rem;
+          // padding-right: 3rem;
           max-width: 400px;
         }
       }
@@ -604,16 +528,21 @@
     &.topReverse,
     &.diagonal {
       .banner__wrapper {
-        gap: 70px;
+        gap: 50px;
       }
     }
 
     &.diagonal {
       .banner__wrapper {
         margin-right: 0;
-        margin-left: 150px;
-        max-width: fit-content;
+        margin-left: 200px;
+        max-width: calc(100% - 200px);
         padding: 0;
+      }
+
+      .title {
+        display: flex;
+        justify-content: end;
       }
     }
 
