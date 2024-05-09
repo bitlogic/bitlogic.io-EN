@@ -57,6 +57,7 @@ const useNavbar = () => {
               id
               label
               text
+              url
               icon {
                 alternativeText
                 url
