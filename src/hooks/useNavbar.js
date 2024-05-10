@@ -46,6 +46,8 @@ const useNavbar = () => {
             dropdownItems {
               id
               label
+              text
+              url
               icon {
                 alternativeText
                 url

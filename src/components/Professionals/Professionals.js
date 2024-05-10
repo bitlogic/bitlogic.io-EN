@@ -14,7 +14,7 @@ const Professionals = ({ data }) => {
 
   const professionalsCards = professionalsList.map((pro, idx) => {
 
-    const photo = getImage(pro.photo.localFile)
+    const photo = pro?.photo && getImage(pro?.photo?.localFile)
 
     const { name, position, quote, linkedin } = pro
 
@@ -28,7 +28,7 @@ const Professionals = ({ data }) => {
           {photo && (
             <GatsbyImage image={photo}
               className="pro__img"
-              alt={pro.photo.alternativeText
+              alt={pro?.photo?.alternativeText
                 ? pro.photo.alternativeText
                 : name
               }

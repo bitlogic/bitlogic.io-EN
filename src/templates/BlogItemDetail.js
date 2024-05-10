@@ -31,15 +31,17 @@ const BlogDetail = ({ data }) => {
             <div className="detail__description-author">
               {author?.map(author => (
                 <div className="detail__box-author">
-                  <div className="detail__box-author-image">
-                    <GatsbyImage
-                      image={getImage(author?.image?.localFile)}
-                      alt={author.image.alternativeText
-                        ? author.image.alternativeText
-                        : author?.name
-                      }
-                    />
-                  </div>
+                  {author.image && (
+                    <div className="detail__box-author-image">
+                      <GatsbyImage
+                        image={getImage(author?.image?.localFile)}
+                        alt={author.image.alternativeText
+                          ? author.image.alternativeText
+                          : author?.name
+                        }
+                      />
+                    </div>
+                  )}
                   <div className="detail__box-autor-description">
                     <h5>{author?.name}</h5>
                     <h6>{author?.subTitle}</h6>
