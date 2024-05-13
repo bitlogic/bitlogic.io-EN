@@ -16,6 +16,8 @@ export default function BannerList({ data }) {
                 ? item.icon.alternativeText
                 : `${item.icon.name}-${item.icon.id}`
               }
+              width={70}
+              height={70}
             />
           </div>
         )}

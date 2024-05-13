@@ -23,10 +23,11 @@ const Quote = ({
           <div className="quote-body">
             <img
               src={image.url}
-              alt={image.alternativeText
+              alt={image?.alternativeText
                 ? image.alternativeText
                 : title
               }
+              loading="lazy"
             />
           </div>
         )}
@@ -50,9 +51,7 @@ const Quote = ({
                 webkitallowfullscreen="true"
                 mozallowfullscreen="true"
               ></iframe>
-
             )}
-
           </div>
         )}
 
@@ -63,8 +62,8 @@ const Quote = ({
 
           {profile && (
             <div className="quote-profile make-it-fast my-3 my-md-2 my-xl-4 d-flex gap-3 justify-content-between">
-              <img
-                src={profile.url}
+              <img src={profile?.url}
+                loading="lazy"
                 alt={profile?.alternativeText
                   ? profile.alternativeText
                   : `quote author`

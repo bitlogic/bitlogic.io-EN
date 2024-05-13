@@ -66,13 +66,13 @@ function Seo({ description, lang, meta, title, keywords }) {
           content: metaDescription,
         },
       ].concat(meta)}
-      // link={[]}
+    // link={[]}
     />
   )
 }
 
 Seo.defaultProps = {
-  lang: `es`,
+  lang: `en`,
   meta: [],
   description: ``,
 }
