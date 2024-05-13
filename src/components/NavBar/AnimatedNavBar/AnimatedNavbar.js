@@ -11,7 +11,7 @@ const AnimatedNavbar = ({ navbarItems = [], duration }) => {
 
   const url = (item) => {
     if (item.dropdown) return ''
-    
+
     const landing = getUrl(item?.english_landing_page?.slug);
 
     if (landing) return landing
@@ -31,8 +31,9 @@ const AnimatedNavbar = ({ navbarItems = [], duration }) => {
           if (navItem.dropdown) {
             return <Dropdown sections={navItem?.dropdownItems} topLevel={navItem?.toplevelItem} />
           }
-          return <Dropdown sections={null} topLevel={null}/>
-        }
+          return <Dropdown sections={null} topLevel={null} />
+        },
+        isDropdown: navItem?.dropdown
       }
 
       return res
@@ -98,6 +99,7 @@ const AnimatedNavbar = ({ navbarItems = [], duration }) => {
               title={n?.title}
               index={index}
               onMouseEnter={onMouseEnter}
+              isDropdown={n.isDropdown}
             >
               {currentIndex === index && (
                 <DropdownContainer

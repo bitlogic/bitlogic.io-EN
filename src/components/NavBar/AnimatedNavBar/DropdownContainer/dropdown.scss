@@ -1,24 +1,47 @@
 @import "../../../../styles/global.scss";
+
 .dropdown {
   &_elem {
     width: 18.5rem;
+
     &-section {
       padding-top: 28px;
       padding-right: 28px;
       padding-bottom: 14px;
       padding-left: 28px;
       position: relative;
-    }
-    &-link {
-      font-size: 18px;
-      margin-top: 0;
-      margin-bottom: 0.3rem;
-      padding-bottom: 0.3rem;
-      &-inner{
-        color: $primary;
+
+      .dropdown_section {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
       }
+    }
+
+    &-link {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 18px;
+      // margin-top: 0;
+      // margin-bottom: 0.3rem;
+      // padding-bottom: 0.3rem;
+
+      &-inner {
+        color: $primary;
+        padding: 8px 0;
+        font-weight: $standard;
+
+        &:hover {
+          text-decoration: underline solid $primary
+        }
+      }
+
       &-topLevelLink {
         padding-bottom: 0.1rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
       }
     }
   }
@@ -37,8 +60,17 @@
 
 .navbarItemIcon {
   width: 28px !important;
+  height: 28px !important;
   align-self: center;
-  margin-right: 5px
+  margin-right: 5px;
+
+  img,
+  picture {
+    width: 100%;
+    height: 100%;
+    object-fit: contain !important;
+
+  }
 }
 
 .fade_content {
@@ -73,10 +105,12 @@
   align-items: center;
   position: relative;
   top: -20px;
+
   @media only screen and (min-width: 768px) {
     align-items: start;
     padding-left: 50px;
   }
+
   &-background {
     filter: brightness(120%);
     transform-origin: 0 0;
@@ -87,6 +121,7 @@
     box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1);
     margin-top: 10px;
     @extend .promote_layer;
+
     &-alt {
       background-color: #f1f4f8b0;
       width: 300%;
@@ -99,13 +134,16 @@
       transition: transform 300ms;
     }
   }
+
   &-inverted {
     @extend .promote_layer;
     top: 0;
     left: 0;
+
     &:first-of-type {
       z-index: 1;
     }
+
     &:not(:first-of-type) {
       z-index: -1;
     }
@@ -117,6 +155,7 @@
     transform: rotateX(-15deg);
     opacity: 0;
   }
+
   to {
     transform: rotateX(0);
     opacity: 1;
@@ -128,6 +167,7 @@
     transform: rotateX(0);
     opacity: 1;
   }
+
   to {
     transform: rotateX(-15deg);
     opacity: 0;
