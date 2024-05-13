@@ -14,11 +14,13 @@ const LogosSection = ({ data }) => {
       <div className="logos__image" key={`${logo.name}-${logo.id}`}>
         <img
           src={
-            theme === "dark" && logo.imageDark
-              ? logo.imageDark.url
-              : logo.img.url
+            theme === "dark" && logo?.imageDark
+              ? logo?.imageDark?.url
+              : logo?.img?.url
           }
           alt={logo.name}
+          width={196}
+          height={186}
         />
       </div>
     )

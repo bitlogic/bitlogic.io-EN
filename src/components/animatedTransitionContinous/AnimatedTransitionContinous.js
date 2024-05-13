@@ -22,6 +22,8 @@ const AnimatedTransitionContinous = ({
                   alt={image?.alternativeText
                     ? image.alternativeText
                     : 'Transition-Image'}
+                  width={60}
+                  height={60}
                 />
               )}
               <h1 style={{ color: color }}>{innerText || ""}</h1>
@@ -30,6 +32,8 @@ const AnimatedTransitionContinous = ({
                   alt={image?.alternativeText
                     ? image.alternativeText
                     : 'Transition-Image'}
+                  width={60}
+                  height={60}
                 />
               )}
             </div>

@@ -52,22 +52,6 @@ const BlogDetail = ({ data }) => {
             </div>
           </div>
         </div>
-        {/* <div className="col-lg-4">
-          <div className="detail__sidebar">
-            <h4>Artículos relacionados</h4>
-            <div>
-              <div className="detail__sidebar__blog-card">
-                <div className="detail__sidebar__blog-card-description">
-                  <h3>{title}</h3>
-                  <p>{summary}</p>
-                  <span className="detail__sidebar__blog-card-more"> 
-                    <a href="#" target="_blank">Ver más</a>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     </Layout>
   )

@@ -33,6 +33,8 @@ const Professionals = ({ data }) => {
                 : name
               }
               loading='lazy'
+              width={160}
+              height={250}
             />
           )}
         </div>

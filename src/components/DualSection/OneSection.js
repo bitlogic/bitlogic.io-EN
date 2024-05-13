@@ -20,6 +20,7 @@ const OneSection = ({ data: { id, strapi_component, dualSectionPart } }) => {
           ? backgroundImageDark?.url
           : backgroundImage?.url
           })`,
+        backgroundPosition: 'center'
       }}
     >
       <div className="container one_sec" id={strapi_component + "-" + id}>
@@ -35,10 +36,12 @@ const OneSection = ({ data: { id, strapi_component, dualSectionPart } }) => {
         </div>
         <div className="one_sec-img">
           <img src={image?.url}
-            alt={image.alternativeText
+            alt={image?.alternativeText
               ? image.alternativeText
               : `${title}`
             }
+            width={290}
+            height={180}
             loading="lazy"
           />
         </div>
