@@ -31,13 +31,15 @@ const Dropdown = ({ sections, topLevel }) => {
                     : 'NavLink Icon'
                   }
                   className="navbarItemIcon"
+                  width={28}
+                  height={28}
                 />
               )}
               {url(topLevel).startsWith("http") ? (
                 <a href={url(topLevel)}
                   className="dropdown_elem-link-inner"
                   target="_blank"
-                  rel="noopener noreferre"
+                  rel="noopener noreferrer"
                 >
                   {topLevel.label}
                 </a>
@@ -51,14 +53,12 @@ const Dropdown = ({ sections, topLevel }) => {
                 </Link>
               )}
             </div>
-            <div>
-              {topLevel?.text && <p className="navItemP">{topLevel.text}</p>}
-            </div>
+            {topLevel?.text && <p className="navItemP">{topLevel.text}</p>}
           </div>
         )}
         <div className="dropdown_section">
           {sections?.map(section =>
-            <>
+            <div>
               <div className="dropdown_elem-link" key={section.id}>
                 {section.icon && (
                   <GatsbyImage
@@ -68,6 +68,8 @@ const Dropdown = ({ sections, topLevel }) => {
                       : 'NavLink Icon'
                     }
                     className="navbarItemIcon"
+                    width={28}
+                    height={28}
                   />
                 )}
                 {url(section).startsWith("http") ? (
@@ -89,7 +91,7 @@ const Dropdown = ({ sections, topLevel }) => {
                 )}
               </div>
               {section?.text && <p className="navItemP">{section.text}</p>}
-            </>
+            </div>
           )}
         </div>
       </div >
