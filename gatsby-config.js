@@ -10,19 +10,9 @@ module.exports = {
     siteUrl: siteUrl,
   },
   plugins: [
-    `gatsby-plugin-sitemap`,
     {
-      resolve: `gatsby-plugin-google-gtag`,
+      resolve: "gatsby-plugin-sitemap",
       options: {
-        // You can add multiple tracking ids and a pageview event will be fired for all of them.
-        trackingIds: [
-          "G-F6VPYEJ1X0", // Google Analytics / G
-        ],
-        // This object is used for configuration specific to this plugin
-        pluginConfig: {
-          // Puts tracking script in the head instead of the body
-          head: true,
-        },
         query: `
         {
           allSitePage {
@@ -69,6 +59,20 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: [
+          "G-F6VPYEJ1X0", // Google Analytics / G
+        ],
+        // This object is used for configuration specific to this plugin
+        pluginConfig: {
+          // Puts tracking script in the head instead of the body
+          head: true,
+        },
+      },
+    },
+    {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
         host: siteUrl,
@@ -95,8 +99,8 @@ module.exports = {
       resolve: `gatsby-source-strapi`,
       options: {
         // apiURL: `http://lb-bitlogic-strapi-dev-48805770.sa-east-1.elb.amazonaws.com:1337`,
-        // apiURL: `https://strapi.bitlogic.io`,
-        apiURL: process.env.STRAPI_URL,
+        apiURL: `https://strapi.bitlogic.io`,
+        // apiURL: process.env.STRAPI_URL,
         // apiURL: 'http://127.0.0.1:1337',
         queryLimit: 1000,
         collectionTypes: [
