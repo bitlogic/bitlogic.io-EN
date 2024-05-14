@@ -1,9 +1,12 @@
+const siteUrl = process.env.URL || 'https://bitlogic.io'
+
 module.exports = {
   siteMetadata: {
     title: `Bitlogic`,
     description: `Bitlogic Web es una empresa dedicada al diseño, ingeniería y desarrollo ágil de productos de software, especializada en la transformación digital de instituciones educativas .`,
     author: `Bitlogic.io`,
     //siteUrl: process.env.SITE_URL,    
+    title: 'Bitlogic | Desarrollo de software end to end',
     siteUrl: 'https://bitlogic.io',
   },
   plugins: [
@@ -20,7 +23,58 @@ module.exports = {
           // Puts tracking script in the head instead of the body
           head: true,
         },
+        query: `
+        {
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+          allWpContentNode(filter: {nodeType: {in: ["Post", "Page"]}}) {
+            nodes {
+              ... on WpPost {
+                uri
+                modifiedGmt
+              }
+              ... on WpPage {
+                uri
+                modifiedGmt
+              }
+            }
+          }
+        }
+      `,
+        resolveSiteUrl: () => siteUrl,
+        resolvePages: ({
+          allSitePage: { nodes: allPages },
+          allWpContentNode: { nodes: allWpNodes },
+        }) => {
+          const wpNodeMap = allWpNodes.reduce((acc, node) => {
+            const { uri } = node
+            acc[uri] = node
+
+            return acc
+          }, {})
+
+          return allPages.map(page => {
+            return { ...page, ...wpNodeMap[page.path] }
+          })
+        },
+        serialize: ({ path, modifiedGmt }) => {
+          return {
+            url: path,
+            lastmod: modifiedGmt,
+          }
+        },
       },
+    },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://bitlogic.io',
+        sitemap: 'https://bitlogic.io/sitemap-0.xml',
+        policy: [{userAgent: '*', allow: '/'}]
+      }
     },
     "gatsby-plugin-react-helmet",
     {
@@ -41,8 +95,8 @@ module.exports = {
       resolve: `gatsby-source-strapi`,
       options: {
         // apiURL: `http://lb-bitlogic-strapi-dev-48805770.sa-east-1.elb.amazonaws.com:1337`,
-        // apiURL: `https://strapi.bitlogic.io`,
-        apiURL: process.env.STRAPI_URL,
+        apiURL: `https://strapi.bitlogic.io`,
+        // apiURL: process.env.STRAPI_URL,
         // apiURL: 'http://127.0.0.1:1337',
         queryLimit: 1000,
         collectionTypes: [
