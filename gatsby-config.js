@@ -7,19 +7,10 @@ module.exports = {
     siteUrl: process.env.SITE_URL,
   },
   plugins: [
-    `gatsby-plugin-sitemap`,
     {
-      resolve: `gatsby-plugin-google-gtag`,
+      resolve: 'gatsby-plugin-sitemap',
       options: {
-        // You can add multiple tracking ids and a pageview event will be fired for all of them.
-        trackingIds: [
-          "G-F6VPYEJ1X0", // Google Analytics / G
-        ],
-        // This object is used for configuration specific to this plugin
-        pluginConfig: {
-          // Puts tracking script in the head instead of the body
-          head: true,
-        },
+        output: '/',
         query: `
         {
           allSitePage {
@@ -63,13 +54,27 @@ module.exports = {
             lastmod: modifiedGmt,
           }
         },
+      }
+    },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: [
+          "G-F6VPYEJ1X0", // Google Analytics / G
+        ],
+        // This object is used for configuration specific to this plugin
+        pluginConfig: {
+          // Puts tracking script in the head instead of the body
+          head: true,
+        },
       },
     },
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
         host: process.env.SITE_URL,
-        sitemap: `${process.env.SITE_URL}/sitemap-0.xml`,
+        sitemap: `${process.env.SITE_URL}/sitemap-index.xml`,
         policy: [{userAgent: '*', allow: '/'}]
       }
     },
