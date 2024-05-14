@@ -71,8 +71,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
-        host: 'https://bitlogic.io',
-        sitemap: 'https://bitlogic.io/sitemap-0.xml',
+        host: siteUrl,
+        sitemap: `${siteurl}/sitemap-0.xml`,
         policy: [{userAgent: '*', allow: '/'}]
       }
     },
