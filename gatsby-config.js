@@ -1,4 +1,4 @@
-const siteUrl = process.env.URL || 'https://bitlogic.io'
+const siteUrl = process.env.SITE_URL || 'https://bitlogic.io'
 
 module.exports = {
   siteMetadata: {
