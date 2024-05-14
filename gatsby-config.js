@@ -1,10 +1,13 @@
+const siteUrl = process.env.URL || 'https://bitlogic.io'
+
 module.exports = {
   siteMetadata: {
     title: `Bitlogic`,
     description: `Bitlogic Web es una empresa dedicada al diseño, ingeniería y desarrollo ágil de productos de software, especializada en la transformación digital de instituciones educativas .`,
     author: `Bitlogic.io`,
     //siteUrl: process.env.SITE_URL,    
-    siteUrl: 'https://bitlogic.io',
+    title: 'Bitlogic | Desarrollo de software end to end',
+    siteUrl: siteUrl,
   },
   plugins: [
     `gatsby-plugin-sitemap`,
@@ -20,7 +23,58 @@ module.exports = {
           // Puts tracking script in the head instead of the body
           head: true,
         },
+        query: `
+        {
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+          allWpContentNode(filter: {nodeType: {in: ["Post", "Page"]}}) {
+            nodes {
+              ... on WpPost {
+                uri
+                modifiedGmt
+              }
+              ... on WpPage {
+                uri
+                modifiedGmt
+              }
+            }
+          }
+        }
+      `,
+        resolveSiteUrl: () => siteUrl,
+        resolvePages: ({
+          allSitePage: { nodes: allPages },
+          allWpContentNode: { nodes: allWpNodes },
+        }) => {
+          const wpNodeMap = allWpNodes.reduce((acc, node) => {
+            const { uri } = node
+            acc[uri] = node
+
+            return acc
+          }, {})
+
+          return allPages.map(page => {
+            return { ...page, ...wpNodeMap[page.path] }
+          })
+        },
+        serialize: ({ path, modifiedGmt }) => {
+          return {
+            url: path,
+            lastmod: modifiedGmt,
+          }
+        },
       },
+    },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://bitlogic.io',
+        sitemap: 'https://bitlogic.io/sitemap-0.xml',
+        policy: [{userAgent: '*', allow: '/'}]
+      }
     },
     "gatsby-plugin-react-helmet",
     {
