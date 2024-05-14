@@ -3,6 +3,10 @@
 .containerCarrusel {
   min-width: 290px;
   min-height: 185px;
+
+  &-inactive {
+    min-height: 0;
+  }
 }
 
 .logos {
@@ -31,8 +35,8 @@
 
     img {
       width: 100%;
-      height: max-content;
-      object-fit: contain;
+      height: 100%;
+      // object-fit: contain;
     }
   }
 
