@@ -1,16 +1,31 @@
 module.exports = {
   siteMetadata: {
     title: `Bitlogic`,
-    description: `Bitlogic is a company dedicated to the design, engineering and agile development of software products, specialized in the digital transformation of educational institutions.`,
-    author: `Bitlogic`,
-    title: 'Bitlogic | End to end software development',
+    description: `Bitlogic Web es una empresa dedicada al diseño, ingeniería y desarrollo ágil de productos de software, especializada en la transformación digital de instituciones educativas .`,
+    author: `Bitlogic.io`,
+    //siteUrl: process.env.SITE_URL,    
+    title: 'Bitlogic | Desarrollo de software end to end',
     siteUrl: process.env.SITE_URL,
   },
   plugins: [
     {
-      resolve: 'gatsby-plugin-sitemap',
+      resolve: `gatsby-plugin-sitemap`,
       options: {
         output: '/',
+      }
+    },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: [
+          "G-F6VPYEJ1X0", // Google Analytics / G
+        ],
+        // This object is used for configuration specific to this plugin
+        pluginConfig: {
+          // Puts tracking script in the head instead of the body
+          head: true,
+        },
         query: `
         {
           allSitePage {
@@ -54,20 +69,6 @@ module.exports = {
             lastmod: modifiedGmt,
           }
         },
-      }
-    },
-    {
-      resolve: `gatsby-plugin-google-gtag`,
-      options: {
-        // You can add multiple tracking ids and a pageview event will be fired for all of them.
-        trackingIds: [
-          "G-F6VPYEJ1X0", // Google Analytics / G
-        ],
-        // This object is used for configuration specific to this plugin
-        pluginConfig: {
-          // Puts tracking script in the head instead of the body
-          head: true,
-        },
       },
     },
     {
@@ -89,8 +90,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: process.env.SITE_URL,
-        //siteUrl: 'https://bitlogic.io',
+        //siteUrl: process.env.SITE_URL,
+        siteUrl: 'https://bitlogic.io',
       },
     },
     {
