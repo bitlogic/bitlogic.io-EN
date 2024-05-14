@@ -35,11 +35,13 @@ const NavBar = () => {
           {logoLight && (
             <GatsbyImage
               image={theme === "dark" && logoDark ? logoDark : logoLight}
-              alt={logoLight.alternativeText
-                ? `${logoLight.alternativeText} - Home`
+              alt={logoLight?.alternativeText
+                ? `${logoLight.alternativeText}`
                 : "Bitlogic - Home"
               }
               className="logo"
+              width={120}
+              height={35}
             />
           )}
         </Link>

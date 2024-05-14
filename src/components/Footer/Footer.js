@@ -8,9 +8,11 @@ import SocialLinks from "./SocialLinks/socialLinks"
 import Navegation from './Navegation/navegation';
 import Subscription from './Subscription/subscription';
 import "./Footer.scss"
+import { useFooter } from "../../hooks"
 
 
 const Footer = () => {
+  const data = useFooter()?.allStrapiLayout?.nodes[0]
   return (
     <>
       <div className="Footer">
@@ -24,7 +26,10 @@ const Footer = () => {
               className="Footer__Col Footer__Col__Navegation"
             >
               <div className="Footer__Title">
-                <Navegation />
+                <Navegation
+                  navegation={data?.footer?.navegation}
+                  navbarItem={data?.navbar?.navbarItem}
+                />
               </div>
             </Col>
 
@@ -36,7 +41,11 @@ const Footer = () => {
               className="Footer__Col Footer__Col__Contact"
             >
               <div className="Footer__Title">
-                <ContactData />
+                <ContactData
+                  contact={data?.footer?.contact}
+                  navButton={data?.navbar?.navButton}
+                  internalLink={data?.footer?.internalLink}
+                />
               </div>
             </Col>
 
@@ -48,7 +57,7 @@ const Footer = () => {
               className="Footer__Col Footer__Col__Contact d-none d-xl-block"
             >
               <div className="Footer__Title ps-xl-3">
-                <Location />
+                <Location location={data?.footer?.location} />
               </div>
             </Col>
 
@@ -60,7 +69,7 @@ const Footer = () => {
               className="Footer__Col Footer__Col__Navegation"
             >
               <div className="Footer__Title">
-                <Subscription />
+                <Subscription subscription={data?.footer?.subscription} />
               </div>
             </Col>
 
@@ -72,7 +81,10 @@ const Footer = () => {
             >
               <div className="Footer__Title">
 
-                <SocialLinks />
+                <SocialLinks
+                  logo={data?.footer?.logo}
+                  socialMedia={data?.footer?.socialMedia?.socialMedia}
+                />
               </div>
             </Col>
           </Row>

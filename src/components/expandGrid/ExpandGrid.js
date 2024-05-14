@@ -30,8 +30,8 @@ const ExpandGrid = ({ data }) => {
           <div className="expandGrid-body">
             <h2>{data.title}</h2>
             <h6 className="px-md-3">{data.subtitle}</h6>
-            <AnimatedList items={data.items.slice(0, 4)} 
-            callToAction={data.callToAction}/>
+            <AnimatedList items={data.items.slice(0, 4)}
+              callToAction={data.callToAction} />
           </div>
         </section>
       </div>
@@ -65,7 +65,11 @@ const ListItem = ({ index, onClick, data }) => {
               shouldFlip={shouldFlip(index)}
               delayUntil={createCardFlipId(index)}
             >
-              <img alt="" src={data.image?.url} className="avatar" />
+              <img src={data.image?.url}
+                className="avatar"
+                loading="lazy"
+                alt={data?.image?.alternativeText ? data.image.alternativeText : 'Card Image'}
+              />
             </Flipped>
           </div>
         </Flipped>
@@ -74,7 +78,7 @@ const ListItem = ({ index, onClick, data }) => {
   )
 }
 
-const ExpandedListItem = ({ index, data, isFirst , callToAction }) => {
+const ExpandedListItem = ({ index, data, isFirst, callToAction }) => {
   const getUrl = useLandingUrl()
   const scrollRef = useRef(null)
   return (
@@ -99,7 +103,11 @@ const ExpandedListItem = ({ index, data, isFirst , callToAction }) => {
               stagger="card-image"
               delayUntil={createCardFlipId(index)}
             >
-              <img alt="" src={data.image?.url} className="avatar-expanded" />
+              <img src={data.image?.url}
+                className="avatar-expanded"
+                loading="lazy"
+                alt={data?.image?.alternativeText ? data.image.alternativeText : 'Card Image Expanded'}
+              />
             </Flipped>
             <div className={"additional-content "}>
               <div style={isFirst ? { opacity: "1" } : {}}>

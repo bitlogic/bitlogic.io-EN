@@ -4,10 +4,16 @@ module.exports = {
     description: `Bitlogic Web es una empresa dedicada al diseño, ingeniería y desarrollo ágil de productos de software, especializada en la transformación digital de instituciones educativas .`,
     author: `Bitlogic.io`,
     //siteUrl: process.env.SITE_URL,    
-    siteUrl: 'https://bitlogic.io',
+    title: 'Bitlogic | Desarrollo de software end to end',
+    siteUrl: process.env.SITE_URL,
   },
   plugins: [
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        output: '/',
+      }
+    },
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
@@ -20,7 +26,58 @@ module.exports = {
           // Puts tracking script in the head instead of the body
           head: true,
         },
+        query: `
+        {
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+          allWpContentNode(filter: {nodeType: {in: ["Post", "Page"]}}) {
+            nodes {
+              ... on WpPost {
+                uri
+                modifiedGmt
+              }
+              ... on WpPage {
+                uri
+                modifiedGmt
+              }
+            }
+          }
+        }
+      `,
+        resolveSiteUrl: () => process.env.SITE_URL,
+        resolvePages: ({
+          allSitePage: { nodes: allPages },
+          allWpContentNode: { nodes: allWpNodes },
+        }) => {
+          const wpNodeMap = allWpNodes.reduce((acc, node) => {
+            const { uri } = node
+            acc[uri] = node
+
+            return acc
+          }, {})
+
+          return allPages.map(page => {
+            return { ...page, ...wpNodeMap[page.path] }
+          })
+        },
+        serialize: ({ path, modifiedGmt }) => {
+          return {
+            url: path,
+            lastmod: modifiedGmt,
+          }
+        },
       },
+    },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: process.env.SITE_URL,
+        sitemap: `${process.env.SITE_URL}/sitemap-index.xml`,
+        policy: [{userAgent: '*', allow: '/'}]
+      }
     },
     "gatsby-plugin-react-helmet",
     {

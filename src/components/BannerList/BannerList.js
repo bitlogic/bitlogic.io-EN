@@ -16,14 +16,14 @@ export default function BannerList({ data }) {
                 ? item.icon.alternativeText
                 : `${item.icon.name}-${item.icon.id}`
               }
+              width={70}
+              height={70}
             />
           </div>
         )}
-        <div
-          className="card_item col-9 pe-2"
-        >
-          {item.landing_page ? (
-            <Link to={getUrl(item.landing_page.slug)}>
+        <div className="card_item col-9 pe-2">
+          {item?.english_landing_page ? (
+            <Link to={getUrl(item.english_landing_page.slug)}>
               <h4>{item.title}</h4>
               <p>{item.description}</p>
             </Link>

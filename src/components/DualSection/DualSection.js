@@ -13,11 +13,14 @@ export default function DualSection({ data }) {
         }`}
     >
       <div className="dualSection__image">
-        <img src={section.image.url}
-          alt={section.image.alternativeText
+        <img src={section?.image?.url}
+          alt={section?.image?.alternativeText
             ? section.image.alternativeText
             : `${section.title}`
           }
+          loading="lazy"
+          width={290}
+          height={250}
         />
       </div>
 

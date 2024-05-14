@@ -16,6 +16,8 @@ const BlogArticle = ({ title, summary, image, slug, text }) => {
             : title
           }
           className="article__image"
+          width={140}
+          height={170}
         />
       ) : (
         <img src={image?.url}
@@ -24,6 +26,8 @@ const BlogArticle = ({ title, summary, image, slug, text }) => {
             : title
           }
           className="article__image"
+          width={140}
+          height={170}
         />
       )}
       <div className="article__description">
@@ -37,7 +41,6 @@ const BlogArticle = ({ title, summary, image, slug, text }) => {
         <div className="article__link">
           <Link to={slug}>
             <small>{text}</small>
-            
           </Link>
         </div>
       </div>

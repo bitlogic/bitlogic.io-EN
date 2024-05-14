@@ -1,16 +1,13 @@
 import { Link } from "gatsby"
 import React from "react"
-import { useFooter, useLandingUrl } from "../../../hooks"
+import { useLandingUrl } from "../../../hooks"
 import FaIcon from "../../FaIcon/FaIcon"
 import "./contactData.scss"
 
-export default function ContactData() {
-  const data = useFooter()
-  const dataFooter = data?.allStrapiLayout?.nodes[0]?.footer
-  const navButton = data?.allStrapiLayout?.nodes[0].navbar?.navButton
+export default function ContactData({ contact, navButton, internalLink }) {
   const getUrl = useLandingUrl()
 
-  const contact = dataFooter?.contact?.iconText.map((item, index) => {
+  const contactItems = contact?.iconText.map((item, index) => {
     return (
       <div className="icon-text d-flex" key={`${item.name}-${index}`}>
         <FaIcon type={item.icon.type} code={item.icon.code} />
@@ -22,8 +19,8 @@ export default function ContactData() {
   return (
     <>
       <div className="ContactData__Item">
-        <h6>{dataFooter?.contact?.title}</h6>
-        <div className="ContactData__Item__contact">{contact}</div>
+        <h6>{contact?.title}</h6>
+        <div className="ContactData__Item__contact">{contactItems}</div>
 
         <div className="ContactData__Item__link">
           <Link
@@ -32,7 +29,7 @@ export default function ContactData() {
               : `${navButton.url ? navButton.url : ''}`
             }
           >
-            {dataFooter?.internalLink?.name}
+            {internalLink?.name}
           </Link>
         </div>
       </div>

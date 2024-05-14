@@ -2,29 +2,52 @@
 
 .bannerList {
   color: $primary;
+
+  &__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
   .card_item {
+    gap: 8px;
+    align-items: center;
+
     h4 {
       margin: 0;
     }
+
     a {
       color: inherit;
+
       &:hover {
         color: $secondary;
       }
     }
+
     img {
       margin: 0;
       width: 80px;
+      height: 80px;
+      object-fit: contain;
+      // aspect-ratio: 1;
+    }
+
+    p {
+      margin: 0;
     }
   }
+
   button {
     margin-top: 10px;
     @include primaryBtn;
     align-self: baseline;
+
     a {
       color: inherit;
     }
   }
+
   &__title {
     display: flex;
     flex-direction: column;
@@ -36,12 +59,7 @@
 
 @media screen and (min-width: $breakpoint-xl) {
   .bannerList {
-    .card_item {
-      img {
-        width: 80px;
-      }
-    }
-    &__buttonMobile{
+    &__buttonMobile {
       display: none;
     }
   }
@@ -59,12 +77,7 @@
 
 @media screen and (min-width: $breakpoint-md) {
   .bannerList {
-    .card_item {
-      img {
-        width: 80px;
-      }
-    }
-    &__buttonMobile{
+    &__buttonMobile {
       display: none;
     }
   }

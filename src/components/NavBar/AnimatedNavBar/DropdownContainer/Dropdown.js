@@ -13,28 +13,36 @@ const Dropdown = ({ sections, topLevel }) => {
 
     if (landing) return landing;
 
-    const slug = item?.url ? item.url : '';
-
-    if (slug.startsWith("http://" || "https://")) {
-      return slug;
-    } else {
-      return { pathname: slug };
-    }
+    return item?.url ? item.url : '';
   }
 
   return (
     <div className="dropdown_elem" style={!sections ? { maxHeight: "0" } : {}}>
       <div className="dropdown_elem-section" data-first-dropdown-section>
         {topLevel && (
-          <div className="dropdown_elem_topLevel">
+          <div className="dropdown_elem_topLevel"
+            style={{ borderBottom: "2px solid #808080", marginBottom: "15px", paddingBottom: "8px" }}>
             <div className="dropdown_elem-link-topLevelLink">
-              <GatsbyImage
-                image={getImage(topLevel.icon.localFile?.childrenImageSharp[0].gatsbyImageData)}
-                alt={topLevel.icon.alternativeText ? topLevel.icon.alternativeText : 'NavLink Icon'}
-                className="navbarItemIcon"
-              />
-              {url(topLevel).startsWith("http://") ? (
-                <a href={url(topLevel)} className="dropdown_elem-link-inner">{topLevel.label}</a>
+              {topLevel.icon && (
+                <GatsbyImage
+                  image={getImage(topLevel.icon?.localFile?.childrenImageSharp[0].gatsbyImageData)}
+                  alt={topLevel?.icon?.alternativeText
+                    ? topLevel.icon.alternativeText
+                    : 'NavLink Icon'
+                  }
+                  className="navbarItemIcon"
+                  width={28}
+                  height={28}
+                />
+              )}
+              {url(topLevel).startsWith("http") ? (
+                <a href={url(topLevel)}
+                  className="dropdown_elem-link-inner"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {topLevel.label}
+                </a>
               ) : (
                 <Link
                   to={url(topLevel)}
@@ -45,22 +53,33 @@ const Dropdown = ({ sections, topLevel }) => {
                 </Link>
               )}
             </div>
-            <div style={{ borderBottom: "2px solid #808080", marginBottom: "15px" }}>
-              {topLevel?.text && <p className="navItemP">{topLevel.text}</p>}
-            </div>
+            {topLevel?.text && <p className="navItemP">{topLevel.text}</p>}
           </div>
         )}
         <div className="dropdown_section">
           {sections?.map(section =>
-            <>
+            <div>
               <div className="dropdown_elem-link" key={section.id}>
-                <GatsbyImage
-                  image={getImage(section.icon.localFile?.childrenImageSharp[0].gatsbyImageData)}
-                  alt={section.icon.alternativeText ? section.icon.alternativeText : 'NavLink Icon'}
-                  className="navbarItemIcon"
-                />
-                {url(section).startsWith("http://" || "https://") ? (
-                  <a href={url(section)} className="dropdown_elem-link-inner">{section.label}</a>
+                {section.icon && (
+                  <GatsbyImage
+                    image={getImage(section.icon.localFile?.childrenImageSharp[0].gatsbyImageData)}
+                    alt={section.icon.alternativeText
+                      ? section.icon.alternativeText
+                      : 'NavLink Icon'
+                    }
+                    className="navbarItemIcon"
+                    width={28}
+                    height={28}
+                  />
+                )}
+                {url(section).startsWith("http") ? (
+                  <a href={url(section)}
+                    className="dropdown_elem-link-inner"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {section.label}
+                  </a>
                 ) : (
                   <Link
                     to={url(section)}
@@ -71,10 +90,8 @@ const Dropdown = ({ sections, topLevel }) => {
                   </Link>
                 )}
               </div>
-              {
-                section?.text && <p>{section?.text ? section.text : ''}</p>
-              }
-            </>
+              {section?.text && <p className="navItemP">{section.text}</p>}
+            </div>
           )}
         </div>
       </div >

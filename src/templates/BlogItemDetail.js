@@ -31,15 +31,17 @@ const BlogDetail = ({ data }) => {
             <div className="detail__description-author">
               {author?.map(author => (
                 <div className="detail__box-author">
-                  <div className="detail__box-author-image">
-                    <GatsbyImage
-                      image={getImage(author?.image?.localFile)}
-                      alt={author.image.alternativeText
-                        ? author.image.alternativeText
-                        : author?.name
-                      }
-                    />
-                  </div>
+                  {author.image && (
+                    <div className="detail__box-author-image">
+                      <GatsbyImage
+                        image={getImage(author?.image?.localFile)}
+                        alt={author.image.alternativeText
+                          ? author.image.alternativeText
+                          : author?.name
+                        }
+                      />
+                    </div>
+                  )}
                   <div className="detail__box-autor-description">
                     <h5>{author?.name}</h5>
                     <h6>{author?.subTitle}</h6>
@@ -50,22 +52,6 @@ const BlogDetail = ({ data }) => {
             </div>
           </div>
         </div>
-        {/* <div className="col-lg-4">
-          <div className="detail__sidebar">
-            <h4>Artículos relacionados</h4>
-            <div>
-              <div className="detail__sidebar__blog-card">
-                <div className="detail__sidebar__blog-card-description">
-                  <h3>{title}</h3>
-                  <p>{summary}</p>
-                  <span className="detail__sidebar__blog-card-more"> 
-                    <a href="#" target="_blank">Ver más</a>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     </Layout>
   )

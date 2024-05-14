@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import MarkdownView from "react-showdown"
 import Lottie from 'react-lottie'
 import "./Form.scss"
@@ -6,6 +6,25 @@ import { Helmet } from "react-helmet"
 
 const PipedriveForm = ({ data }) => {
   const { title, content, form_url, image, animation } = data;
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://webforms.pipedrive.com/f/loader';
+    script.async = true;
+    script.defer = true;
+
+    script.onload = () => {
+      setLoading(false);
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const defaultOptions = {
     loop: true,
@@ -30,14 +49,17 @@ const PipedriveForm = ({ data }) => {
             />
           )}
           <div className="form__img text-center text-md-start">
-            {image?.url ?
+            {image?.url ? (
               <img
                 src={image?.url}
                 alt={image.alternativeText
                   ? image.alternativeText
                   : `${title}`
                 }
-              /> :
+                width={290}
+                height={290}
+              />
+            ) : (
               <>
                 {animation && <Lottie options={{
                   ...defaultOptions,
@@ -45,14 +67,12 @@ const PipedriveForm = ({ data }) => {
                 }}
                 />}
               </>
-            }
+            )}
           </div>
         </div>
         <div className="col-12 col-md-6">
-          <div
-            className="pipedriveWebForms form-wrapper"
-            data-pd-webforms={form_url}
-          >
+          <div className="pipedriveWebForms form-wrapper" data-pd-webforms={form_url}>
+            {loading && <div>Loading...</div>}
             <Helmet>
               <script async defer src="https://webforms.pipedrive.com/f/loader"></script>
             </Helmet>

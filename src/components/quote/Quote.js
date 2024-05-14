@@ -2,6 +2,7 @@ import "./quote.scss"
 import MarkdownView from "react-showdown"
 import React from "react"
 import { useLandingUrl } from "../../hooks"
+import { Link } from "gatsby"
 
 const Quote = ({
   data: { description, title, variant, profileDescription, videoUrl, button, profile, image, strapi_component, id },
@@ -23,10 +24,13 @@ const Quote = ({
           <div className="quote-body">
             <img
               src={image.url}
-              alt={image.alternativeText
+              alt={image?.alternativeText
                 ? image.alternativeText
                 : title
               }
+              loading="lazy"
+              width={290}
+              height={360}
             />
           </div>
         )}
@@ -50,9 +54,7 @@ const Quote = ({
                 webkitallowfullscreen="true"
                 mozallowfullscreen="true"
               ></iframe>
-
             )}
-
           </div>
         )}
 
@@ -63,12 +65,14 @@ const Quote = ({
 
           {profile && (
             <div className="quote-profile make-it-fast my-3 my-md-2 my-xl-4 d-flex gap-3 justify-content-between">
-              <img
-                src={profile.url}
+              <img src={profile?.url}
+                loading="lazy"
                 alt={profile?.alternativeText
                   ? profile.alternativeText
                   : `quote author`
                 }
+                width={70}
+                height={70}
               />
               <div className="flex-grow-1 align-self-center">
                 <MarkdownView markdown={profileDescription} className="markdown"
@@ -78,9 +82,18 @@ const Quote = ({
           )}
           {button && (
             <div className="quote-btn">
-              <a href={button.url || getUrl(button.landing_page?.slug)}>
-                <button>{button.content}</button>
-              </a>
+              {button?.english_landing_page ? (
+                <Link to={getUrl(button.english_landing_page.slug)}>
+                  {button.content}
+                </Link>
+              ) : (
+                <a href={button.url}
+                  target={button.url.startsWith('http') ? '_blank' : ''}
+                  rel={button.url.startsWith('http') ? 'noopener noreferrer' : ''}
+                >
+                  <button>{button.content}</button>
+                </a>
+              )}
             </div>
           )}
         </div>

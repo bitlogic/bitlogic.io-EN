@@ -1,15 +1,12 @@
 import React from "react"
-import { useFooter, useLandingUrl } from "../../../hooks"
+import { useLandingUrl } from "../../../hooks"
 import { Link } from "gatsby"
 import "./navegation.scss"
 
-export default function Navegation() {
-  const data = useFooter()?.allStrapiLayout?.nodes[0]
-  const dataFooter = data?.footer
-  const dataNav = data?.navbar
+export default function Navegation({ navegation, navbarItem }) {
   const getUrl = useLandingUrl()
 
-  const navbarItems = dataNav.navbarItem.map((navItem, index) => {
+  const navbarItems = navbarItem?.map((navItem, index) => {
 
     const url = navItem.singleType ? '/' + navItem.singleType :
       navItem.landing ? getUrl(navItem?.landing?.slug) :
@@ -24,7 +21,7 @@ export default function Navegation() {
 
   return (
     <div className="ContactData__Item ps-md-3">
-      <h6>{dataFooter.navegation?.title}</h6>
+      <h6>{navegation?.title}</h6>
       <ul className="Navegation__Item">
         {navbarItems}
       </ul>
