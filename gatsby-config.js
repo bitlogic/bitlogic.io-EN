@@ -7,7 +7,7 @@ module.exports = {
     author: `Bitlogic.io`,
     //siteUrl: process.env.SITE_URL,    
     title: 'Bitlogic | Desarrollo de software end to end',
-    siteUrl: 'https://bitlogic.io',
+    siteUrl: siteUrl,
   },
   plugins: [
     `gatsby-plugin-sitemap`,
