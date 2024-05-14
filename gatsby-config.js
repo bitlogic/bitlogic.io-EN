@@ -1,13 +1,10 @@
-const siteUrl = process.env.SITE_URL || 'https://bitlogic.io'
-
 module.exports = {
   siteMetadata: {
     title: `Bitlogic`,
-    description: `Bitlogic Web es una empresa dedicada al diseño, ingeniería y desarrollo ágil de productos de software, especializada en la transformación digital de instituciones educativas .`,
-    author: `Bitlogic.io`,
-    //siteUrl: process.env.SITE_URL,    
-    title: 'Bitlogic | Desarrollo de software end to end',
-    siteUrl: siteUrl,
+    description: `Bitlogic is a company dedicated to the design, engineering and agile development of software products, specialized in the digital transformation of educational institutions.`,
+    author: `Bitlogic`,
+    title: 'Bitlogic | End to end software development',
+    siteUrl: process.env.SITE_URL,
   },
   plugins: [
     `gatsby-plugin-sitemap`,
@@ -44,7 +41,7 @@ module.exports = {
           }
         }
       `,
-        resolveSiteUrl: () => siteUrl,
+        resolveSiteUrl: () => process.env.SITE_URL,
         resolvePages: ({
           allSitePage: { nodes: allPages },
           allWpContentNode: { nodes: allWpNodes },
@@ -71,8 +68,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
-        host: siteUrl,
-        sitemap: `${siteUrl}/sitemap-0.xml`,
+        host: process.env.SITE_URL,
+        sitemap: `${process.env.SITE_URL}/sitemap-0.xml`,
         policy: [{userAgent: '*', allow: '/'}]
       }
     },
@@ -87,8 +84,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        //siteUrl: process.env.SITE_URL,
-        siteUrl: 'https://bitlogic.io',
+        siteUrl: process.env.SITE_URL,
+        //siteUrl: 'https://bitlogic.io',
       },
     },
     {
