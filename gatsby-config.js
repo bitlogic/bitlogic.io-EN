@@ -1,4 +1,4 @@
-const siteUrl = process.env.URL || 'https://bitlogic.io'
+const siteUrl = process.env.SITE_URL || 'https://bitlogic.io'
 
 module.exports = {
   siteMetadata: {
@@ -71,8 +71,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
-        host: 'https://bitlogic.io',
-        sitemap: 'https://bitlogic.io/sitemap-0.xml',
+        host: siteUrl,
+        sitemap: `${siteUrl}/sitemap-0.xml`,
         policy: [{userAgent: '*', allow: '/'}]
       }
     },
