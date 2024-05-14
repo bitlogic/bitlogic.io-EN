@@ -47,14 +47,14 @@ const CasesSection = ({ data }) => {
             <Link to={getUrl(caso.button.landing_page.slug) + `/#${caso?.title}`}>
               <button>{caso.button.content}</button>
             </Link>
-          ) : (
+          ) : caso?.button?.url ? (
             <a href={caso?.button?.url}
               target={caso?.button?.url?.startsWhit('http') && '_blank'}
               rel={caso?.button?.url?.startsWhit('http') && 'noreferrer noopener'}
             >
               <button>{caso.button.content}</button>
             </a>
-          )}
+          ) : null}
         </div>
       </div>
     )

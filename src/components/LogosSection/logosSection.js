@@ -67,7 +67,7 @@ const LogosSection = ({ data }) => {
         autoPlay={logoList.length > 4}
         autoPlaySpeed={3000}
         infinite={logoList.length > 4}
-        containerClass={'containerCarrusel'}
+        containerClass={`containerCarrusel ${media.length === 0 && 'containerCarrusel-inactive'}`}
         customRightArrow={<CustomRightArrow />}
         customLeftArrow={<CustomLeftArrow />}
         removeArrowOnDeviceType={logoList.length <= 4 && ['tablet', 'desktop']}
