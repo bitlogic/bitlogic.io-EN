@@ -79,6 +79,24 @@ const useFooter = () => {
                 slug
               }
               callToAction
+              url
+            }
+          }
+          Sites {
+            title
+            websites {
+              id
+              name
+              url
+              icon {
+                alternativeText
+                url
+                localFile {
+                  childImageSharp {
+                    gatsbyImageData
+                  }
+                }
+              }
             }
           }
         }

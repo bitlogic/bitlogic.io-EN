@@ -24,9 +24,9 @@ export default function ContactData({ contact, navButton, internalLink }) {
 
         <div className="ContactData__Item__link">
           <Link
-            to={navButton.landing_page
+            to={navButton?.landing_page
               ? getUrl(navButton.landing_page.slug)
-              : `${navButton.url ? navButton.url : ''}`
+              : `${navButton?.url ? navButton.url : ''}`
             }
           >
             {internalLink?.name}
