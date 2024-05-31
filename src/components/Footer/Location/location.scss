@@ -1,28 +1,26 @@
 @import "../../../styles/global.scss";
 
-@media screen and (min-width: $breakpoint-xl) {
-  .ContactData__Item {
-    &__location {
-      display: block;
-      color: $white;
+.ContactData__Item {
+  &__location {
+    display: block;
+    color: $white;
 
-      p {
-        font-size: 18px;
-        width: 80%;
+    p {
+      font-size: 18px;
+      width: 80%;
+    }
+
+    .icon-text {
+      align-items: center;
+      margin-bottom: 1.45rem;
+
+      svg {
+        margin-right: 10px;
       }
+    }
 
-      .icon-text {
-        align-items: center;
-        margin-bottom: 1.45rem;
-
-        svg {
-          margin-right: 10px;
-        }
-      }
-
-      .icon-text:last-child {
-        margin-bottom: 0;
-      }
+    .icon-text:last-child {
+      margin-bottom: 0;
     }
   }
 }
