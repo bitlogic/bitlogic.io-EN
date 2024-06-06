@@ -1,6 +1,7 @@
 import React from "react"
 import ButtonLink from "../ButtonLink/ButtonLink"
 import "./DualSection.scss"
+import MarkdownView from "react-showdown"
 
 export default function DualSection({ data }) {
   const dualSectionParts = data?.dualSectionPart
@@ -26,7 +27,14 @@ export default function DualSection({ data }) {
 
       <div className="dualSection__textContainer">
         <h4>{section.title}</h4>
-        <p>{section.description}</p>
+        {section.description && (
+          <div>
+            <MarkdownView
+              markdown={`${section.description}`}
+              dangerouslySetInnerHTML={{ __html: section.description }}
+            />
+          </div>
+        )}
         {section.button && (
           <button className="px-4">
             <ButtonLink
