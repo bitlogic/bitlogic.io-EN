@@ -21,8 +21,8 @@ function BannerRedirect() {
     }
   };
 
-  const userLanguage = navigator?.language;
-  const userLocation = typeof window !== 'undefined' ? window?.location?.origin : ''
+  const userLanguage = typeof window !== 'undefined' ? navigator?.language : '';
+  const userLocation = typeof window !== 'undefined' ? window?.location?.origin : '';
 
   useEffect(() => {
     if (
