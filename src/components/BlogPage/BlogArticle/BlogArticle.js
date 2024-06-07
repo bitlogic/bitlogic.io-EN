@@ -6,12 +6,14 @@ import MarkdownView from "react-showdown"
 import "./BlogArticle.scss"
 
 const BlogArticle = ({ title, summary, image, slug, text }) => {
+  const imageArticle = getImage(image?.localFile)
+
   return (
     <div className="article__container">
-      {image?.localFile ? (
+      {imageArticle ? (
         <GatsbyImage
-          image={getImage(image?.localFile)}
-          alt={image.alternativeText
+          image={imageArticle}
+          alt={image?.alternativeText
             ? image.alternativeText
             : title
           }
@@ -21,7 +23,7 @@ const BlogArticle = ({ title, summary, image, slug, text }) => {
         />
       ) : (
         <img src={image?.url}
-          alt={image.alternativeText
+          alt={image?.alternativeText
             ? image.alternativeText
             : title
           }

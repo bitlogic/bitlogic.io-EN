@@ -14,7 +14,7 @@ const Professionals = ({ data }) => {
 
   const professionalsCards = professionalsList.map((pro, idx) => {
 
-    const photo = pro?.photo && getImage(pro?.photo?.localFile)
+    const photo = pro?.photo ? getImage(pro?.photo?.localFile) : undefined
 
     const { name, position, quote, linkedin } = pro
 
@@ -25,8 +25,19 @@ const Professionals = ({ data }) => {
         id={data.strapi_component + "-" + data.id}
       >
         <div className="col-6 col-md-12">
-          {photo && (
+          {photo ? (
             <GatsbyImage image={photo}
+              className="pro__img"
+              alt={pro?.photo?.alternativeText
+                ? pro.photo.alternativeText
+                : name
+              }
+              loading='lazy'
+              width={160}
+              height={250}
+            />
+          ) : (
+            <img src={pro?.photo?.url}
               className="pro__img"
               alt={pro?.photo?.alternativeText
                 ? pro.photo.alternativeText

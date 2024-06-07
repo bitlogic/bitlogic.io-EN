@@ -21,6 +21,16 @@
   button {
     @include primaryBtn;
   }
+
+  &__textContainer {
+    &>div {
+
+      p,
+      a {
+        font-size: 18px;
+      }
+    }
+  }
 }
 
 
@@ -52,13 +62,13 @@
   &-title {
     flex-basis: 45%;
 
-    h3 {
-      font-weight: 700;
-      font-size: 36px;
-      line-height: 40px;
-    }
-
     &-body {
+
+      p,
+      a {
+        font-size: $medium;
+      }
+
       font-weight: 400 !important;
     }
   }

@@ -5,6 +5,7 @@ import Footer from "./Footer/Footer"
 import ScriptTag from "react-script-tag"
 import useGlobalConfig from "../hooks/useGlobalConfig"
 import ThemeProvider from "../context/themeContext"
+import BannerRedirect from "./BannerRedirect/BannerRedirect"
 import { Helmet } from 'react-helmet';
 
 const Layout = ({ children, options = {}, location }) => {
@@ -43,7 +44,7 @@ const Layout = ({ children, options = {}, location }) => {
     <ThemeProvider>
       {scripts}
       {options.hasHeader && <Header />}
-
+      <BannerRedirect />
       <Helmet>
         <script>
           {`

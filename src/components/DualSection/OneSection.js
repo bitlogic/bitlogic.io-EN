@@ -1,6 +1,7 @@
 import React from "react"
 import { useTheme } from "../../context/themeContext"
 import ButtonLink from "../ButtonLink/ButtonLink"
+import MarkdownView from "react-showdown"
 
 const OneSection = ({ data: { id, strapi_component, dualSectionPart } }) => {
   const { theme } = useTheme()
@@ -26,7 +27,12 @@ const OneSection = ({ data: { id, strapi_component, dualSectionPart } }) => {
       <div className="container one_sec" id={strapi_component + "-" + id}>
         <div className="one_sec-title">
           <h4>{title}</h4>
-          <h4 className="one_sec-title-body">{description}</h4>
+          <div className="one_sec-title-body">
+            <MarkdownView
+              markdown={description}
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
+          </div>
           <button className="NavBar_Side-contact">
             <ButtonLink
               aria-label={`Navigate to ${button.content}`}
