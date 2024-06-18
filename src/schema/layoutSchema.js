@@ -215,6 +215,7 @@ type StrapiLayoutNavbarNavButtonLanding_page {
     id: Int
     title: String
     callToAction: String
+    url: String
     english_landing_page: StrapiLayoutFooterSubscriptionEnglishLandingPage
   }
 
@@ -481,6 +482,19 @@ type StrapiLayoutNavbarNavButtonLanding_page {
     ): Date
     localFile: File
   }
+
+  type StrapiLayoutSites {
+    id: Int
+    title: String!
+    websites: [StrapiLayoutSitesWebsites]
+  }
+
+  type StrapiLayoutSitesWebsites {
+    id: Int
+    name: String
+    url: String
+    icon: LocalFile
+  }
   
   type StrapiEnglishLayout implements Node {
     id: ID!
@@ -510,6 +524,7 @@ type StrapiLayoutNavbarNavButtonLanding_page {
     footer: StrapiLayoutFooter
     navbar: StrapiLayoutNavbar
     Menu: [StrapiLayoutMenu]
+    Sites: StrapiLayoutSites
     strapiId: Int
   }
 
