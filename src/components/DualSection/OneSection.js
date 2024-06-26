@@ -1,9 +1,10 @@
 import React from "react"
 import { useTheme } from "../../context/themeContext"
-import ButtonLink from "../ButtonLink/ButtonLink"
 import MarkdownView from "react-showdown"
+import CustomImage from "../CustomImage/CustomImage"
+import CustomLink from "../CustomLink/CustomLink"
 
-const OneSection = ({ data: { id, strapi_component, dualSectionPart } }) => {
+const OneSection = ({ data: { dualSectionPart } }) => {
   const { theme } = useTheme()
   const {
     title,
@@ -17,14 +18,15 @@ const OneSection = ({ data: { id, strapi_component, dualSectionPart } }) => {
     <div
       className="one_sec-background"
       style={{
-        backgroundImage: `url(${theme === "dark" && backgroundImageDark?.url
-          ? backgroundImageDark?.url
-          : backgroundImage?.url
-          })`,
-        backgroundPosition: 'center'
+        backgroundPosition: "center",
+        backgroundImage: `url(${
+          theme === "dark" && backgroundImageDark?.url
+            ? backgroundImageDark?.url
+            : backgroundImage?.url
+        })`,
       }}
     >
-      <div className="container one_sec" id={strapi_component + "-" + id}>
+      <div className="container one_sec">
         <div className="one_sec-title">
           <h4>{title}</h4>
           <div className="one_sec-title-body">
@@ -33,22 +35,22 @@ const OneSection = ({ data: { id, strapi_component, dualSectionPart } }) => {
               dangerouslySetInnerHTML={{ __html: description }}
             />
           </div>
-          <button className="NavBar_Side-contact">
-            <ButtonLink
-              aria-label={`Navigate to ${button.content}`}
-              button={button}
+          {button && (
+            <CustomLink
+              content={button.content}
+              url={button?.url}
+              landing={button?.english_landing_page}
+              className=""
             />
-          </button>
+          )}
         </div>
         <div className="one_sec-img">
-          <img src={image?.url}
-            alt={image?.alternativeText
-              ? image.alternativeText
-              : `${title}`
-            }
+          <CustomImage
+            image={image}
             width={290}
             height={180}
-            loading="lazy"
+            alt={image.alternativeText || title}
+            className=""
           />
         </div>
       </div>
