@@ -1,9 +1,9 @@
 import { useStaticQuery, graphql } from "gatsby"
 
-const useContactPage = () => {
+const useCases = () => {
   return useStaticQuery(graphql`
     {
-      allStrapiCase:allStrapiEnglishCase {
+      allStrapiCase: allStrapiEnglishCase {
         nodes {
           strapiId
           title
@@ -42,7 +42,6 @@ const useContactPage = () => {
       }
     }
   `)
-
 }
 
-export default useContactPage
+export default useCases

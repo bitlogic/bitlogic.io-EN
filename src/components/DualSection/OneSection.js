@@ -49,7 +49,7 @@ const OneSection = ({ data: { dualSectionPart } }) => {
             image={image}
             width={290}
             height={180}
-            alt={image.alternativeText || title}
+            alt={image?.alternativeText || title}
             className=""
           />
         </div>

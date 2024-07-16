@@ -1,7 +1,7 @@
 const homeSchema = `
 
 type StrapiEnglishHome implements Node {
-    body: JSON
+    body: [BodyComponent]
     published_at(
       formatString: String
       fromNow: Boolean
@@ -34,7 +34,7 @@ type StrapiEnglishHome implements Node {
     pageDescription: String
     pageKeywords: String
   }
-
+  
   type LocalFile {
     localFile: File @link(from: "localFile___NODE")
   }
