@@ -10,7 +10,14 @@ import { getImage, GatsbyImage } from "gatsby-plugin-image"
 import "./BlogItemDetail.scss"
 
 const BlogDetail = ({ data }) => {
-  const { title, description, image, imagePage, author } = data?.allStrapiArticle?.nodes[0]
+  const {
+    title,
+    description,
+    image,
+    imagePage,
+    author,
+    seo,
+  } = data?.allStrapiArticle?.nodes[0]
 
   const bannerTop = imagePage ? { title, imagePage } : { title, image }
 
@@ -18,7 +25,11 @@ const BlogDetail = ({ data }) => {
 
   return (
     <Layout>
-      <Seo title={title} />
+      <Seo
+        title={title}
+        description={seo?.pageDescription}
+        keywords={seo?.pageKeywords}
+      />
       <BannerTop banner={bannerTop} />
       <div className="detail__container row">
         <div className="col-lg-12">
@@ -35,9 +46,10 @@ const BlogDetail = ({ data }) => {
                     <div className="detail__box-author-image">
                       <GatsbyImage
                         image={getImage(author?.image?.localFile)}
-                        alt={author.image.alternativeText
-                          ? author.image.alternativeText
-                          : author?.name
+                        alt={
+                          author.image.alternativeText
+                            ? author.image.alternativeText
+                            : author?.name
                         }
                       />
                     </div>
@@ -59,11 +71,16 @@ const BlogDetail = ({ data }) => {
 
 export const query = graphql`
   query($slug: String!) {
-    allStrapiArticle:allStrapiEnglishArticle(filter: { slug: { eq: $slug } }) {
+    allStrapiArticle: allStrapiEnglishArticle(filter: { slug: { eq: $slug } }) {
       nodes {
         title
         description
         slug
+        seo {
+          pageTitle
+          pageDescription
+          pageKeywords
+        }
         image {
           alternativeText
           localFile {
@@ -72,7 +89,7 @@ export const query = graphql`
             }
           }
         }
-        imagePage{
+        imagePage {
           alternativeText
           localFile {
             childImageSharp {
