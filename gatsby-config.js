@@ -3,73 +3,65 @@ module.exports = {
     title: `Bitlogic`,
     description: `Bitlogic Web es una empresa dedicada al diseño, ingeniería y desarrollo ágil de productos de software, especializada en la transformación digital de instituciones educativas .`,
     author: `Bitlogic.io`,
-    //siteUrl: process.env.SITE_URL,    
+    siteUrl: process.env.SITE_URL,    
     title: 'Bitlogic | Desarrollo de software end to end',
-    siteUrl: process.env.SITE_URL,
+    //siteUrl: 'https://bitlogic.io',
   },
   plugins: [
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {
         output: '/',
-      }
-    },
-    {
-      resolve: `gatsby-plugin-google-gtag`,
-      options: {
-        // You can add multiple tracking ids and a pageview event will be fired for all of them.
-        trackingIds: [
-          "G-F6VPYEJ1X0", // Google Analytics / G
-        ],
-        // This object is used for configuration specific to this plugin
-        pluginConfig: {
-          // Puts tracking script in the head instead of the body
-          head: true,
-        },
         query: `
         {
           allSitePage {
             nodes {
               path
+              pageContext
             }
           }
-          allWpContentNode(filter: {nodeType: {in: ["Post", "Page"]}}) {
-            nodes {
-              ... on WpPost {
-                uri
-                modifiedGmt
-              }
-              ... on WpPage {
-                uri
-                modifiedGmt
-              }
-            }
+          strapiEnglishBlogPage {
+            updated_at
+          }
+          strapiEnglishHome {
+            updated_at
           }
         }
-      `,
+        `,
         resolveSiteUrl: () => process.env.SITE_URL,
         resolvePages: ({
           allSitePage: { nodes: allPages },
-          allWpContentNode: { nodes: allWpNodes },
+          strapiEnglishBlogPage: blogPage,
+          strapiEnglishHome: homePage,
         }) => {
-          const wpNodeMap = allWpNodes.reduce((acc, node) => {
-            const { uri } = node
-            acc[uri] = node
-
-            return acc
-          }, {})
+          const singlePages = [
+            {
+              path: "/",
+              lastmod: homePage.updated_at,
+            },
+            {
+              path: "/blog",
+              lastmod: blogPage.updated_at,
+            },
+          ]
 
           return allPages.map(page => {
-            return { ...page, ...wpNodeMap[page.path] }
+            if (page.path === "/") return singlePages[0]
+            else if (page.path === "/blog/") return singlePages[1]
+
+            return {
+              path: page.path,
+              lastmod: page?.pageContext?.lastmod,
+            }
           })
         },
-        serialize: ({ path, modifiedGmt }) => {
+        serialize: ({ path, lastmod }) => {
           return {
             url: path,
-            lastmod: modifiedGmt,
+            lastmod: lastmod,
           }
         },
-      },
+      }
     },
     {
       resolve: 'gatsby-plugin-robots-txt',
@@ -78,6 +70,24 @@ module.exports = {
         sitemap: `${process.env.SITE_URL}/sitemap-index.xml`,
         policy: [{userAgent: '*', allow: '/'}]
       }
+    },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: ["G-F6VPYEJ1X0"],
+        gtagConfig: {
+          anonymize_ip: true,
+          cookie_expires: 0,
+          cookie_flags: "SamSite=None; Secure"
+        },
+        // This object is used for configuration specific to this plugin
+        pluginConfig: {
+          // Puts tracking script in the head instead of the body
+          head: true,
+          respectDNT: true,
+        },
+      },
     },
     "gatsby-plugin-react-helmet",
     {
@@ -98,9 +108,9 @@ module.exports = {
       resolve: `gatsby-source-strapi`,
       options: {
         // apiURL: `http://lb-bitlogic-strapi-dev-48805770.sa-east-1.elb.amazonaws.com:1337`,
-        // apiURL: `https://strapi.bitlogic.io`,
+        //apiURL: `https://strapi.bitlogic.io`,
         apiURL: process.env.STRAPI_URL,
-        // apiURL: 'http://127.0.0.1:1337',
+        //apiURL: 'http://127.0.0.1:1337',
         queryLimit: 1000,
         collectionTypes: [
           `english-article`,
