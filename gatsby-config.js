@@ -1,10 +1,10 @@
 module.exports = {
   siteMetadata: {
     title: `Bitlogic`,
-    description: `Bitlogic Web es una empresa dedicada al diseño, ingeniería y desarrollo ágil de productos de software, especializada en la transformación digital de instituciones educativas .`,
+    description: `Bitlogic Web is a company dedicated to the design, engineering, and agile development of software products, specializing in the digital transformation of educational institutions.`,
     author: `Bitlogic.io`,
     siteUrl: process.env.SITE_URL,    
-    title: 'Bitlogic | Desarrollo de software end to end',
+    title: 'Bitlogic | End-to-end software development',
     //siteUrl: 'https://bitlogic.io',
   },
   plugins: [
