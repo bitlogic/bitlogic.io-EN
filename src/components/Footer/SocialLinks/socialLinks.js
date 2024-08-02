@@ -3,6 +3,7 @@ import { getImage, GatsbyImage } from "gatsby-plugin-image";
 import { Link } from 'gatsby';
 import FaIcon from '../../FaIcon/FaIcon';
 import './socialLinks.scss';
+import PropTypes from "prop-types"
 
 export default function SocialLinks({ logo, socialMedia }) {
   const Logo = getImage(logo?.localFile?.childImageSharp?.gatsbyImageData);
@@ -44,4 +45,27 @@ export default function SocialLinks({ logo, socialMedia }) {
 
     </div>
   )
+}
+
+SocialLinks.propTypes = {
+  logo: PropTypes.shape({
+    alternativeText: PropTypes.string,
+    localFile: PropTypes.shape({
+      childImageSharp: PropTypes.shape({
+        gatsbyImageData: PropTypes.object.isRequired
+      })
+    })
+  }).isRequired,
+  socialMedia: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      url: PropTypes.string.isRequired,
+      name: PropTypes.string,
+      icon: PropTypes.shape({
+        name: PropTypes.string,
+        type: PropTypes.string.isRequired,
+        code: PropTypes.string.isRequired
+      }).isRequired
+    })
+  ).isRequired
 }

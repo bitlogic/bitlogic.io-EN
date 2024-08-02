@@ -3,6 +3,7 @@ import { getImage, GatsbyImage } from "gatsby-plugin-image"
 import { useProfessionals } from '../../hooks'
 import "./Professionals.scss"
 import { FaLinkedinIn } from "react-icons/fa"
+import PropTypes from "prop-types"
 
 const Professionals = ({ data }) => {
   const { title, summary, eng_professionals } = data
@@ -12,7 +13,7 @@ const Professionals = ({ data }) => {
     professionalsData?.find(professional => professional.strapiId === pro.id)
   ).slice(0, 6)
 
-  const professionalsCards = professionalsList.map((pro, idx) => {
+  const professionalsCards = professionalsList.map(pro => {
 
     const photo = pro?.photo ? getImage(pro?.photo?.localFile) : undefined
 
@@ -21,7 +22,7 @@ const Professionals = ({ data }) => {
     return (
       <div
         className="pro col-12 col-md-4 row"
-        key={`pro-${idx}`}
+        key={`pro-${pro.id}`}
         id={data.strapi_component + "-" + data.id}
       >
         <div className="col-6 col-md-12">
@@ -74,6 +75,21 @@ const Professionals = ({ data }) => {
       }
     </div>
   )
+}
+
+Professionals.propTypes = {
+  title: PropTypes.string,
+  summary: PropTypes.string,
+  id: PropTypes.number,
+  strapi_component: PropTypes.string,
+  eng_professionals: PropTypes.shape({
+    id: PropTypes.number,
+    photo: PropTypes.shape({
+      localFile: PropTypes.object,
+      url: PropTypes.string,
+      alternativeText: PropTypes.string
+    })
+  })
 }
 
 export default Professionals

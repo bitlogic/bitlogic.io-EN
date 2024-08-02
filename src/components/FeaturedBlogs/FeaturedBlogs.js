@@ -2,6 +2,7 @@ import React from "react"
 import { useBlog } from "../../hooks"
 import "./featuredBlogs.scss"
 import BlogArticle from "../BlogPage/BlogArticle/BlogArticle"
+import PropTypes from "prop-types"
 
 const compareDates = (a, b) => {
   if (a?.published_at < b?.published_at) {
@@ -29,9 +30,9 @@ const FeaturedBlogs = ({ data }) => {
         {data.english_articles
           .sort(compareDates)
           .slice(0, 3)
-          .map((item, idx) => (
+          .map((item) => (
             <BlogArticle
-              key={idx}
+              key={item.id}
               image={item.image}
               title={item.title}
               summary={item.summary}
@@ -42,6 +43,27 @@ const FeaturedBlogs = ({ data }) => {
       </div>
     </div>
   )
+}
+
+FeaturedBlogs.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    strapi_component: PropTypes.string.isRequired,
+    subtitle: PropTypes.string,
+    english_articles: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        slug: PropTypes.string.isRequired,
+        summary: PropTypes.string.isRequired,
+        text: PropTypes.string,
+        image: PropTypes.shape({
+          alternativeText: PropTypes.string,
+          url: PropTypes.string,
+        })        
+      })
+    )
+  })
 }
 
 export default FeaturedBlogs

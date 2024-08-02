@@ -4,13 +4,13 @@ import { graphql } from "gatsby"
 // import ReactMarkdown from "react-markdown"
 import MarkdownView from "react-showdown"
 import Layout from "../components/layout"
-import { Seo } from "../components/index.js"
-import { BannerTop } from "../components/index.js"
-import { getImage, GatsbyImage } from "gatsby-plugin-image"
+import { Seo, BannerTop } from "../components/index.js"
 import "./BlogItemDetail.scss"
+import CustomImage from "../components/CustomImage/CustomImage.js"
+import PropTypes from "prop-types"
 
 const BlogDetail = ({ data }) => {
-  const { title, description, image, imagePage, author } = data?.allStrapiArticle?.nodes[0]
+  const { title, description, image, imagePage, author } = data?.allStrapiArticle?.nodes[0] || {}
 
   const bannerTop = imagePage ? { title, imagePage } : { title, image }
 
@@ -32,9 +32,9 @@ const BlogDetail = ({ data }) => {
               {author?.map(author => (
                 <div className="detail__box-author">
                   {author.image && (
-                    <div className="detail__box-author-image">
-                      <GatsbyImage
-                        image={getImage(author?.image?.localFile)}
+                    <div className="detail__box-author-image" key={author.id}>
+                      <CustomImage
+                        image={author?.image?.localFile}
                         alt={author.image.alternativeText
                           ? author.image.alternativeText
                           : author?.name
@@ -57,6 +57,54 @@ const BlogDetail = ({ data }) => {
   )
 }
 
+BlogDetail.propTypes = {
+   data: PropTypes.shape({
+    allStrapiArticle: PropTypes.shape({
+      nodes: PropTypes.arrayOf(
+        PropTypes.shape({
+          title: PropTypes.string.isRequired,
+          description: PropTypes.string.isRequired,
+          slug: PropTypes.string.isRequired,
+          image: PropTypes.shape({
+            url: PropTypes.string.isRequired,
+            alternativeText: PropTypes.string,
+            localFile: PropTypes.shape({
+              childImageSharp: PropTypes.shape({
+                gatsbyImageData: PropTypes.object.isRequired
+              })
+            })
+          }),
+          imagePage: PropTypes.shape({
+            url: PropTypes.string.isRequired,
+            alternativeText: PropTypes.string,
+            localFile: PropTypes.shape({
+              childImageSharp: PropTypes.shape({
+                gatsbyImageData: PropTypes.object.isRequired
+              })
+            })
+          }),
+          author: PropTypes.arrayOf(
+            PropTypes.shape({
+              name: PropTypes.string.isRequired,
+              subTitle: PropTypes.string,
+              summary: PropTypes.string,
+              image: PropTypes.shape({
+                url: PropTypes.string.isRequired,
+                alternativeText: PropTypes.string,
+                localFile: PropTypes.shape({
+                  childImageSharp: PropTypes.shape({
+                    gatsbyImageData: PropTypes.object.isRequired
+                  })
+                })
+              })
+            })
+          )
+        })
+      )
+    })
+   })
+}
+
 export const query = graphql`
   query($slug: String!) {
     allStrapiArticle:allStrapiEnglishArticle(filter: { slug: { eq: $slug } }) {
@@ -65,6 +113,7 @@ export const query = graphql`
         description
         slug
         image {
+          url
           alternativeText
           localFile {
             childImageSharp {
@@ -73,6 +122,7 @@ export const query = graphql`
           }
         }
         imagePage{
+          url
           alternativeText
           localFile {
             childImageSharp {
@@ -81,6 +131,7 @@ export const query = graphql`
           }
         }
         author {
+          id
           name
           subTitle
           summary

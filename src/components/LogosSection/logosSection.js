@@ -4,7 +4,20 @@ import { useTheme } from "../../context/themeContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
+import PropTypes from "prop-types"
 
+const CustomLeftArrow = ({ onClick }) => {
+  return <FontAwesomeIcon
+    className="react-multiple-carousel__arrow react-multiple-carousel__arrow--left custom-arrow left"
+    icon="fa-solid fa-chevron-left"
+    onClick={() => onClick()} />;
+};
+const CustomRightArrow = ({ onClick }) => {
+  return <FontAwesomeIcon
+    className="react-multiple-carousel__arrow react-multiple-carousel__arrow--right custom-arrow right"
+    icon="fa-solid fa-chevron-right"
+    onClick={() => onClick()} />;
+};
 
 const LogosSection = ({ data }) => {
   const { title, summary, media } = data
@@ -44,18 +57,6 @@ const LogosSection = ({ data }) => {
       items: 1
     }
   };
-  const CustomLeftArrow = ({ onClick }) => {
-    return <FontAwesomeIcon
-      className="react-multiple-carousel__arrow react-multiple-carousel__arrow--left custom-arrow left"
-      icon="fa-solid fa-chevron-left"
-      onClick={() => onClick()} />;
-  };
-  const CustomRightArrow = ({ onClick }) => {
-    return <FontAwesomeIcon
-      className="react-multiple-carousel__arrow react-multiple-carousel__arrow--right custom-arrow right"
-      icon="fa-solid fa-chevron-right"
-      onClick={() => onClick()} />;
-  };
 
   return (
     <div className="logos container py-3 my-3" id={data.strapi_component + "-" + data.id}>
@@ -77,6 +78,34 @@ const LogosSection = ({ data }) => {
 
     </div>
   )
+}
+
+CustomLeftArrow.propTypes = {
+  onClick: PropTypes.func,
+}
+CustomRightArrow.propTypes = {
+  onClick: PropTypes.func
+}
+
+LogosSection.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    summary: PropTypes.string,
+    id: PropTypes.number.isRequired,
+    strapi_component: PropTypes.string.isRequired,
+    media: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        img: PropTypes.shape({
+          url: PropTypes.string
+        }),
+        imageDark: PropTypes.shape({
+          url: PropTypes.string,
+        })
+      })
+    ).isRequired,
+  }).isRequired
 }
 
 export default LogosSection

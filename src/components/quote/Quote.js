@@ -3,10 +3,12 @@ import MarkdownView from "react-showdown"
 import React from "react"
 import { useLandingUrl } from "../../hooks"
 import { Link } from "gatsby"
+import PropTypes from "prop-types"
 
 const Quote = ({
   data: { description, title, variant, profileDescription, videoUrl, button, profile, image, strapi_component, id },
 }) => {
+  // console.log(button.url.startsWith('http'))
 
   const getUrl = useLandingUrl()
   const url = videoUrl?.replace("watch?v=", "embed/")
@@ -111,6 +113,33 @@ Quote.defaultProps = {
   button: {},
   profile: {},
   image: {},
+}
+
+Quote.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    variant: PropTypes.string,
+    profileDescription: PropTypes.string,
+    videoUrl: PropTypes.string,
+    strapi_component: PropTypes.string,
+    id: PropTypes.number,
+    button: PropTypes.shape({
+      content: PropTypes.string.isRequired,
+      english_landing_page: PropTypes.shape({
+        slug: PropTypes.string.isRequired
+      }),
+      url: PropTypes.string,
+    }),
+    profile: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      alternativeText: PropTypes.string,
+    }),
+    image: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      alternativeText: PropTypes.string,
+    })
+  }).isRequired
 }
 
 export default Quote

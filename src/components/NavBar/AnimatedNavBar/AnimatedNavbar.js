@@ -5,6 +5,20 @@ import { Flipper } from "react-flip-toolkit"
 import DropdownContainer from "./DropdownContainer"
 import Dropdown from "./DropdownContainer/Dropdown"
 import { useLandingUrl } from "../../../hooks"
+import PropTypes from "prop-types"
+
+function getDropdown(navItem){
+  return () => (
+    navItem?.dropdown ? (
+      <Dropdown
+        sections={navItem?.dropdownItems}
+        topLevel={navItem?.toplevelItem}
+      />
+    ) : (
+      <Dropdown sections={null} topLevel={null} />
+    )
+  );
+}
 
 const AnimatedNavbar = ({ navbarItems = [], duration }) => {
   const getUrl = useLandingUrl()
@@ -27,13 +41,8 @@ const AnimatedNavbar = ({ navbarItems = [], duration }) => {
       let res = {
         title: navItem.title,
         slug: url(navItem),
-        dropdown: () => {
-          if (navItem.dropdown) {
-            return <Dropdown sections={navItem?.dropdownItems} topLevel={navItem?.toplevelItem} />
-          }
-          return <Dropdown sections={null} topLevel={null} />
-        },
-        isDropdown: navItem?.dropdown
+        dropdown: getDropdown(navItem), 
+        isDropdown: navItem?.dropdown,
       }
 
       return res
@@ -101,7 +110,7 @@ const AnimatedNavbar = ({ navbarItems = [], duration }) => {
               onMouseEnter={onMouseEnter}
               isDropdown={n.isDropdown}
             >
-              {currentIndex === index && (
+              {currentIndex === index ? (
                 <DropdownContainer
                   direction={direction}
                   animatingOut={animationOut}
@@ -110,12 +119,28 @@ const AnimatedNavbar = ({ navbarItems = [], duration }) => {
                   <CurrentDropdown />
                   {PrevDropdown && <PrevDropdown />}
                 </DropdownContainer>
-              )}
+              ) : null}
             </NavbarItem>
           )
         })}
       </Navbar>
     </Flipper>
+  )
+}
+
+AnimatedNavbar.propTypes = {
+  duration: PropTypes.number.isRequired,
+  navbarItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      url: PropTypes.string,
+      dropdown: PropTypes.bool,
+      toplevelItem: PropTypes.object,
+      dropdownItems: PropTypes.array,
+      english_landing_page: PropTypes.shape({
+        slug: PropTypes.string,
+      }),
+    })
   )
 }
 

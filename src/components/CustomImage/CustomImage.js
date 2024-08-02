@@ -5,10 +5,11 @@ import PropTypes from "prop-types"
 const CustomImage = ({ image, className, alt, width, height }) => {
   if (!image) return null
 
+
   const { url, localFile } = image
 
   if (localFile) {
-    const localImage = getImage(localFile)
+    const localImage = getImage(localFile?.childImageSharp?.gatsbyImageData)
 
     return (
       <GatsbyImage

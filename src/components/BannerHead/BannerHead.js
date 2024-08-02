@@ -3,6 +3,7 @@ import "./BannerHead.scss"
 import MarkdownView from "react-showdown"
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
 import { useTheme } from "../../context/themeContext"
+import PropTypes from 'prop-types'
 
 const BannerHead = ({ data }) => {
   const { theme } = useTheme()
@@ -34,11 +35,27 @@ const BannerHead = ({ data }) => {
   }
 
   return (
-    <div class="banner d-flex justify-content-center">
-      <div class="banner__image">{checkImage()}</div>
+    <div className="banner d-flex justify-content-center">
+      <div className="banner__image">{checkImage()}</div>
       {title && <MarkdownView markdown={title}  dangerouslySetInnerHTML={{ __html: title }}/>}
     </div>
   )
+}
+
+BannerHead.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    image: PropTypes.shape({
+      url: PropTypes.string,
+      name: PropTypes.string,
+      localFile: PropTypes.object,
+    }),
+    imageDark: PropTypes.shape({
+      url: PropTypes.string,
+      localFile: PropTypes.object,
+    })
+  })
+
 }
 
 export default BannerHead

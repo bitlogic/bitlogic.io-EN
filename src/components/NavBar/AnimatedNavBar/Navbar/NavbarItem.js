@@ -2,6 +2,9 @@ import { Link } from "gatsby"
 import React from "react"
 import "./navbarItems.scss"
 import { FaAngleDown } from "react-icons/fa";
+import PropTypes from "prop-types"
+
+
 
 const NavbarItem = ({ title, children, index, to, isDropdown, ...props }) => {
   const onMouseEnter = () => {
@@ -25,4 +28,15 @@ const NavbarItem = ({ title, children, index, to, isDropdown, ...props }) => {
     </li>
   )
 }
+
+
+NavbarItem.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.object, 
+  index: PropTypes.number.isRequired,
+  to: PropTypes.string,
+  isDropdown: PropTypes.bool,
+  onMouseEnter: PropTypes.func.isRequired
+}
+
 export default NavbarItem

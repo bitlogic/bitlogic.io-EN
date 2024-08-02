@@ -1,6 +1,7 @@
 import React from "react";
 import { getImage, GatsbyImage } from "gatsby-plugin-image";
 import './Sites.scss'
+import PropTypes from "prop-types"
 
 const Sites = ({ sitesData }) => {
 
@@ -38,6 +39,27 @@ const Sites = ({ sitesData }) => {
       </div>
     </div>
   )
+}
+
+Sites.propTypes = {
+  sitesData: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    websites: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        id: PropTypes.number.isRequired,
+        url: PropTypes.string.isRequired,
+        icon: PropTypes.shape({
+          alternativeText: PropTypes.string,
+          localFile: PropTypes.shape({
+            childImageSharp: PropTypes.shape({
+              gatsbyImageData: PropTypes.object.isRequired
+            })
+          })
+        }),
+      })
+    )
+  }).isRequired
 }
 
 export default Sites;

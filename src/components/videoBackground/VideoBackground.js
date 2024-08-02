@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import ButtonLink from "../ButtonLink/ButtonLink"
 import "./videoBackground.scss"
+import PropTypes from "prop-types"
 
 const VideoBackground = ({ data }) => {
 
@@ -109,6 +110,24 @@ const VideoBackground = ({ data }) => {
       </div>
     </div>
   )
+}
+
+VideoBackground.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.number,
+    videoUrl: PropTypes.string,
+    description: PropTypes.string,
+    strapi_component: PropTypes.string,
+    backgroundImage: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+    }),
+    video: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+    }),
+    button: PropTypes.shape({
+      content: PropTypes.string.isRequired,
+    })
+  })
 }
 
 export default VideoBackground

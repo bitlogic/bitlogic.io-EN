@@ -2,6 +2,8 @@ import { Link } from "gatsby"
 import React from "react"
 import { useLandingUrl } from "../../../hooks"
 import "./subscription.scss"
+import PropTypes from "prop-types"
+
 
 export default function Subscription({ subscription }) {
   const getUrl = useLandingUrl()
@@ -49,4 +51,17 @@ export default function Subscription({ subscription }) {
       </button>
     </div>
   )
+}
+
+Subscription.propTypes = {
+  children: PropTypes.node,
+  subscription: PropTypes.shape({
+    url: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    callToAction: PropTypes.string,
+    landing: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+    })
+
+  })
 }

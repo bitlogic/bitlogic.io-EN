@@ -2,6 +2,7 @@ import { Link } from "gatsby"
 import React from "react"
 import "./Banner.scss"
 import { useLandingUrl } from "../../hooks"
+import PropTypes from "prop-types"
 
 export default function BannerList({ data }) {
   const title = data?.title
@@ -61,4 +62,28 @@ export default function BannerList({ data }) {
       </div>
     </div>
   )
+}
+
+BannerList.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    strapi_component: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    contactForm: PropTypes.bool,
+    concactFormAnchor: PropTypes.string,
+    callToAction: PropTypes.string,
+    Card: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        description: PropTypes.string,
+        english_landing_page: PropTypes.shape({
+          slug: PropTypes.string.isRequired
+        }),
+        icon: PropTypes.shape({
+          alternativeText: PropTypes.string,
+          url: PropTypes.string.isRequired
+        })
+      })
+    )
+  })
 }

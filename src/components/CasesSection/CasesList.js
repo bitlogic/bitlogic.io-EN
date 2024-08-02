@@ -3,6 +3,7 @@ import MarkdownView from "react-showdown"
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
 import { useCases } from "../../hooks/index"
 import "./CasesSection.scss"
+import PropTypes from 'prop-types'
 //import { FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa"
 
 const CasesList = ({data}) => {
@@ -71,6 +72,12 @@ const CasesList = ({data}) => {
       <div className="row">{expendedCards}</div>
     </div>
   )
+}
+
+CasesList.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired
+  })
 }
 
 export default CasesList

@@ -3,6 +3,7 @@ import { useHomePage } from "../../../hooks/index"
 import Layout from "../../layout"
 import { Seo, CustomSection } from "../../index"
 import "./HomeContainer.scss"
+import PropTypes from "prop-types"
 
 const Home = ({ location }) => {
   const data = useHomePage()
@@ -25,6 +26,10 @@ const Home = ({ location }) => {
       />
     </Layout>
   )
+}
+
+Home.propTypes = {
+  location: PropTypes.object.isRequired
 }
 
 export default Home
