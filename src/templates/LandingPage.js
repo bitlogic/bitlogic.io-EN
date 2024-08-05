@@ -57,6 +57,7 @@ export const query = graphql`
           videoUrl
           video {
             url
+            mime
           }
           profile {
             alternativeText

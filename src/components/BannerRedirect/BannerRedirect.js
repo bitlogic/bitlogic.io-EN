@@ -19,20 +19,18 @@ function BannerRedirect() {
     }
   }
 
-  const userLanguage = typeof window !== "undefined" ? navigator?.language : ""
-
   useEffect(() => {
-    if (userLanguage?.startsWith("en")) {
-      closeBanner()
+    const bannerStorage =
+      typeof window !== "undefined"
+        ? localStorage.getItem("BannerRedirect")
+        : undefined
+
+    if (bannerStorage === "closed") {
+      setIsOpen(false)
     }
-  }, [userLanguage])
+  }, [])
 
-  const bannerStorage =
-    typeof window !== "undefined"
-      ? localStorage.getItem("BannerRedirect")
-      : undefined
-
-  if (bannerStorage === "closed" || !isOpen) return null
+  if (!isOpen) return null
 
   return (
     <section className="BannerRedirect container">

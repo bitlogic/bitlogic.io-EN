@@ -3,6 +3,10 @@
 .navbar {
   &-el {
     margin: auto;
+    background: transparent;
+    border: none;
+    width: 100%;
+    cursor: default;
   }
 
   &-list {
@@ -61,7 +65,7 @@
       perspective: 1500px;
 
       @media screen and (max-width: $breakpoint-xl) {
-        display: contents
+        display: contents;
       }
     }
   }

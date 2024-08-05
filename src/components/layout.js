@@ -1,9 +1,12 @@
-import * as React from "react"
+import React, { lazy, Suspense } from "react"
 import Header from "./header"
-import "./layout.scss"
-import Footer from "./Footer/Footer"
 import ThemeProvider from "../context/themeContext"
-import BannerRedirect from "./BannerRedirect/BannerRedirect"
+import Footer from "./Footer/Footer"
+import "./layout.scss"
+import PropTypes from "prop-types"
+import "./FontAwesomeOne/FontAwesomeOne"
+
+const BannerRedirect = lazy(() => import("./BannerRedirect/BannerRedirect"))
 
 const Layout = ({ children, options = {}, location }) => {
   const defaultOptions = {
@@ -21,15 +24,32 @@ const Layout = ({ children, options = {}, location }) => {
     }
   }, [location?.state?.component])
 
+  const userLanguage =
+    typeof window !== "undefined" ? navigator.language : undefined
+
   return (
     <ThemeProvider>
       {options.hasHeader && <Header />}
-      <BannerRedirect />
+      {userLanguage?.startsWith("es") && (
+        <Suspense fallback>
+          <BannerRedirect />
+        </Suspense>
+      )}
       <main>{children}</main>
       {options.hasFooter && <Footer />}
       {/*© {new Date().getFullYear()}, Built with*/}
     </ThemeProvider>
   )
+}
+
+Layout.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  options: PropTypes.object,
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      component: PropTypes.string,
+    }),
+  }),
 }
 
 export default Layout

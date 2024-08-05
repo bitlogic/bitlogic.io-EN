@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import "./NavBar.scss"
 import { Link } from "gatsby"
 import Navbar from "react-bootstrap/Navbar"
@@ -12,10 +12,10 @@ import { useTheme } from "../../context/themeContext"
 import moon from "../../images/moon-solid.svg"
 import sun from "../../images/sun.svg"
 
-const NavBar = () => {
+const NavBar = memo(() => {
   const { theme, toggleTheme } = useTheme()
   const navbarData = useNavbar()
-  const getUrl = useLandingUrl();
+  const getUrl = useLandingUrl()
 
   const menuData = navbarData.allStrapiLayout?.nodes[0].Menu
 
@@ -34,11 +34,9 @@ const NavBar = () => {
         <Link to="/" className="NavBar__Logo">
           {logoLight && (
             <GatsbyImage
+              loading="lazy"
               image={theme === "dark" && logoDark ? logoDark : logoLight}
-              alt={logoLight?.alternativeText
-                ? `${logoLight.alternativeText}`
-                : "Bitlogic - Home"
-              }
+              alt={logoLight?.alternativeText || "Bitlogic - Home"}
               className="logo"
               width={120}
               height={35}
@@ -55,9 +53,7 @@ const NavBar = () => {
             <div className="NavBar_links">
               <AnimatedNavbar
                 // homeComponents={navbarData.allStrapiHome?.nodes[0].body}
-                navbarItems={
-                  menuData
-                }
+                navbarItems={menuData}
                 duration={300}
               />
             </div>
@@ -98,6 +94,6 @@ const NavBar = () => {
       </Navbar>
     </>
   )
-}
+})
 
 export default NavBar
