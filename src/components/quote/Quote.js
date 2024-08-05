@@ -123,7 +123,7 @@ Quote.propTypes = {
     profileDescription: PropTypes.string,
     videoUrl: PropTypes.string,
     strapi_component: PropTypes.string,
-    id: PropTypes.number,
+    id: PropTypes.string,
     button: PropTypes.shape({
       content: PropTypes.string.isRequired,
       english_landing_page: PropTypes.shape({

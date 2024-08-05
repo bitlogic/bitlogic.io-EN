@@ -91,11 +91,11 @@ LogosSection.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string,
     summary: PropTypes.string,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     strapi_component: PropTypes.string.isRequired,
     media: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         img: PropTypes.shape({
           url: PropTypes.string

@@ -8,12 +8,11 @@ import PropTypes from "prop-types"
 const Professionals = ({ data }) => {
   const { title, summary, eng_professionals } = data
   const professionalsData = useProfessionals().allStrapiProfessional?.nodes
-
   const professionalsList = eng_professionals.map(pro =>
     professionalsData?.find(professional => professional.strapiId === pro.id)
   ).slice(0, 6)
 
-  const professionalsCards = professionalsList.map(pro => {
+  const professionalsCards = professionalsList.map((pro) => {
 
     const photo = pro?.photo ? getImage(pro?.photo?.localFile) : undefined
 
@@ -80,10 +79,10 @@ const Professionals = ({ data }) => {
 Professionals.propTypes = {
   title: PropTypes.string,
   summary: PropTypes.string,
-  id: PropTypes.number,
+  id: PropTypes.string,
   strapi_component: PropTypes.string,
   eng_professionals: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     photo: PropTypes.shape({
       localFile: PropTypes.object,
       url: PropTypes.string,

@@ -48,7 +48,7 @@ const FeaturedBlogs = ({ data }) => {
 FeaturedBlogs.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     strapi_component: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
     english_articles: PropTypes.arrayOf(

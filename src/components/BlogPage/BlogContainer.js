@@ -14,7 +14,8 @@ const Blog = () => {
   const blogData = useBlog()
   const data = blogData?.allStrapiBlogCategory?.nodes
   const dataArticles = blogData?.allStrapiArticle?.nodes
-  const filterArticle = data.map(category => dataArticles.filter(article => category.name === article?.blog_category?.name))
+  const defaultCategory = data[0]?.name
+  const filterArticle = data.map(category => dataArticles.filter(article => category.name === article?.blog_category?.name || defaultCategory))
   const { seo, banner, callToAction } = blogData.allStrapiBlogPage.nodes[0]
 
 

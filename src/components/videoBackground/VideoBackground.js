@@ -114,7 +114,7 @@ const VideoBackground = ({ data }) => {
 
 VideoBackground.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     videoUrl: PropTypes.string,
     description: PropTypes.string,
     strapi_component: PropTypes.string,

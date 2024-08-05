@@ -68,7 +68,7 @@ BannerList.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string.isRequired,
     strapi_component: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     contactForm: PropTypes.bool,
     concactFormAnchor: PropTypes.string,
     callToAction: PropTypes.string,
