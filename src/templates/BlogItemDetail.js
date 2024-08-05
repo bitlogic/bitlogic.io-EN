@@ -6,11 +6,18 @@ import MarkdownView from "react-showdown"
 import Layout from "../components/layout"
 import { Seo, BannerTop } from "../components/index.js"
 import "./BlogItemDetail.scss"
-import CustomImage from "../components/CustomImage/CustomImage.js"
 import PropTypes from "prop-types"
+import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 const BlogDetail = ({ data }) => {
-  const { title, description, image, imagePage, author } = data?.allStrapiArticle?.nodes[0] || {}
+  const {
+    title,
+    description,
+    image,
+    imagePage,
+    author,
+    seo,
+  } = data?.allStrapiArticle?.nodes[0] || {}
 
   const bannerTop = imagePage ? { title, imagePage } : { title, image }
 
@@ -18,7 +25,11 @@ const BlogDetail = ({ data }) => {
 
   return (
     <Layout>
-      <Seo title={title} />
+      <Seo
+        title={title}
+        description={seo?.pageDescription}
+        keywords={seo?.pageKeywords}
+      />
       <BannerTop banner={bannerTop} />
       <div className="detail__container row">
         <div className="col-lg-12">
@@ -32,12 +43,13 @@ const BlogDetail = ({ data }) => {
               {author?.map(author => (
                 <div className="detail__box-author">
                   {author.image && (
-                    <div className="detail__box-author-image" key={author.id}>
-                      <CustomImage
-                        image={author?.image?.localFile}
-                        alt={author.image.alternativeText
-                          ? author.image.alternativeText
-                          : author?.name
+                    <div className="detail__box-author-image">
+                      <GatsbyImage
+                        image={getImage(author?.image?.localFile)}
+                        alt={
+                          author.image.alternativeText
+                            ? author.image.alternativeText
+                            : author?.name
                         }
                       />
                     </div>
@@ -75,7 +87,7 @@ BlogDetail.propTypes = {
             })
           }),
           imagePage: PropTypes.shape({
-            url: PropTypes.string.isRequired,
+            url: PropTypes.string,
             alternativeText: PropTypes.string,
             localFile: PropTypes.shape({
               childImageSharp: PropTypes.shape({
@@ -107,11 +119,16 @@ BlogDetail.propTypes = {
 
 export const query = graphql`
   query($slug: String!) {
-    allStrapiArticle:allStrapiEnglishArticle(filter: { slug: { eq: $slug } }) {
+    allStrapiArticle: allStrapiEnglishArticle(filter: { slug: { eq: $slug } }) {
       nodes {
         title
         description
         slug
+        seo {
+          pageTitle
+          pageDescription
+          pageKeywords
+        }
         image {
           url
           alternativeText
@@ -121,8 +138,7 @@ export const query = graphql`
             }
           }
         }
-        imagePage{
-          url
+        imagePage {
           alternativeText
           localFile {
             childImageSharp {
