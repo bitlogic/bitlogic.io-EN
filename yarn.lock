@@ -5863,29 +5863,13 @@ gatsby-plugin-gatsby-cloud@^4.6.0:
     lodash "^4.17.21"
     webpack-assets-manifest "^5.1.0"
 
-gatsby-plugin-google-analytics@^3.12.0:
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-3.15.0.tgz#d4082aae5da89400942259c32e5990873252df15"
-  integrity sha512-4zvc1clwhPTd9nlPYfJSSmGFBwkdPIvatiO6+kWgBDZzIRCwQ0/WAQimQ7DV9Yw8sooaVhjYpFvAYDXUgR9Pow==
-  dependencies:
-    "@babel/runtime" "^7.15.4"
-    minimatch "3.0.4"
-    web-vitals "^1.1.2"
-
-gatsby-plugin-google-gtag@^4.6.0:
+gatsby-plugin-google-tagmanager@^4.25.0:
   version "4.25.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-gtag/-/gatsby-plugin-google-gtag-4.25.0.tgz#cfea9ab34cb9c053440757e76f2863f2aad310bf"
-  integrity sha512-mzhjor5JYct1qQWLKayAHuyOHGHW3TT8Ns5fgdmSlqsmAR0X6dAh7zqSfqbvetGU309PZrRXeOrL92vjmeSIdQ==
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-tagmanager/-/gatsby-plugin-google-tagmanager-4.25.0.tgz#bc24b4c34964813374c4f0d5ef77e5d370b3d675"
+  integrity sha512-9l2AoS2eY7O4hPq+Rp/Q1Gg7KcVb2H3+4a6sE7rF0Vo98LQfdLS8/ED/wSY5fQ5+WVR1h7Sm9OEf3wIjTNGXlA==
   dependencies:
     "@babel/runtime" "^7.15.4"
-    minimatch "^3.1.2"
-
-gatsby-plugin-google-marketing-platform@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-marketing-platform/-/gatsby-plugin-google-marketing-platform-0.2.0.tgz#9550ba4ca37f7d0762b9ce126c8b33b7ae727355"
-  integrity sha512-Hs/Ubu0F/JkCZjB1TZojWSGWWuB6RUw0DYoE2aSLZ/MckLnIlvQDytOXwUZ0JdDcBsQUAZtnfo9BgAIQG8sHtg==
-  dependencies:
-    common-tags "^1.8.0"
+    web-vitals "^1.1.2"
 
 gatsby-plugin-image@^2.6.0:
   version "2.25.0"
@@ -8430,13 +8414,6 @@ mini-css-extract-plugin@1.6.2:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
     webpack-sources "^1.1.0"
-
-minimatch@3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
-  integrity sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
-  dependencies:
-    brace-expansion "^1.1.7"
 
 minimatch@^3.0.4, minimatch@^3.0.5, minimatch@^3.1.1, minimatch@^3.1.2:
   version "3.1.2"
