@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 
 const Navbar = ({ children, onMouseLeave }) => {
   return (
-    <button className="navbar-el" onMouseLeave={onMouseLeave}>
+    <button className="navbar-el" onMouseLeave={onMouseLeave} tabIndex={-1}>
       <ul className="navbar-list">{children}</ul>
     </button>
   )

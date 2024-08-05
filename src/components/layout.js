@@ -1,13 +1,18 @@
-import * as React from "react"
+import React, { lazy, Suspense } from "react"
 import Header from "./header"
-import "./layout.scss"
-import Footer from "./Footer/Footer"
-import ScriptTag from "react-script-tag"
-import useGlobalConfig from "../hooks/useGlobalConfig"
 import ThemeProvider from "../context/themeContext"
+<<<<<<< HEAD
 import BannerRedirect from "./BannerRedirect/BannerRedirect"
 import { Helmet } from 'react-helmet';
 import PropTypes from "prop-types"
+=======
+import Footer from "./Footer/Footer"
+import "./layout.scss"
+import PropTypes from "prop-types"
+import "./FontAwesomeOne/FontAwesomeOne"
+
+const BannerRedirect = lazy(() => import("./BannerRedirect/BannerRedirect"))
+>>>>>>> 331b9fa81e14201d7cf5890dabc42f45354405f2
 
 const Layout = ({ children, options = {}, location }) => {
   const defaultOptions = {
@@ -17,22 +22,6 @@ const Layout = ({ children, options = {}, location }) => {
 
   options = { ...defaultOptions, ...options }
 
-  const config = useGlobalConfig()
-  const scripts = config?.allStrapiGlobalConfig?.nodes.map(item =>
-    item?.script?.map(script =>
-      script.enable === true ? (
-        <ScriptTag
-          key={script.name}
-          type="text/javascript"
-          src={script.src}
-          id={script.name}
-          async
-          defer
-        />
-      ) : null
-    )
-  )
-
   React.useEffect(() => {
     const hash = location?.state?.component
     let el = hash && document.getElementById(hash)
@@ -41,40 +30,17 @@ const Layout = ({ children, options = {}, location }) => {
     }
   }, [location?.state?.component])
 
+  const userLanguage =
+    typeof window !== "undefined" ? navigator.language : undefined
+
   return (
     <ThemeProvider>
-      {scripts}
       {options.hasHeader && <Header />}
-      <BannerRedirect />
-      <Helmet>
-        <script>
-          {`
-            window.pipedriveLeadboosterConfig = {
-              base: 'leadbooster-chat.pipedrive.com',
-              companyId: 10496688,
-              playbookUuid: 'bceb96b4-df95-411f-bada-9b4a525f4b04',
-              version: 2
-            };
-            (function () {
-              var w = window;
-              if (w.LeadBooster) {
-                console.warn('LeadBooster already exists');
-              } else {
-                w.LeadBooster = {
-                  q: [],
-                  on: function (n, h) {
-                    this.q.push({ t: 'o', n: n, h: h });
-                  },
-                  trigger: function (n) {
-                    this.q.push({ t: 't', n: n });
-                  },
-                };
-              }
-            })();
-          `}
-        </script>
-        <script src="https://leadbooster-chat.pipedrive.com/assets/loader.js" async></script>
-      </Helmet>
+      {userLanguage?.startsWith("es") && (
+        <Suspense fallback>
+          <BannerRedirect />
+        </Suspense>
+      )}
       <main>{children}</main>
       {options.hasFooter && <Footer />}
       {/*© {new Date().getFullYear()}, Built with*/}
@@ -87,9 +53,15 @@ Layout.propTypes = {
   options: PropTypes.object,
   location: PropTypes.shape({
     state: PropTypes.shape({
+<<<<<<< HEAD
       component: PropTypes.number
     })
   })
+=======
+      component: PropTypes.string,
+    }),
+  }),
+>>>>>>> 331b9fa81e14201d7cf5890dabc42f45354405f2
 }
 
 export default Layout
