@@ -1,9 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Bitlogic`,
+    title: "Bitlogic | End-to-end software development",
     description: `Bitlogic Web is a company dedicated to the design, engineering, and agile development of software products, specializing in the digital transformation of educational institutions.`,
     author: `Bitlogic.io`,
-    title: "Bitlogic | End-to-end software development",
     siteUrl: process.env.SITE_URL,
     // siteUrl: "https://bitlogic.io",
   },
