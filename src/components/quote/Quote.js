@@ -8,7 +8,6 @@ import PropTypes from "prop-types"
 const Quote = ({
   data: { description, title, variant, profileDescription, videoUrl, button, profile, image, strapi_component, id },
 }) => {
-  // console.log(button.url.startsWith('http'))
 
   const getUrl = useLandingUrl()
   const url = videoUrl?.replace("watch?v=", "embed/")

@@ -1,18 +1,10 @@
 module.exports = {
   siteMetadata: {
-<<<<<<< HEAD
-    title: 'Bitlogic | End-to-end software development',
-    description: `Bitlogic Web is a company dedicated to the design, engineering, and agile development of software products, specializing in the digital transformation of educational institutions.`,
-    author: `Bitlogic.io`,
-    siteUrl: process.env.SITE_URL,    
-    // siteUrl: 'https://bitlogic.io',
-=======
     title: "Bitlogic | End-to-end software development",
     description: `Bitlogic Web is a company dedicated to the design, engineering, and agile development of software products, specializing in the digital transformation of educational institutions.`,
     author: `Bitlogic.io`,
     siteUrl: process.env.SITE_URL,
     // siteUrl: "https://bitlogic.io",
->>>>>>> 331b9fa81e14201d7cf5890dabc42f45354405f2
   },
   plugins: [
     {
@@ -98,11 +90,7 @@ module.exports = {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
         siteUrl: process.env.SITE_URL,
-<<<<<<< HEAD
-        //siteUrl: 'https://bitlogic.io',
-=======
         // siteUrl: "https://bitlogic.io",
->>>>>>> 331b9fa81e14201d7cf5890dabc42f45354405f2
       },
     },
     {
