@@ -147,14 +147,16 @@ const VideoBackground = ({ data }) => {
 
 VideoBackground.propTypes = {
   data: PropTypes.shape({
+    id: PropTypes.string,
+    videoUrl: PropTypes.string,
+    description: PropTypes.string,
+    strapi_component: PropTypes.string,
+    backgroundImage: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+    }),
     video: PropTypes.shape({
       url: PropTypes.string.isRequired,
       mime: PropTypes.string.isRequired,
-    }),
-    videoUrl: PropTypes.string,
-    description: PropTypes.string,
-    backgroundImage: PropTypes.shape({
-      url: PropTypes.string.isRequired,
     }),
     button: PropTypes.shape({
       content: PropTypes.string.isRequired,
@@ -162,8 +164,8 @@ VideoBackground.propTypes = {
       landing_page: PropTypes.shape({
         slug: PropTypes.string.isRequired,
       }),
-    }),
-  }),
+    })
+  })
 }
 
 export default VideoBackground

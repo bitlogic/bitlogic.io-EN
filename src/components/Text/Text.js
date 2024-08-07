@@ -1,6 +1,8 @@
 import React from "react"
 import MarkdownView from "react-showdown"
 import "./Text.scss"
+import PropTypes from "prop-types"
+
 
 export default function Text({ data }) {
   const title = data?.title
@@ -39,4 +41,14 @@ export default function Text({ data }) {
     </div>
 
   )
+}
+
+Text.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    text: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.shape({
+      url: PropTypes.string
+    })
+  })
 }

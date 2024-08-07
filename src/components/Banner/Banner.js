@@ -6,6 +6,7 @@ import Lottie from 'react-lottie'
 import { useTheme } from "../../context/themeContext"
 import { useLandingUrl } from '../../hooks'
 import "./Banner.scss"
+import PropTypes from 'prop-types'
 
 const Banner = ({ data }) => {
   const { theme } = useTheme()
@@ -130,6 +131,26 @@ const Banner = ({ data }) => {
       </div>
     </div>
   )
+}
+
+Banner.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    variant: PropTypes.string.isRequired,
+    summary: PropTypes.string,
+    button: PropTypes.shape({
+      content: PropTypes.string.isRequired,
+      url: PropTypes.string,
+      english_landing_page: PropTypes.shape({
+        slug: PropTypes.string.isRequired
+      })
+    }),
+    animation: PropTypes.object,
+    image: PropTypes.shape({
+      alternativeText: PropTypes.string,
+      url: PropTypes.string,
+    })
+  }).isRequired
 }
 
 export default Banner

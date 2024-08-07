@@ -3,6 +3,7 @@ import { useTheme } from "../../context/themeContext"
 import MarkdownView from "react-showdown"
 import CustomImage from "../CustomImage/CustomImage"
 import CustomLink from "../CustomLink/CustomLink"
+import PropTypes from "prop-types"
 
 const OneSection = ({ data: { dualSectionPart } }) => {
   const { theme } = useTheme()
@@ -57,5 +58,33 @@ const OneSection = ({ data: { dualSectionPart } }) => {
     </div>
   )
 }
+
+OneSection.protoTypes = {
+  data: PropTypes.shape({
+    dualSectionPart: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        image: PropTypes.shape({
+          url: PropTypes.string.isRequired,
+          alternativeText: PropTypes.string,
+        }).isRequired,
+        button: PropTypes.shape({
+          content: PropTypes.string.isRequired,
+          url: PropTypes.string,
+          english_landing_page: PropTypes.shape({
+            slug: PropTypes.string.isRequired
+          })
+        }),
+        backgroundImage: PropTypes.shape({
+          url: PropTypes.string
+        }),
+        backgroundImageDark: PropTypes.shape({
+          url: PropTypes.string
+        })
+      })
+    )
+  })
+} 
 
 export default OneSection

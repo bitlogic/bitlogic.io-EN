@@ -5,6 +5,7 @@ import MarkdownView from "react-showdown"
 import { useLandingUrl } from "../../hooks"
 import { useTheme } from "../../context/themeContext"
 import "./expandGrid.scss"
+import PropTypes from "prop-types"
 
 const ExpandGrid = ({ data }) => {
   const { theme } = useTheme()
@@ -37,6 +38,37 @@ const ExpandGrid = ({ data }) => {
       </div>
     </div>
   )
+}
+
+ExpandGrid.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    callToAction: PropTypes.string,
+    id: PropTypes.number,
+    backgroundImage: PropTypes.shape({
+      url: PropTypes.string,
+    }),
+    backgroundImageDark: PropTypes.shape({
+      url: PropTypes.string,
+    }),
+    items: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string,
+      text: PropTypes.string,
+      landing_page: PropTypes.shape({
+        slug: PropTypes.string.isRequired
+      }),
+      image: PropTypes.shape({
+        alternativeText: PropTypes.string,
+        url: PropTypes.string.isRequired,
+        localFile: PropTypes.shape({
+          childImageSharp: PropTypes.shape({
+            gatsbyImageData: PropTypes.object.isRequired
+          })
+        })
+      })
+    }))
+  })
 }
 
 const createCardFlipId = index => `listItem-${index}`
@@ -76,6 +108,17 @@ const ListItem = ({ index, onClick, data }) => {
       </button>
     </Flipped>
   )
+}
+
+ListItem.propTypes = {
+ index: PropTypes.number,
+ onClick: PropTypes.func,
+ data: PropTypes.shape({
+  title: PropTypes.string.isRequired,
+  image: PropTypes.shape({
+    alternativeText: PropTypes.string,
+  }).isRequired
+ }).isRequired
 }
 
 const ExpandedListItem = ({ index, data, isFirst, callToAction }) => {
@@ -126,6 +169,23 @@ const ExpandedListItem = ({ index, data, isFirst, callToAction }) => {
       </div>
     </Flipped>
   )
+}
+
+ExpandedListItem.propTypes = {
+  index: PropTypes.number,
+  isFirst: PropTypes.bool,
+  callToAction: PropTypes.string,
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string,
+    landing_page: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+    }),
+    image: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      alternativeText: PropTypes.string,
+    })
+  })
 }
 
 const AnimatedList = ({ items, callToAction }) => {
@@ -191,5 +251,16 @@ const AnimatedList = ({ items, callToAction }) => {
     </Flipper>
   )
 }
+
+AnimatedList.propTypes = {
+  callToAction: PropTypes.string,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      length: PropTypes.number
+    })
+  )
+}
+
 
 export default ExpandGrid

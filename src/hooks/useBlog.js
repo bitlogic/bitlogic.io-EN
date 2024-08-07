@@ -11,6 +11,7 @@ const useBlog = () => {
       allStrapiArticle:allStrapiEnglishArticle(sort: { fields: published_at, order: DESC }) {
         nodes {
           title
+          id
           summary
           slug
           image {
@@ -22,7 +23,16 @@ const useBlog = () => {
               }
             }
           }
-          
+          imagePage {
+            url
+            alternativeText
+            localFile {
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
+          }
+            
           blog_category {
             name
           }

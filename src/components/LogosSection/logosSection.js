@@ -100,4 +100,32 @@ const LogosSection = ({ data }) => {
   )
 }
 
+CustomLeftArrow.propTypes = {
+  onClick: PropTypes.func,
+}
+CustomRightArrow.propTypes = {
+  onClick: PropTypes.func
+}
+
+LogosSection.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    summary: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    strapi_component: PropTypes.string.isRequired,
+    media: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        img: PropTypes.shape({
+          url: PropTypes.string
+        }),
+        imageDark: PropTypes.shape({
+          url: PropTypes.string,
+        })
+      })
+    ).isRequired,
+  }).isRequired
+}
+
 export default LogosSection

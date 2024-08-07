@@ -1,7 +1,8 @@
 import React from "react"
-import { useCases } from "../../hooks/index"
+import { getImage, GatsbyImage } from "gatsby-plugin-image"
+import { useCases} from "../../hooks/index"
 import "./CasesSection.scss"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import PropTypes from "prop-types"
 import CustomLink from "../CustomLink/CustomLink"
 
 const CasesSection = ({ data }) => {
@@ -12,15 +13,16 @@ const CasesSection = ({ data }) => {
     casesData.find(ca => ca.strapiId === caso.id)
   )
 
-  const casesCards = casos.map((caso, idx) => {
+  const casesCards = casos.map(caso => {
     const image = getImage(caso?.image?.localFile)
 
     return (
-      <div
-        className={`case col-12 row ${
-          casos.length === 3 ? "col-md-4" : "col-md-6"
-        }`}
-        key={`case-${idx}`}
+      <div key={caso.strapiId}
+        className={`case col-12 row ${casos.length === 3
+          ? "col-md-4"
+          : "col-md-6"
+          }`}
+
       >
         {image && (
           <div className="col-6 col-md-12">
@@ -63,6 +65,31 @@ const CasesSection = ({ data }) => {
       )}
     </div>
   )
+}
+
+CasesSection.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    english_cases: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        image: PropTypes.shape({
+          alternativeText: PropTypes.string,
+          url: PropTypes.string.isRequired,
+          localFile: PropTypes.object,
+        }).isRequired,
+        button: PropTypes.shape({
+          content: PropTypes.string.isRequired,
+          url: PropTypes.string,
+          landing_page: PropTypes.shape({
+            slug: PropTypes.string.isRequired
+          })
+        })
+      })
+    )
+  })
 }
 
 export default CasesSection

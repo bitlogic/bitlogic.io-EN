@@ -23,9 +23,6 @@
       flex-direction: row;
       align-items: center;
       font-size: 18px;
-      // margin-top: 0;
-      // margin-bottom: 0.3rem;
-      // padding-bottom: 0.3rem;
 
       &-inner {
         color: $primary;
@@ -56,6 +53,7 @@
   font-size: 14px;
   padding-bottom: 0.5rem;
   color: $primary;
+  text-align: start;
 }
 
 .navbarItemIcon {

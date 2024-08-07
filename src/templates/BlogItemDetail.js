@@ -4,10 +4,10 @@ import { graphql } from "gatsby"
 // import ReactMarkdown from "react-markdown"
 import MarkdownView from "react-showdown"
 import Layout from "../components/layout"
-import { Seo } from "../components/index.js"
-import { BannerTop } from "../components/index.js"
-import { getImage, GatsbyImage } from "gatsby-plugin-image"
+import { Seo, BannerTop } from "../components/index.js"
 import "./BlogItemDetail.scss"
+import PropTypes from "prop-types"
+import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 const BlogDetail = ({ data }) => {
   const {
@@ -17,7 +17,7 @@ const BlogDetail = ({ data }) => {
     imagePage,
     author,
     seo,
-  } = data?.allStrapiArticle?.nodes[0]
+  } = data?.allStrapiArticle?.nodes[0] || {}
 
   const bannerTop = imagePage ? { title, imagePage } : { title, image }
 
@@ -69,6 +69,54 @@ const BlogDetail = ({ data }) => {
   )
 }
 
+BlogDetail.propTypes = {
+   data: PropTypes.shape({
+    allStrapiArticle: PropTypes.shape({
+      nodes: PropTypes.arrayOf(
+        PropTypes.shape({
+          title: PropTypes.string.isRequired,
+          description: PropTypes.string.isRequired,
+          slug: PropTypes.string.isRequired,
+          image: PropTypes.shape({
+            url: PropTypes.string.isRequired,
+            alternativeText: PropTypes.string,
+            localFile: PropTypes.shape({
+              childImageSharp: PropTypes.shape({
+                gatsbyImageData: PropTypes.object.isRequired
+              })
+            })
+          }),
+          imagePage: PropTypes.shape({
+            url: PropTypes.string,
+            alternativeText: PropTypes.string,
+            localFile: PropTypes.shape({
+              childImageSharp: PropTypes.shape({
+                gatsbyImageData: PropTypes.object.isRequired
+              })
+            })
+          }),
+          author: PropTypes.arrayOf(
+            PropTypes.shape({
+              name: PropTypes.string.isRequired,
+              subTitle: PropTypes.string,
+              summary: PropTypes.string,
+              image: PropTypes.shape({
+                url: PropTypes.string.isRequired,
+                alternativeText: PropTypes.string,
+                localFile: PropTypes.shape({
+                  childImageSharp: PropTypes.shape({
+                    gatsbyImageData: PropTypes.object.isRequired
+                  })
+                })
+              })
+            })
+          )
+        })
+      )
+    })
+   })
+}
+
 export const query = graphql`
   query($slug: String!) {
     allStrapiArticle: allStrapiEnglishArticle(filter: { slug: { eq: $slug } }) {
@@ -82,6 +130,7 @@ export const query = graphql`
           pageKeywords
         }
         image {
+          url
           alternativeText
           localFile {
             childImageSharp {
@@ -98,6 +147,7 @@ export const query = graphql`
           }
         }
         author {
+          id
           name
           subTitle
           summary
