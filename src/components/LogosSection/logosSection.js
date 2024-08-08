@@ -4,6 +4,13 @@ import { useTheme } from "../../context/themeContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
+import PropTypes from "prop-types"
+
+const handleKeyDown = (event, onClick) => {
+  if (event.key === "Enter" || event.key === " ") {
+    onClick()
+  }
+}
 
 const CustomLeftArrow = ({ onClick }) => {
   return (
@@ -13,7 +20,7 @@ const CustomLeftArrow = ({ onClick }) => {
       tabIndex={0}
       aria-hidden={false}
       focusable
-      onKeyDown={event => handleKeyDown(event, onClick())}
+      onKeyDown={event => handleKeyDown(event, onClick)}
       className="react-multiple-carousel__arrow react-multiple-carousel__arrow--left custom-arrow left"
       icon="fa-solid fa-chevron-left"
       onClick={() => onClick()}
@@ -28,6 +35,7 @@ const CustomRightArrow = ({ onClick }) => {
       tabIndex={0}
       aria-hidden={false}
       focusable
+      onKeyDown={event => handleKeyDown(event, onClick)}
       className="react-multiple-carousel__arrow react-multiple-carousel__arrow--right custom-arrow right"
       icon="fa-solid fa-chevron-right"
       onClick={() => onClick()}
@@ -104,7 +112,7 @@ CustomLeftArrow.propTypes = {
   onClick: PropTypes.func,
 }
 CustomRightArrow.propTypes = {
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 }
 
 LogosSection.propTypes = {
@@ -118,14 +126,14 @@ LogosSection.propTypes = {
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         img: PropTypes.shape({
-          url: PropTypes.string
+          url: PropTypes.string,
         }),
         imageDark: PropTypes.shape({
           url: PropTypes.string,
-        })
+        }),
       })
     ).isRequired,
-  }).isRequired
+  }).isRequired,
 }
 
 export default LogosSection
