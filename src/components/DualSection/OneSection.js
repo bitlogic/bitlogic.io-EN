@@ -19,6 +19,7 @@ const OneSection = ({ data: { dualSectionPart } }) => {
     <div
       className="one_sec-background"
       style={{
+        backgroundRepeat: "repeat",
         backgroundPosition: "center",
         backgroundImage: `url(${
           theme === "dark" && backgroundImageDark?.url
@@ -73,18 +74,18 @@ OneSection.protoTypes = {
           content: PropTypes.string.isRequired,
           url: PropTypes.string,
           english_landing_page: PropTypes.shape({
-            slug: PropTypes.string.isRequired
-          })
+            slug: PropTypes.string.isRequired,
+          }),
         }),
         backgroundImage: PropTypes.shape({
-          url: PropTypes.string
+          url: PropTypes.string,
         }),
         backgroundImageDark: PropTypes.shape({
-          url: PropTypes.string
-        })
+          url: PropTypes.string,
+        }),
       })
-    )
-  })
-} 
+    ),
+  }),
+}
 
 export default OneSection
