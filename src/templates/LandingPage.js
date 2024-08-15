@@ -29,19 +29,17 @@ LandingPage.propTypes = {
       nodes: PropTypes.arrayOf(
         PropTypes.shape({
           name: PropTypes.string.isRequired,
-          body: PropTypes.arrayOf(
-            PropTypes.object
-          ),
+          body: PropTypes.arrayOf(PropTypes.object),
           seo: PropTypes.shape({
             pageTitle: PropTypes.string,
             pageDescription: PropTypes.string.isRequired,
-            pageKeywords: PropTypes.string
-          })
+            pageKeywords: PropTypes.string,
+          }),
         })
-      )
-    })
+      ),
+    }),
   }),
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
 }
 
 export const query = graphql`
@@ -70,7 +68,7 @@ export const query = graphql`
           profileDescription
           imagePosition
           form_url
-          contactFormAnchor
+          concactFormAnchor
           contactForm
           color
           callToAction

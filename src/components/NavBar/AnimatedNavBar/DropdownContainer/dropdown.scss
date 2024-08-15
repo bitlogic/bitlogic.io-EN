@@ -28,9 +28,10 @@
         color: $primary;
         padding: 8px 0;
         font-weight: $standard;
+        text-align: start;
 
         &:hover {
-          text-decoration: underline solid $primary
+          text-decoration: underline solid $primary;
         }
       }
 
@@ -67,7 +68,6 @@
     width: 100%;
     height: 100%;
     object-fit: contain !important;
-
   }
 }
 

@@ -83,7 +83,7 @@ const VideoBackground = ({ data }) => {
         backgroundPosition: "center",
       }}
     >
-      <div className="container px-md-0 px-lg-3 videoBackground-container">
+      <div className="container videoBackground-container">
         <section className="videoBackground">
           {video?.url !== null && video?.url !== undefined ? (
             <video
@@ -133,7 +133,7 @@ const VideoBackground = ({ data }) => {
                 <CustomLink
                   content={button.content}
                   url={button?.url}
-                  landing={button?.landing_page}
+                  landing={button?.english_landing_page}
                   className=""
                 />
               )}
@@ -164,8 +164,8 @@ VideoBackground.propTypes = {
       landing_page: PropTypes.shape({
         slug: PropTypes.string.isRequired,
       }),
-    })
-  })
+    }),
+  }),
 }
 
 export default VideoBackground
