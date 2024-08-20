@@ -1,15 +1,15 @@
-import { Link } from "gatsby"
 import React from "react"
-import { useLandingUrl } from "../../../hooks"
 import FaIcon from "../../FaIcon/FaIcon"
 import "./contactData.scss"
+import CustomLink from "../../CustomLink/CustomLink"
+import PropTypes from "prop-types"
 
-export default function ContactData({ contact, navButton, internalLink }) {
-  const getUrl = useLandingUrl()
+export default function ContactData({ contactData, internalLink, navButton }) {
+  if (!contactData) return null
 
-  const contactItems = contact?.iconText.map((item, index) => {
+  const contact = contactData?.iconText.map(item => {
     return (
-      <div className="icon-text d-flex" key={`${item.name}-${index}`}>
+      <div className="icon-text d-flex" key={item.id}>
         <FaIcon type={item.icon.type} code={item.icon.code} />
         {item.name}
       </div>
@@ -17,22 +17,45 @@ export default function ContactData({ contact, navButton, internalLink }) {
   })
 
   return (
-    <>
-      <div className="ContactData__Item">
-        <h6>{contact?.title}</h6>
-        <div className="ContactData__Item__contact">{contactItems}</div>
-
-        <div className="ContactData__Item__link">
-          <Link
-            to={navButton?.landing_page
-              ? getUrl(navButton.landing_page.slug)
-              : `${navButton?.url ? navButton.url : ''}`
-            }
-          >
-            {internalLink?.name}
-          </Link>
-        </div>
-      </div>
-    </>
+    <div className="Footer__contactData">
+      <h6>{contactData?.title}</h6>
+      {contactData?.iconText?.length > 0 && (
+        <div className="Footer__contactData__contact">{contact}</div>
+      )}
+      {navButton && internalLink && (
+        <CustomLink
+          content={internalLink?.name}
+          url={navButton?.url}
+          landing={navButton?.landing_page}
+          className="Footer__contactData__link"
+        />
+      )}
+    </div>
   )
+}
+
+ContactData.propTypes = {
+  contactData: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    iconText: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string.isRequired,
+        icon: PropTypes.shape({
+          type: PropTypes.string.isRequired,
+          code: PropTypes.string.isRequired,
+        }),
+      })
+    ),
+  }),
+  internalLink: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
+  navButton: PropTypes.shape({
+    content: PropTypes.string,
+    url: PropTypes.string,
+    landing_page: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+    }),
+  }),
 }

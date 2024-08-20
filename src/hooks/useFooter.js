@@ -27,6 +27,7 @@ const useFooter = () => {
             contact {
               title
               iconText {
+                id
                 name
                 icon {
                   code
@@ -42,6 +43,7 @@ const useFooter = () => {
             location {
               title
               iconText {
+                id
                 name
                 icon {
                   code
@@ -100,10 +102,9 @@ const useFooter = () => {
             }
           }
         }
-      }          
-    }       
+      }
+    }
   `)
 }
 
 export default useFooter
-

@@ -3,6 +3,7 @@ import React from "react"
 import "./dropdown.scss"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { useLandingUrl } from "../../../../hooks"
+import PropTypes from "prop-types"
 
 const Dropdown = ({ sections, topLevel }) => {
 
@@ -58,8 +59,8 @@ const Dropdown = ({ sections, topLevel }) => {
         )}
         <div className="dropdown_section">
           {sections?.map(section =>
-            <div>
-              <div className="dropdown_elem-link" key={section.id}>
+            <div key={section.id}>
+              <div className="dropdown_elem-link">
                 {section.icon && (
                   <GatsbyImage
                     image={getImage(section.icon.localFile?.childrenImageSharp[0].gatsbyImageData)}
@@ -96,6 +97,41 @@ const Dropdown = ({ sections, topLevel }) => {
         </div>
       </div >
     </div>
+  )
+}
+
+Dropdown.propTypes = {
+  topLevel: PropTypes.shape({
+    text: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    url: PropTypes.string,
+    icon: PropTypes.shape({
+      alternativeText: PropTypes.string,
+      localFile: PropTypes.shape({
+        childrenImageSharp: PropTypes.arrayOf(
+          PropTypes.shape({
+            gatsbyImageData: PropTypes.object.isRequired
+          })
+        )
+      })
+    })
+  }),
+  sections: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      text: PropTypes.string,
+      label: PropTypes.string,
+      icon: PropTypes.shape({
+        alternativeText: PropTypes.string,
+        localFile: PropTypes.shape({
+          childrenImageSharp: PropTypes.arrayOf(
+            PropTypes.shape({
+              gatsbyImageData: PropTypes.object.isRequired
+            })
+          )
+        })
+      })
+    })
   )
 }
 

@@ -13,7 +13,7 @@ const ListItems = ({ data }) => {
   const items = ListItem?.map(item => {
     const content = (
       <>
-        <h3 className="d-flex align-items-center gap-1">
+        <h3 className="d-flex align-items-center">
           <CustomImage
             image={item?.icon}
             alt={item?.icon?.alternativeText || item.title}
@@ -44,7 +44,7 @@ const ListItems = ({ data }) => {
   })
 
   return (
-    <div className="ListItems container py-5">
+    <div className="ListItems container">
       {title && <h2>{title}</h2>}
       {ListItem?.length > 0 && (
         <div className="ListItems__wrapper d-flex flex-column flex-md-row">
@@ -60,7 +60,7 @@ ListItems.propTypes = {
     title: PropTypes.string,
     ListItem: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         description: PropTypes.string,
         english_landing_page: PropTypes.shape({

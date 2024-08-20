@@ -10,12 +10,12 @@ function Seo({ description, lang, meta, title, keywords }) {
     author,
     robots,
     siteMetadata: { siteDesc, siteKeywords, siteTitle },
-  } = data?.allStrapiGlobalSeo?.nodes[0]
+  } = data?.allStrapiGlobalSeo?.nodes[0] || {}
 
-  const metaDescription = description ? description : siteDesc
+  const metaDescription = description || siteDesc
   const defaultTitle = siteTitle
   const preventIndex = robots ? `index, follow` : `noindex, nofollow`
-  const defaultKeywords = keywords ? keywords : siteKeywords
+  const defaultKeywords = keywords || siteKeywords
 
   return (
     <Helmet
@@ -82,6 +82,7 @@ Seo.propTypes = {
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
+  keywords: PropTypes.string
 }
 
 export default Seo

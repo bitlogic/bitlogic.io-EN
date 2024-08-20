@@ -30,10 +30,10 @@ const Blog = () => {
       {data.length > 0 && (
         <div className="blog__container container">
           {filterArticle?.map((category, idx) => (
-            <BlogGrid key={idx} title={category[0]?.blog_category?.name}>
-              {category.map((item, idx) => (
+            <BlogGrid key={data[idx].name} title={category[0]?.blog_category?.name}>
+              {category.map(item => (
                 <BlogArticle
-                  key={idx}
+                  key={item.id}
                   image={item.image}
                   title={item.title}
                   summary={item.summary}

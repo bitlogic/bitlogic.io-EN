@@ -3,6 +3,7 @@ import { useTheme } from "../../context/themeContext"
 import MarkdownView from "react-showdown"
 import CustomImage from "../CustomImage/CustomImage"
 import CustomLink from "../CustomLink/CustomLink"
+import PropTypes from "prop-types"
 
 const OneSection = ({ data: { dualSectionPart } }) => {
   const { theme } = useTheme()
@@ -18,6 +19,7 @@ const OneSection = ({ data: { dualSectionPart } }) => {
     <div
       className="one_sec-background"
       style={{
+        backgroundRepeat: "repeat",
         backgroundPosition: "center",
         backgroundImage: `url(${
           theme === "dark" && backgroundImageDark?.url
@@ -49,13 +51,41 @@ const OneSection = ({ data: { dualSectionPart } }) => {
             image={image}
             width={290}
             height={180}
-            alt={image.alternativeText || title}
+            alt={image?.alternativeText || title}
             className=""
           />
         </div>
       </div>
     </div>
   )
+}
+
+OneSection.protoTypes = {
+  data: PropTypes.shape({
+    dualSectionPart: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        image: PropTypes.shape({
+          url: PropTypes.string.isRequired,
+          alternativeText: PropTypes.string,
+        }).isRequired,
+        button: PropTypes.shape({
+          content: PropTypes.string.isRequired,
+          url: PropTypes.string,
+          english_landing_page: PropTypes.shape({
+            slug: PropTypes.string.isRequired,
+          }),
+        }),
+        backgroundImage: PropTypes.shape({
+          url: PropTypes.string,
+        }),
+        backgroundImageDark: PropTypes.shape({
+          url: PropTypes.string,
+        }),
+      })
+    ),
+  }),
 }
 
 export default OneSection

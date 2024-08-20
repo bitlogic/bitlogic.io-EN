@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "gatsby"
 import "./Pagination.scss"
+import PropTypes from "prop-types"
 
 const Pagination = ({ posts, postPerPage, inicialState }) => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -51,6 +52,17 @@ const Pagination = ({ posts, postPerPage, inicialState }) => {
         </ul>
       </nav>
     </>
+  )
+}
+
+Pagination.propTypes = {
+  postPerPage: PropTypes.string.isRequired,
+  inicialState: PropTypes.bool,
+  posts: PropTypes.arrayOf(
+    PropTypes.shape({
+      length: PropTypes.number,
+      slice: PropTypes.func
+    }).isRequired
   )
 }
 

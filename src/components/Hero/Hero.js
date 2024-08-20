@@ -1,5 +1,6 @@
 import React from "react"
 import "./Hero.scss"
+import PropTypes from "prop-types"
 
 const Hero = ({
   data: { title, listAnimation, subtitle, image, button, strapi_component, id },
@@ -22,6 +23,23 @@ const Hero = ({
       </div>
     </div>
   )
+}
+
+Hero.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    listAnimation: PropTypes.string,
+    subtitle: PropTypes.string,
+    strapi_component: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    image: PropTypes.shape({
+      url: PropTypes.string
+    }),
+    button: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired
+    })
+  }).isRequired
 }
 
 export default Hero

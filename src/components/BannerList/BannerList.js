@@ -2,20 +2,21 @@ import { Link } from "gatsby"
 import React from "react"
 import "./Banner.scss"
 import { useLandingUrl } from "../../hooks"
+import PropTypes from "prop-types"
+import CustomImage from "../CustomImage/CustomImage"
 
 export default function BannerList({ data }) {
-  const title = data?.title
+  const { title, Card, contactForm, concactFormAnchor, callToAction } = data
   const getUrl = useLandingUrl()
-  const cards = data?.Card.map(item => {
+  const cards = Card.map(item => {
     return (
       <div className="card_item d-flex mb-2" key={item.title}>
         {item.icon && (
           <div className="card_item">
-            <img className="d-block" src={item.icon?.url} placeholder="blurred"
-              alt={item.icon?.alternativeText
-                ? item.icon.alternativeText
-                : `${item.icon.name}-${item.icon.id}`
-              }
+            <CustomImage
+              image={item?.icon}
+              alt={item?.icon?.alternativeText || item?.icon?.name}
+              className={"d-block"}
               width={70}
               height={70}
             />
@@ -39,26 +40,40 @@ export default function BannerList({ data }) {
   })
 
   return (
-    <div className="container pt-5" id={data.strapi_component + "-" + data.id}>
+    <div className="container pt-5">
       <div className="bannerList d-md-flex flex-row">
         <h1 className="bannerList__title col-md-6 col-xl-6 align-self-center mb-4">
           {title}
-          {data.contactForm && (
-            <button>
-              <a href={data.concactFormAnchor}>{data.callToAction}</a>
-            </button>
+          {contactForm && concactFormAnchor && callToAction && (
+            <a href={concactFormAnchor}>{callToAction}</a>
           )}
         </h1>
-        <div className="bannerList__cards col-md-6 col-xl-6">
-          {cards}
-        </div>
-        {data.contactForm && (
-          <button className="bannerList__buttonMobile">
-            <a href={data.concactFormAnchor}>{data.callToAction}</a>
-          </button>
-        )}
-
+        <div className="bannerList__cards col-md-6 col-xl-6">{cards}</div>
       </div>
     </div>
   )
+}
+
+BannerList.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    strapi_component: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    contactForm: PropTypes.bool,
+    concactFormAnchor: PropTypes.string,
+    callToAction: PropTypes.string,
+    Card: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+        description: PropTypes.string,
+        english_landing_page: PropTypes.shape({
+          slug: PropTypes.string.isRequired,
+        }),
+        icon: PropTypes.shape({
+          alternativeText: PropTypes.string,
+          url: PropTypes.string.isRequired,
+        }),
+      })
+    ),
+  }),
 }

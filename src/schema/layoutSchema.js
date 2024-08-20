@@ -122,7 +122,7 @@ type StrapiLayoutNavbarNavButton {
   id: Int
   content: String
   url: String
-  landing_page: StrapiLayoutNavbarNavButtonLanding_page
+  english_landing_page: StrapiLayoutNavbarNavButtonLanding_page
 }
 
 type StrapiLayoutNavbarNavButtonLanding_page {
@@ -152,7 +152,7 @@ type StrapiLayoutNavbarNavButtonLanding_page {
   type StrapiLayoutNavbarNavbarItem {
     id: Int
     label: String
-    landing: StrapiLayoutNavbarNavbarItemLanding
+    english_landing_page: StrapiLayoutNavbarNavbarItemLanding
     url: String
     visible: Boolean
     dropdown: Boolean

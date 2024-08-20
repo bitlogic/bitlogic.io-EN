@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from "gatsby"
 const useNavbar = () => {
   return useStaticQuery(graphql`
     {
-      allStrapiLayout:allStrapiEnglishLayout {
+      allStrapiLayout: allStrapiEnglishLayout {
         nodes {
           navbar {
             navButton {
@@ -17,9 +17,7 @@ const useNavbar = () => {
               alternativeText
               localFile {
                 childImageSharp {
-                  gatsbyImageData(
-                    placeholder: BLURRED
-                  )
+                  gatsbyImageData(placeholder: BLURRED)
                 }
               }
             }
@@ -27,9 +25,7 @@ const useNavbar = () => {
               alternativeText
               localFile {
                 childImageSharp {
-                  gatsbyImageData(
-                    placeholder: BLURRED
-                  )
+                  gatsbyImageData(placeholder: BLURRED)
                 }
               }
             }
@@ -53,9 +49,7 @@ const useNavbar = () => {
                 url
                 localFile {
                   childrenImageSharp {
-                    gatsbyImageData(
-                      placeholder: BLURRED
-                    )
+                    gatsbyImageData(placeholder: BLURRED)
                   }
                 }
               }
@@ -71,9 +65,7 @@ const useNavbar = () => {
               icon {
                 localFile {
                   childrenImageSharp {
-                    gatsbyImageData(
-                      placeholder: BLURRED
-                    )
+                    gatsbyImageData(placeholder: BLURRED)
                   }
                 }
                 alternativeText
@@ -89,20 +81,13 @@ const useNavbar = () => {
         nodes {
           name
           slug
-          body
           parent_page {
             slug
           }
         }
       }
-      allStrapiHome:allStrapiEnglishHome {
-        nodes {
-          body
-        }
-      }
     }
-    
   `)
 }
 
-export default useNavbar;
+export default useNavbar

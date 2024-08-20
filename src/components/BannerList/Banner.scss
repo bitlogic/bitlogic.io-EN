@@ -30,21 +30,10 @@
       width: 80px;
       height: 80px;
       object-fit: contain;
-      // aspect-ratio: 1;
     }
 
     p {
       margin: 0;
-    }
-  }
-
-  button {
-    margin-top: 10px;
-    @include primaryBtn;
-    align-self: baseline;
-
-    a {
-      color: inherit;
     }
   }
 
@@ -54,31 +43,15 @@
     font-weight: 700;
     text-align: left;
     text-transform: uppercase;
-  }
-}
 
-@media screen and (min-width: $breakpoint-xl) {
-  .bannerList {
-    &__buttonMobile {
-      display: none;
-    }
-  }
-}
+    a {
+      margin-top: 10px;
+      @include primaryBtn;
+      align-self: baseline;
 
-@media screen and (max-width: $breakpoint-md) {
-  .bannerList {
-    &__title {
-      button {
+      @media screen and (max-width: ($breakpoint-md - 1px)) {
         display: none;
       }
-    }
-  }
-}
-
-@media screen and (min-width: $breakpoint-md) {
-  .bannerList {
-    &__buttonMobile {
-      display: none;
     }
   }
 }

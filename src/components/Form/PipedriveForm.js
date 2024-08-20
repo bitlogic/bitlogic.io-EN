@@ -3,6 +3,7 @@ import MarkdownView from "react-showdown"
 import Lottie from 'react-lottie'
 import "./Form.scss"
 import { Helmet } from "react-helmet"
+import PropTypes from "prop-types"
 
 const PipedriveForm = ({ data }) => {
   const { title, content, form_url, image, animation } = data;
@@ -81,6 +82,19 @@ const PipedriveForm = ({ data }) => {
       </div>
     </section>
   )
+}
+
+PipedriveForm.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    form_url: PropTypes.string.isRequired,
+    animation: PropTypes.object,
+    image: PropTypes.shape({
+      url: PropTypes.string,
+      alternativeText: PropTypes.string,
+    })
+  }).isRequired
 }
 
 export default PipedriveForm;

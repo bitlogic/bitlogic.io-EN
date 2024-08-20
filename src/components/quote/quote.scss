@@ -122,11 +122,6 @@
 @media (min-width: $breakpoint-xl) {
   .quote {
     &-body {
-
-      // img {
-      //   max-height: 650px;
-      // }
-
       iframe {
         min-height: 500px !important;
       }
@@ -174,16 +169,4 @@
       margin-bottom: 0;
     }
   }
-
-  /*  @media screen and (max-width: calc($breakpoint-xl - 3px)) {
-    .variant {
-      &-quote {
-        grid-template-columns: 1fr 2fr !important;
-      }
-
-      &-media {
-        grid-template-columns: 2fr 1fr;
-      }
-    }
-  } */
 }

@@ -1,5 +1,6 @@
 import React from "react"
 import "./animatedTransitionContinous.scss"
+import PropTypes from "prop-types"
 
 const AnimatedTransitionContinous = ({
   data: { text = "", image, imagePosition, color },
@@ -44,6 +45,17 @@ const AnimatedTransitionContinous = ({
       </div>
     </div>
   )
+}
+AnimatedTransitionContinous.propTypes = {
+  data: PropTypes.shape({
+    text: PropTypes.string,
+    color: PropTypes.string,
+    imagePosition: PropTypes.string,
+    image: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      alternativeText: PropTypes.string,
+    })
+  })
 }
 
 export default AnimatedTransitionContinous
