@@ -6,10 +6,7 @@ import PropTypes from "prop-types"
 
 const LandingPage = ({ data, location }) => {
   const pageData = data?.allStrapiLandingPage?.nodes[0]
-  const {
-    pageKeywords,
-    pageDescription,
-  } = data?.allStrapiLandingPage?.nodes[0].seo
+  const { pageKeywords, pageDescription } = pageData?.seo || {}
 
   return (
     <Layout location={location} options={{ hasHeader: true }}>
