@@ -1,12 +1,22 @@
-import React from "react"
+import React, { useRef } from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
-import { CustomSection, Seo } from "../components/index"
+import { CustomSection, Seo, Navigation } from "../components/index"
 import PropTypes from "prop-types"
 
 const LandingPage = ({ data, location }) => {
-  const pageData = data?.allStrapiLandingPage?.nodes[0]
-  const { pageKeywords, pageDescription } = pageData?.seo || {}
+  const { name, slug, parent_page, seo, body, navigation } =
+    data?.allStrapiLandingPage?.nodes[0] || {}
+
+  const wrapperRef = useRef(null)
+  const landing = {
+    name,
+    slug,
+    parent_page,
+    ref: wrapperRef,
+  }
+
+  const { pageKeywords, pageDescription } = seo || {}
 
   return (
     <Layout location={location} options={{ hasHeader: true }}>
@@ -15,7 +25,22 @@ const LandingPage = ({ data, location }) => {
         description={pageDescription}
         keywords={pageKeywords}
       />
-      <CustomSection sections={pageData?.body} />
+      {body?.length > 0 && navigation ? (
+        <>
+          <CustomSection sections={body.slice(0, 1)} />
+          <div
+            ref={wrapperRef}
+            className="wrapper-container d-flex flex-column flex-lg-row"
+          >
+            <Navigation data={navigation} landing={landing} />
+            <div className="content-section flex-grow-1">
+              <CustomSection sections={body.slice(1)} />
+            </div>
+          </div>
+        </>
+      ) : (
+        <CustomSection sections={body} />
+      )}
     </Layout>
   )
 }
@@ -46,9 +71,29 @@ export const query = graphql`
     ) {
       nodes {
         name
+        slug
+        parent_page {
+          slug
+        }
         seo {
           pageKeywords
           pageDescription
+        }
+        navigation {
+          title
+          showSiblingPages
+          relatedPages {
+            title
+            pages {
+              id
+              content
+              url
+              landing_page {
+                name
+                slug
+              }
+            }
+          }
         }
         body {
           id

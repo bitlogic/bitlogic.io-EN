@@ -3,6 +3,7 @@ type StrapiEnglishLandingPage implements Node {
     body: [BodyComponent]
     name: String
     slug: String
+    navigation: StrapiNavigation
     parent_page: StrapiEnglishLandingPage
     published_at(
       formatString: String
@@ -35,6 +36,17 @@ type StrapiEnglishLandingPage implements Node {
     pageTitle: String
     pageDescription: String
     pageKeywords: String
+  }
+
+  type StrapiNavigation {
+    title: String
+    showSiblingPages: Boolean
+    relatedPages: StrapiNavigationRelatedPages
+  }
+
+  type StrapiNavigationRelatedPages {
+    title: String
+    pages: [Button]
   }
 
   type BodyComponent {

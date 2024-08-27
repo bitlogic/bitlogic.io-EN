@@ -14,10 +14,11 @@ import AnimatedTransitionContinous from "./animatedTransitionContinous/AnimatedT
 import BannerTop from "./Banners/BannerTop"
 import BannerHead from "./BannerHead/BannerHead"
 import Professionals from "./Professionals/Professionals"
-import FeaturedBlogs from './FeaturedBlogs/FeaturedBlogs'
-import Layaout from './layout'
+import FeaturedBlogs from "./FeaturedBlogs/FeaturedBlogs"
+import Layaout from "./layout"
 import PipedriveForm from "./Form/PipedriveForm"
 import CustomSection from "./CustomSection/CustomSection"
+import Navigation from "./Navigation/Navigation"
 
 export {
   CasesList,
@@ -40,4 +41,5 @@ export {
   Layaout,
   PipedriveForm,
   CustomSection,
+  Navigation,
 }
