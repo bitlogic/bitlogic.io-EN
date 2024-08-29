@@ -115,7 +115,6 @@ export const query = graphql`
           color
           callToAction
           allBlog
-          allCases
           videoUrl
           video {
             url
@@ -226,51 +225,6 @@ export const query = graphql`
               localFile {
                 childImageSharp {
                   gatsbyImageData
-                }
-              }
-            }
-          }
-          english_cases {
-            id
-            title
-            subtitle
-            description
-            button {
-              content
-              url
-              english_landing_page {
-                slug
-              }
-            }
-            image {
-              alternativeText
-              url
-              localFile {
-                childImageSharp {
-                  gatsbyImageData
-                }
-              }
-            }
-            quote {
-              title
-              description
-              variant
-              profile {
-                alternativeText
-                url
-                localFile {
-                  childImageSharp {
-                    gatsbyImageData
-                  }
-                }
-              }
-              image {
-                alternativeText
-                url
-                localFile {
-                  childImageSharp {
-                    gatsbyImageData
-                  }
                 }
               }
             }

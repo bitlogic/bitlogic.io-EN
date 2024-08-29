@@ -67,7 +67,6 @@ type StrapiEnglishLandingPage implements Node {
     content: String
     animation: JSON
     contactForm: Boolean
-    allCases: Boolean
     allBlog: Boolean
     show: Boolean
     image: LocalFile
@@ -82,7 +81,6 @@ type StrapiEnglishLandingPage implements Node {
     dualSectionPart: [SectionPart]
     Card: [Card]
     ListItem: [Card]
-    english_cases: [StrapiEnglishCase]
     eng_professionals: [StrapiEnglishProfessional]
     english_articles: [StrapiEnglishArticle]
   }
