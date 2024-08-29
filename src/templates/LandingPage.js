@@ -20,11 +20,7 @@ const LandingPage = ({ data, location }) => {
 
   return (
     <Layout location={location} options={{ hasHeader: true }}>
-      <Seo
-        title={pageData.name}
-        description={pageDescription}
-        keywords={pageKeywords}
-      />
+      <Seo title={name} description={pageDescription} keywords={pageKeywords} />
       {body?.length > 0 && navigation ? (
         <>
           <CustomSection sections={body.slice(0, 1)} />
