@@ -21,7 +21,7 @@ const LandingPage = ({ data, location }) => {
   return (
     <Layout location={location} options={{ hasHeader: true }}>
       <Seo
-        title={pageData.name}
+        title={name}
         description={pageDescription}
         keywords={pageKeywords}
       />
