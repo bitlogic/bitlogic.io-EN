@@ -2,11 +2,11 @@ import React from "react"
 import { Link } from "gatsby"
 import MarkdownView from "react-showdown"
 //import ReactMarkdown from "react-markdown"
-import Lottie from 'react-lottie'
+import Lottie from "react-lottie"
 import { useTheme } from "../../context/themeContext"
-import { useLandingUrl } from '../../hooks'
+import { useLandingUrl } from "../../hooks"
 import "./Banner.scss"
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types"
 
 const Banner = ({ data }) => {
   const { theme } = useTheme()
@@ -17,7 +17,7 @@ const Banner = ({ data }) => {
     loop: true,
     autoplay: true,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
+      preserveAspectRatio: "xMidYMid slice",
     },
   }
 
@@ -33,9 +33,10 @@ const Banner = ({ data }) => {
         </Link>
       )
     } else if (button?.url) {
-      if (button.url?.startsWith('https')) {
+      if (button.url?.startsWith("https")) {
         return (
-          <a href={button.url}
+          <a
+            href={button.url}
             target="_blank"
             rel="noreferrer"
             className="button"
@@ -58,7 +59,7 @@ const Banner = ({ data }) => {
     }
 
     return null
-  };
+  }
 
   const showTitle = () => {
     if (variant === "hero") {
@@ -69,37 +70,42 @@ const Banner = ({ data }) => {
   }
 
   return (
-    <div
-      className={`banner ${variant}`}
-      id={data?.strapi_component + "-" + data?.id}
-    >
+    <div className={`banner ${variant}`}>
       <div className="container banner__wrapper">
-        {variant === "background" ?
+        {variant === "background" ? (
           <div
             className="bgImage"
             style={{
               backgroundImage: `url(${image?.url})`,
-              backgroundPosition: 'center',
+              backgroundPosition: "center",
               // backgroundSize: 'cover',
-            }}>
+            }}
+          >
             <div className="title-background ">
-              <h1 style={{ color: theme === 'dark' ? 'white' : '#3F6BE8' }}>{title}</h1>
-              {<MarkdownView
-                markdown={summary}
-                dangerouslySetInnerHTML={{ __html: summary }}
-              />}
+              <h1 style={{ color: theme === "dark" ? "white" : "#3F6BE8" }}>
+                {title}
+              </h1>
+              {
+                <MarkdownView
+                  markdown={summary}
+                  dangerouslySetInnerHTML={{ __html: summary }}
+                />
+              }
               <Button button={button} />
             </div>
-          </div> :
+          </div>
+        ) : (
           <>
             <div className="title container-md">
               <div>
                 {/* {variant === "hero" ? <h1>{title}</h1> : <h2>{title}</h2>} */}
                 {showTitle()}
-                {<MarkdownView
-                  markdown={summary}
-                  dangerouslySetInnerHTML={{ __html: summary }}
-                />}
+                {
+                  <MarkdownView
+                    markdown={summary}
+                    dangerouslySetInnerHTML={{ __html: summary }}
+                  />
+                }
                 {/* <ReactMarkdown source={summary} className="banner-markdown" />*/}
                 <Button button={button} />
               </div>
@@ -109,25 +115,28 @@ const Banner = ({ data }) => {
               {/* <img src={image?.url} alt={title} /> */}
               {image?.url ? (
                 <img
-                  src={theme === "dark" && imageDark ? imageDark?.url : image?.url}
+                  src={
+                    theme === "dark" && imageDark ? imageDark?.url : image?.url
+                  }
                   width={290}
                   height={200}
-                  alt={image?.alternativeText
-                    ? image.alternativeText
-                    : title
-                  }
-                />) : (
+                  alt={image?.alternativeText ? image.alternativeText : title}
+                />
+              ) : (
                 <div className="cont-lottie">
-                  {animation && <Lottie options={{
-                    ...defaultOptions,
-                    animationData: animation,
-                  }}
-                  />}
+                  {animation && (
+                    <Lottie
+                      options={{
+                        ...defaultOptions,
+                        animationData: animation,
+                      }}
+                    />
+                  )}
                 </div>
               )}
             </div>
           </>
-        }
+        )}
       </div>
     </div>
   )
@@ -142,15 +151,15 @@ Banner.propTypes = {
       content: PropTypes.string.isRequired,
       url: PropTypes.string,
       english_landing_page: PropTypes.shape({
-        slug: PropTypes.string.isRequired
-      })
+        slug: PropTypes.string.isRequired,
+      }),
     }),
     animation: PropTypes.object,
     image: PropTypes.shape({
       alternativeText: PropTypes.string,
       url: PropTypes.string,
-    })
-  }).isRequired
+    }),
+  }).isRequired,
 }
 
 export default Banner
