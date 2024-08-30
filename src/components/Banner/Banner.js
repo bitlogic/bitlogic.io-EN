@@ -94,6 +94,20 @@ Banner.propTypes = {
     image: PropTypes.shape({
       alternativeText: PropTypes.string,
       url: PropTypes.string,
+      localFile: PropTypes.shape({
+        childImageSharp: PropTypes.shape({
+          gatsbyImageData: PropTypes.object,
+        }),
+      }),
+    }),
+    imageDark: PropTypes.shape({
+      alternativeText: PropTypes.string,
+      url: PropTypes.string,
+      localFile: PropTypes.shape({
+        childImageSharp: PropTypes.shape({
+          gatsbyImageData: PropTypes.object,
+        }),
+      }),
     }),
   }).isRequired,
 }
