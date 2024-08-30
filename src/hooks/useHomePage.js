@@ -30,7 +30,6 @@ const useHomePage = () => {
             color
             callToAction
             allBlog
-            allCases
             videoUrl
             video {
               url
@@ -141,51 +140,6 @@ const useHomePage = () => {
                 localFile {
                   childImageSharp {
                     gatsbyImageData
-                  }
-                }
-              }
-            }
-            english_cases {
-              id
-              title
-              subtitle
-              description
-              button {
-                content
-                url
-                english_landing_page {
-                  slug
-                }
-              }
-              image {
-                alternativeText
-                url
-                localFile {
-                  childImageSharp {
-                    gatsbyImageData
-                  }
-                }
-              }
-              quote {
-                title
-                description
-                variant
-                profile {
-                  alternativeText
-                  url
-                  localFile {
-                    childImageSharp {
-                      gatsbyImageData
-                    }
-                  }
-                }
-                image {
-                  alternativeText
-                  url
-                  localFile {
-                    childImageSharp {
-                      gatsbyImageData
-                    }
                   }
                 }
               }
