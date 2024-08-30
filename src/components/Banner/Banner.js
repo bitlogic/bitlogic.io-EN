@@ -31,48 +31,46 @@ const Banner = ({ data }) => {
   return (
     <div className={`banner ${variant}`}>
       <div className="container banner__wrapper">
-        <>
-          <div className="title container-md">
-            <div>
-              {/* {variant === "hero" ? <h1>{title}</h1> : <h2>{title}</h2>} */}
-              {showTitle()}
-              {
-                <MarkdownView
-                  markdown={summary}
-                  dangerouslySetInnerHTML={{ __html: summary }}
-                />
-              }
-              <CustomLink
-                content={button?.content}
-                url={button?.url}
-                landing={button?.english_landing_page}
-                className={"button"}
+        <div className="title container-md">
+          <div>
+            {/* {variant === "hero" ? <h1>{title}</h1> : <h2>{title}</h2>} */}
+            {showTitle()}
+            {
+              <MarkdownView
+                markdown={summary}
+                dangerouslySetInnerHTML={{ __html: summary }}
               />
-            </div>
+            }
+            <CustomLink
+              content={button?.content}
+              url={button?.url}
+              landing={button?.english_landing_page}
+              className={"button"}
+            />
           </div>
+        </div>
 
-          <div className="imagen">
-            {image ? (
-              <CustomImage
-                image={theme === "dark" && imageDark ? imageDark : image}
-                width={290}
-                height={200}
-                alt={image?.alternativeText || title}
-              />
-            ) : (
-              <div className="cont-lottie">
-                {animation && (
-                  <Lottie
-                    options={{
-                      ...defaultOptions,
-                      animationData: animation,
-                    }}
-                  />
-                )}
-              </div>
-            )}
-          </div>
-        </>
+        <div className="imagen">
+          {image ? (
+            <CustomImage
+              image={theme === "dark" && imageDark ? imageDark : image}
+              width={290}
+              height={200}
+              alt={image?.alternativeText || title}
+            />
+          ) : (
+            <div className="cont-lottie">
+              {animation && (
+                <Lottie
+                  options={{
+                    ...defaultOptions,
+                    animationData: animation,
+                  }}
+                />
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
