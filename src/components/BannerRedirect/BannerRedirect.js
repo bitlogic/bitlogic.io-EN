@@ -47,10 +47,11 @@ function BannerRedirect() {
             <MdClose />
           </button>
         </div>
-        <button tabIndex={-1} className="BannerRedirect__wrapper__btn">
-          <a href={REDIRECT.url} onClick={e => redirect(e)}>
-            {REDIRECT.callToAction}
-          </a>
+        <button
+          onClick={e => redirect(e)}
+          className="BannerRedirect__wrapper__btn"
+        >
+          {REDIRECT.callToAction}
         </button>
       </div>
     </section>
