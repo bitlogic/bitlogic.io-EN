@@ -30,9 +30,8 @@ function BannerRedirect() {
     }
   }, [])
 
-  const redirect = event => {
+  const redirect = () => {
     closeBanner()
-    event.preventDefault()
     window.location.href = REDIRECT.url
   }
 
@@ -48,7 +47,7 @@ function BannerRedirect() {
           </button>
         </div>
         <button
-          onClick={e => redirect(e)}
+          onClick={() => redirect()}
           className="BannerRedirect__wrapper__btn"
         >
           {REDIRECT.callToAction}
