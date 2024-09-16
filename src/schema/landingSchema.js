@@ -119,6 +119,7 @@ type StrapiEnglishLandingPage implements Node {
   }
 
   type Button {
+    id: ID
     content: String!
     url: String
     english_landing_page: StrapiEnglishLandingPage
