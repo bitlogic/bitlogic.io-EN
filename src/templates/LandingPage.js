@@ -84,7 +84,7 @@ export const query = graphql`
               id
               content
               url
-              landing_page {
+              english_landing_page {
                 name
                 slug
               }
