@@ -25,7 +25,7 @@ export default function Location({ locationData }) {
 
 Location.propTypes = {
   locationData: PropTypes.shape({
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     iconText: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,
