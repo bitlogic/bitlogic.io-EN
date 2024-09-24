@@ -30,6 +30,11 @@ function BannerRedirect() {
     }
   }, [])
 
+  const redirect = () => {
+    closeBanner()
+    window.location.href = REDIRECT.url
+  }
+
   if (!isOpen) return null
 
   return (
@@ -42,10 +47,10 @@ function BannerRedirect() {
           </button>
         </div>
         <button
+          onClick={() => redirect()}
           className="BannerRedirect__wrapper__btn"
-          onClick={() => closeBanner()}
         >
-          <a href={REDIRECT.url}>{REDIRECT.callToAction}</a>
+          {REDIRECT.callToAction}
         </button>
       </div>
     </section>

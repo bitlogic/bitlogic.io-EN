@@ -3,6 +3,7 @@ type StrapiEnglishLandingPage implements Node {
     body: [BodyComponent]
     name: String
     slug: String
+    navigation: StrapiNavigation
     parent_page: StrapiEnglishLandingPage
     published_at(
       formatString: String
@@ -37,6 +38,17 @@ type StrapiEnglishLandingPage implements Node {
     pageKeywords: String
   }
 
+  type StrapiNavigation {
+    title: String
+    showSiblingPages: Boolean
+    relatedPages: StrapiNavigationRelatedPages
+  }
+
+  type StrapiNavigationRelatedPages {
+    title: String
+    pages: [Button]
+  }
+
   type BodyComponent {
     id: ID!
     title: String
@@ -55,7 +67,6 @@ type StrapiEnglishLandingPage implements Node {
     content: String
     animation: JSON
     contactForm: Boolean
-    allCases: Boolean
     allBlog: Boolean
     show: Boolean
     image: LocalFile
@@ -70,7 +81,6 @@ type StrapiEnglishLandingPage implements Node {
     dualSectionPart: [SectionPart]
     Card: [Card]
     ListItem: [Card]
-    english_cases: [StrapiEnglishCase]
     eng_professionals: [StrapiEnglishProfessional]
     english_articles: [StrapiEnglishArticle]
   }
@@ -109,6 +119,7 @@ type StrapiEnglishLandingPage implements Node {
   }
 
   type Button {
+    id: ID
     content: String!
     url: String
     english_landing_page: StrapiEnglishLandingPage

@@ -1,6 +1,4 @@
 import Seo from "./Seo/Seo"
-import CasesSection from "./CasesSection/CasesSection"
-import CasesList from "./CasesSection/CasesList"
 import LogosSection from "./LogosSection/logosSection"
 import Banner from "./Banner/Banner"
 import BannerList from "./BannerList/BannerList"
@@ -14,14 +12,13 @@ import AnimatedTransitionContinous from "./animatedTransitionContinous/AnimatedT
 import BannerTop from "./Banners/BannerTop"
 import BannerHead from "./BannerHead/BannerHead"
 import Professionals from "./Professionals/Professionals"
-import FeaturedBlogs from './FeaturedBlogs/FeaturedBlogs'
-import Layaout from './layout'
+import FeaturedBlogs from "./FeaturedBlogs/FeaturedBlogs"
+import Layaout from "./layout"
 import PipedriveForm from "./Form/PipedriveForm"
 import CustomSection from "./CustomSection/CustomSection"
+import Navigation from "./Navigation/Navigation"
 
 export {
-  CasesList,
-  CasesSection,
   Seo,
   LogosSection,
   Banner,
@@ -40,4 +37,5 @@ export {
   Layaout,
   PipedriveForm,
   CustomSection,
+  Navigation,
 }
