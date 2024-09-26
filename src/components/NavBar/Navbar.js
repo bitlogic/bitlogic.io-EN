@@ -28,7 +28,7 @@ const NavBar = memo(() => {
   const navbarButton = navbarData.allStrapiLayout?.nodes[0].navbar?.navButton
 
   return (
-    <Navbar variant="dark" expand="xl" className="NavBar">
+    <Navbar variant="dark" expand="xxl" className="NavBar">
       <Link to="/" className="NavBar__Logo">
         {logoLight && (
           <GatsbyImage
