@@ -97,17 +97,6 @@ const Quote = ({ data }) => {
   )
 }
 
-Quote.defaultProps = {
-  description: "",
-  title: "",
-  variant: "",
-  profileDescription: "",
-  videoUrl: "",
-  button: {},
-  profile: {},
-  image: {},
-}
-
 Quote.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string,

@@ -48,7 +48,7 @@ const useNavbar = () => {
                 alternativeText
                 url
                 localFile {
-                  childrenImageSharp {
+                  childImageSharp {
                     gatsbyImageData(placeholder: BLURRED)
                   }
                 }
@@ -64,7 +64,7 @@ const useNavbar = () => {
               url
               icon {
                 localFile {
-                  childrenImageSharp {
+                  childImageSharp {
                     gatsbyImageData(placeholder: BLURRED)
                   }
                 }

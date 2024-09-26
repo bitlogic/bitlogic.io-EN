@@ -60,7 +60,7 @@ const OneSection = ({ data: { dualSectionPart } }) => {
   )
 }
 
-OneSection.protoTypes = {
+OneSection.propTypes = {
   data: PropTypes.shape({
     dualSectionPart: PropTypes.arrayOf(
       PropTypes.shape({

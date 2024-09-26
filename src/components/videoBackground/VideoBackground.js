@@ -147,10 +147,8 @@ const VideoBackground = ({ data }) => {
 
 VideoBackground.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.string,
     videoUrl: PropTypes.string,
     description: PropTypes.string,
-    strapi_component: PropTypes.string,
     backgroundImage: PropTypes.shape({
       url: PropTypes.string.isRequired,
     }),
@@ -161,7 +159,7 @@ VideoBackground.propTypes = {
     button: PropTypes.shape({
       content: PropTypes.string.isRequired,
       url: PropTypes.string,
-      landing_page: PropTypes.shape({
+      english_landing_page: PropTypes.shape({
         slug: PropTypes.string.isRequired,
       }),
     }),
