@@ -1,7 +1,5 @@
 import React from "react"
 import { graphql } from "gatsby"
-// import showdown from "showdown"
-// import ReactMarkdown from "react-markdown"
 import MarkdownView from "react-showdown"
 import Layout from "../components/layout"
 import { Seo, BannerTop } from "../components/index.js"
@@ -10,18 +8,10 @@ import PropTypes from "prop-types"
 import { getImage, GatsbyImage } from "gatsby-plugin-image"
 
 const BlogDetail = ({ data }) => {
-  const {
-    title,
-    description,
-    image,
-    imagePage,
-    author,
-    seo,
-  } = data?.allStrapiArticle?.nodes[0] || {}
+  const { title, description, image, imagePage, author, seo } =
+    data?.allStrapiArticle?.nodes[0] || {}
 
   const bannerTop = imagePage ? { title, imagePage } : { title, image }
-
-  // let { summary } = author
 
   return (
     <Layout>
@@ -38,19 +28,14 @@ const BlogDetail = ({ data }) => {
               markdown={description}
               dangerouslySetInnerHTML={{ __html: description }}
             />
-            {/* <ReactMarkdown source={description} /> */}
             <div className="detail__description-author">
               {author?.map(author => (
-                <div className="detail__box-author">
+                <div className="detail__box-author" key={author.id}>
                   {author.image && (
                     <div className="detail__box-author-image">
                       <GatsbyImage
                         image={getImage(author?.image?.localFile)}
-                        alt={
-                          author.image.alternativeText
-                            ? author.image.alternativeText
-                            : author?.name
-                        }
+                        alt={author.image.alternativeText || author?.name}
                       />
                     </div>
                   )}
@@ -70,7 +55,7 @@ const BlogDetail = ({ data }) => {
 }
 
 BlogDetail.propTypes = {
-   data: PropTypes.shape({
+  data: PropTypes.shape({
     allStrapiArticle: PropTypes.shape({
       nodes: PropTypes.arrayOf(
         PropTypes.shape({
@@ -82,39 +67,40 @@ BlogDetail.propTypes = {
             alternativeText: PropTypes.string,
             localFile: PropTypes.shape({
               childImageSharp: PropTypes.shape({
-                gatsbyImageData: PropTypes.object.isRequired
-              })
-            })
+                gatsbyImageData: PropTypes.object.isRequired,
+              }),
+            }),
           }),
           imagePage: PropTypes.shape({
             url: PropTypes.string,
             alternativeText: PropTypes.string,
             localFile: PropTypes.shape({
               childImageSharp: PropTypes.shape({
-                gatsbyImageData: PropTypes.object.isRequired
-              })
-            })
+                gatsbyImageData: PropTypes.object.isRequired,
+              }),
+            }),
           }),
           author: PropTypes.arrayOf(
             PropTypes.shape({
+              id: PropTypes.number.isRequired,
               name: PropTypes.string.isRequired,
               subTitle: PropTypes.string,
               summary: PropTypes.string,
               image: PropTypes.shape({
-                url: PropTypes.string.isRequired,
+                url: PropTypes.string,
                 alternativeText: PropTypes.string,
                 localFile: PropTypes.shape({
                   childImageSharp: PropTypes.shape({
-                    gatsbyImageData: PropTypes.object.isRequired
-                  })
-                })
-              })
+                    gatsbyImageData: PropTypes.object.isRequired,
+                  }),
+                }),
+              }),
             })
-          )
+          ),
         })
-      )
-    })
-   })
+      ),
+    }),
+  }),
 }
 
 export const query = graphql`

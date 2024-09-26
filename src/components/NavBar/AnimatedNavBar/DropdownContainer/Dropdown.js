@@ -1,138 +1,94 @@
-import { Link } from "gatsby"
-import React from "react"
-import "./dropdown.scss"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import { useLandingUrl } from "../../../../hooks"
+import React, { memo } from "react"
+import CustomImage from "../../../CustomImage/CustomImage"
+import CustomLink from "../../../CustomLink/CustomLink"
 import PropTypes from "prop-types"
+import "./dropdown.scss"
 
-const Dropdown = ({ sections, topLevel }) => {
+const RenderSection = ({ section, className }) => {
+  return (
+    <>
+      <div className={className}>
+        <CustomImage
+          image={section?.icon}
+          alt={section?.icon?.alternativeText || "NavLink icon"}
+          className="navbarItemIcon"
+          width={28}
+          height={28}
+        />
+        <CustomLink
+          content={section.label}
+          url={section?.url}
+          landing={section?.english_landing_page}
+          className="dropdown_elem-link-inner"
+        />
+      </div>
+      {section?.text && <p className="navItemP">{section.text}</p>}
+    </>
+  )
+}
 
-  const getUrl = useLandingUrl()
+RenderSection.propTypes = {
+  className: PropTypes.string,
+  section: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    text: PropTypes.string,
+    url: PropTypes.string,
+    english_landing_page: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+    }),
+    icon: PropTypes.shape({
+      url: PropTypes.string,
+      alternativeText: PropTypes.string,
+      localFile: PropTypes.shape({
+        childImageSharp: PropTypes.shape({
+          gatsbyImageData: PropTypes.object.isRequired,
+        }),
+      }),
+    }),
+  }),
+}
 
-  const url = (item) => {
-    const landing = getUrl(item?.english_landing_page?.slug);
-
-    if (landing) return landing;
-
-    return item?.url ? item.url : '';
-  }
-
+const Dropdown = memo(({ sections, topLevel }) => {
   return (
     <div className="dropdown_elem" style={!sections ? { maxHeight: "0" } : {}}>
       <div className="dropdown_elem-section" data-first-dropdown-section>
         {topLevel && (
-          <div className="dropdown_elem_topLevel"
-            style={{ borderBottom: "2px solid #808080", marginBottom: "15px", paddingBottom: "8px" }}>
-            <div className="dropdown_elem-link-topLevelLink">
-              {topLevel.icon && (
-                <GatsbyImage
-                  image={getImage(topLevel.icon?.localFile?.childrenImageSharp[0].gatsbyImageData)}
-                  alt={topLevel?.icon?.alternativeText
-                    ? topLevel.icon.alternativeText
-                    : 'NavLink Icon'
-                  }
-                  className="navbarItemIcon"
-                  width={28}
-                  height={28}
-                />
-              )}
-              {url(topLevel).startsWith("http") ? (
-                <a href={url(topLevel)}
-                  className="dropdown_elem-link-inner"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {topLevel.label}
-                </a>
-              ) : (
-                <Link
-                  to={url(topLevel)}
-                  state={{ component: topLevel.id }}
-                  className="dropdown_elem-link-inner"
-                >
-                  {topLevel.label}
-                </Link>
-              )}
-            </div>
-            {topLevel?.text && <p className="navItemP">{topLevel.text}</p>}
+          <div
+            className="dropdown_elem_topLevel"
+            style={{
+              borderBottom: "2px solid #808080",
+              marginBottom: "15px",
+              paddingBottom: "8px",
+            }}
+          >
+            <RenderSection
+              section={topLevel}
+              className={"dropdown_elem-link-topLevelLink"}
+            />
           </div>
         )}
         <div className="dropdown_section">
-          {sections?.map(section =>
+          {sections?.map(section => (
             <div key={section.id}>
-              <div className="dropdown_elem-link">
-                {section.icon && (
-                  <GatsbyImage
-                    image={getImage(section.icon.localFile?.childrenImageSharp[0].gatsbyImageData)}
-                    alt={section.icon.alternativeText
-                      ? section.icon.alternativeText
-                      : 'NavLink Icon'
-                    }
-                    className="navbarItemIcon"
-                    width={28}
-                    height={28}
-                  />
-                )}
-                {url(section).startsWith("http") ? (
-                  <a href={url(section)}
-                    className="dropdown_elem-link-inner"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {section.label}
-                  </a>
-                ) : (
-                  <Link
-                    to={url(section)}
-                    state={{ component: section.id }}
-                    className="dropdown_elem-link-inner"
-                  >
-                    {section.label}
-                  </Link>
-                )}
-              </div>
-              {section?.text && <p className="navItemP">{section.text}</p>}
+              <RenderSection
+                section={section}
+                className={"dropdown_elem-link"}
+              />
             </div>
-          )}
+          ))}
         </div>
-      </div >
+      </div>
     </div>
   )
-}
+})
 
 Dropdown.propTypes = {
-  topLevel: PropTypes.shape({
-    text: PropTypes.string,
-    label: PropTypes.string.isRequired,
-    url: PropTypes.string,
-    icon: PropTypes.shape({
-      alternativeText: PropTypes.string,
-      localFile: PropTypes.shape({
-        childrenImageSharp: PropTypes.arrayOf(
-          PropTypes.shape({
-            gatsbyImageData: PropTypes.object.isRequired
-          })
-        )
-      })
-    })
-  }),
+  topLevel: PropTypes.object,
   sections: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number,
-      text: PropTypes.string,
-      label: PropTypes.string,
-      icon: PropTypes.shape({
-        alternativeText: PropTypes.string,
-        localFile: PropTypes.shape({
-          childrenImageSharp: PropTypes.arrayOf(
-            PropTypes.shape({
-              gatsbyImageData: PropTypes.object.isRequired
-            })
-          )
-        })
-      })
+      id: PropTypes.number.isRequired,
     })
-  )
+  ),
 }
 
 export default Dropdown
