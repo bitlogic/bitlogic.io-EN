@@ -1,10 +1,10 @@
 import React from "react"
 import "./animatedTransitionContinous.scss"
 import PropTypes from "prop-types"
+import CustomImage from "../CustomImage/CustomImage"
 
-const AnimatedTransitionContinous = ({
-  data: { text = "", image, imagePosition, color },
-}) => {
+const AnimatedTransitionContinous = ({ data }) => {
+  const { text = "", image, imagePosition, color } = data
   let longerText = ""
 
   const amount = text ? 200 : 50
@@ -16,27 +16,28 @@ const AnimatedTransitionContinous = ({
     <div className="m-scroll">
       <div className="m-scroll__title">
         <div className={text ? "" : "m-scroll__title-image"}>
-          {longerText.split("-").map((innerText, index) => (
-            <div className="m-scroll__title-inner" key={index}>
+          {longerText.split("-").map((innerText, idx) => (
+            <div
+              className="m-scroll__title-inner"
+              key={`AnimatedScroll-${(innerText || "") + idx}`}
+            >
               {imagePosition === "first" && image && (
-                <img src={image?.url}
-                  alt={image?.alternativeText
-                    ? image.alternativeText
-                    : 'Transition-Image'}
-                  width={60}
-                  height={60}
-                  loading="lazy"
+                <CustomImage
+                  image={image}
+                  alt={image?.alternativeText || "Image animated"}
+                  width={40}
+                  height={40}
+                  className={""}
                 />
               )}
               <h1 style={{ color: color }}>{innerText || ""}</h1>
               {(imagePosition === "last" || !imagePosition) && image && (
-                <img src={image?.url}
-                  alt={image?.alternativeText
-                    ? image.alternativeText
-                    : 'Transition-Image'}
-                  width={60}
-                  height={60}
-                  loading="lazy"
+                <CustomImage
+                  image={image}
+                  alt={image?.alternativeText || "Image animated"}
+                  width={40}
+                  height={40}
+                  className={""}
                 />
               )}
             </div>
@@ -54,8 +55,8 @@ AnimatedTransitionContinous.propTypes = {
     image: PropTypes.shape({
       url: PropTypes.string.isRequired,
       alternativeText: PropTypes.string,
-    })
-  })
+    }),
+  }),
 }
 
 export default AnimatedTransitionContinous

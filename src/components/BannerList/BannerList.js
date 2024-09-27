@@ -15,7 +15,7 @@ export default function BannerList({ data }) {
           <div className="card_item">
             <CustomImage
               image={item?.icon}
-              alt={item?.icon?.alternativeText || item?.icon?.name}
+              alt={item?.icon?.alternativeText || item.title}
               className={"d-block"}
               width={70}
               height={70}

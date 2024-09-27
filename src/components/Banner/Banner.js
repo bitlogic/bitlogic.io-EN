@@ -1,6 +1,5 @@
 import React from "react"
 import MarkdownView from "react-showdown"
-//import ReactMarkdown from "react-markdown"
 import Lottie from "react-lottie"
 import { useTheme } from "../../context/themeContext"
 import "./Banner.scss"
@@ -33,7 +32,6 @@ const Banner = ({ data }) => {
       <div className="container banner__wrapper">
         <div className="title container-md">
           <div>
-            {/* {variant === "hero" ? <h1>{title}</h1> : <h2>{title}</h2>} */}
             {showTitle()}
             {
               <MarkdownView
@@ -41,12 +39,14 @@ const Banner = ({ data }) => {
                 dangerouslySetInnerHTML={{ __html: summary }}
               />
             }
-            <CustomLink
-              content={button?.content}
-              url={button?.url}
-              landing={button?.english_landing_page}
-              className={"button"}
-            />
+            {button && (
+              <CustomLink
+                content={button?.content}
+                url={button?.url}
+                landing={button?.english_landing_page}
+                className={"button"}
+              />
+            )}
           </div>
         </div>
 

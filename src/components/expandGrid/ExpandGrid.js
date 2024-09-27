@@ -9,30 +9,35 @@ import PropTypes from "prop-types"
 
 const ExpandGrid = ({ data }) => {
   const { theme } = useTheme()
-
-  const backgroundImage = data.backgroundImage?.url
-  const backgroundImageDark = data.backgroundImageDark?.url
+  const {
+    title,
+    subtitle,
+    items,
+    callToAction,
+    backgroundImage,
+    backgroundImageDark,
+  } = data
 
   return (
     <div
       className="expandGrid-background"
       style={{
-        backgroundImage: `url(${theme === "dark" && backgroundImageDark
-          ? backgroundImageDark
-          : backgroundImage
-          })`,
+        backgroundImage: `url(${
+          theme === "dark" && backgroundImageDark
+            ? backgroundImageDark?.url
+            : backgroundImage?.url
+        })`,
       }}
     >
-      <div
-        className="mx-auto sm:mx-3 pb-5 container"
-        id={data.strapi_component + "-" + data.id}
-      >
+      <div className="mx-auto sm:mx-3 pb-5 container">
         <section className="expandGrid">
           <div className="expandGrid-body">
-            <h2>{data.title}</h2>
-            <h6 className="px-md-3">{data.subtitle}</h6>
-            <AnimatedList items={data.items.slice(0, 4)}
-              callToAction={data.callToAction} />
+            {title && <h2>{title}</h2>}
+            {subtitle && <h6 className="px-md-3">{subtitle}</h6>}
+            <AnimatedList
+              items={items.slice(0, 4)}
+              callToAction={callToAction}
+            />
           </div>
         </section>
       </div>
@@ -45,30 +50,14 @@ ExpandGrid.propTypes = {
     title: PropTypes.string,
     subtitle: PropTypes.string,
     callToAction: PropTypes.string,
-    id: PropTypes.number,
+    items: PropTypes.array,
     backgroundImage: PropTypes.shape({
       url: PropTypes.string,
     }),
     backgroundImageDark: PropTypes.shape({
       url: PropTypes.string,
     }),
-    items: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string,
-      text: PropTypes.string,
-      landing_page: PropTypes.shape({
-        slug: PropTypes.string.isRequired
-      }),
-      image: PropTypes.shape({
-        alternativeText: PropTypes.string,
-        url: PropTypes.string.isRequired,
-        localFile: PropTypes.shape({
-          childImageSharp: PropTypes.shape({
-            gatsbyImageData: PropTypes.object.isRequired
-          })
-        })
-      })
-    }))
-  })
+  }),
 }
 
 const createCardFlipId = index => `listItem-${index}`
@@ -85,7 +74,11 @@ const ListItem = ({ index, onClick, data }) => {
       stagger="card"
       shouldInvert={shouldFlip(index)}
     >
-      <button className="listItem" onClick={() => onClick(index)} aria-label="Flip Cad" >
+      <button
+        className="listItem"
+        onClick={() => onClick(index)}
+        aria-label="Flip Cad"
+      >
         <Flipped inverseFlipId={createCardFlipId(index)}>
           <div className="listItemContent">
             <div className="listItem-more">
@@ -97,10 +90,11 @@ const ListItem = ({ index, onClick, data }) => {
               shouldFlip={shouldFlip(index)}
               delayUntil={createCardFlipId(index)}
             >
-              <img src={data.image?.url}
+              <img
+                src={data.image?.url}
                 className="avatar"
                 loading="lazy"
-                alt={data?.image?.alternativeText ? data.image.alternativeText : 'Card Image'}
+                alt={data?.image?.alternativeText || "Card Image"}
               />
             </Flipped>
           </div>
@@ -111,14 +105,15 @@ const ListItem = ({ index, onClick, data }) => {
 }
 
 ListItem.propTypes = {
- index: PropTypes.number,
- onClick: PropTypes.func,
- data: PropTypes.shape({
-  title: PropTypes.string.isRequired,
-  image: PropTypes.shape({
-    alternativeText: PropTypes.string,
-  }).isRequired
- }).isRequired
+  index: PropTypes.number,
+  onClick: PropTypes.func,
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    image: PropTypes.shape({
+      url: PropTypes.string,
+      alternativeText: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
 }
 
 const ExpandedListItem = ({ index, data, isFirst, callToAction }) => {
@@ -146,21 +141,26 @@ const ExpandedListItem = ({ index, data, isFirst, callToAction }) => {
               stagger="card-image"
               delayUntil={createCardFlipId(index)}
             >
-              <img src={data.image?.url}
+              <img
+                src={data.image?.url}
                 className="avatar-expanded"
                 loading="lazy"
-                alt={data?.image?.alternativeText ? data.image.alternativeText : 'Card Image Expanded'}
+                alt={data?.image?.alternativeText || "Card Image Expanded"}
               />
             </Flipped>
             <div className={"additional-content "}>
               <div style={isFirst ? { opacity: "1" } : {}}>
                 <h4>{data.title}</h4>
                 <div className="additional-content-markdown">
-                  <MarkdownView markdown={data.text}
-                    dangerouslySetInnerHTML={{ __html: data.text }} />
+                  <MarkdownView
+                    markdown={data.text}
+                    dangerouslySetInnerHTML={{ __html: data.text }}
+                  />
                 </div>
                 {data.english_landing_page && (
-                  <Link to={getUrl(data?.english_landing_page.slug)}>{callToAction}</Link>
+                  <Link to={getUrl(data?.english_landing_page.slug)}>
+                    {callToAction}
+                  </Link>
                 )}
               </div>
             </div>
@@ -178,14 +178,14 @@ ExpandedListItem.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string.isRequired,
     text: PropTypes.string,
-    landing_page: PropTypes.shape({
+    english_landing_page: PropTypes.shape({
       slug: PropTypes.string.isRequired,
     }),
     image: PropTypes.shape({
       url: PropTypes.string.isRequired,
       alternativeText: PropTypes.string,
-    })
-  })
+    }),
+  }),
 }
 
 const AnimatedList = ({ items, callToAction }) => {
@@ -257,10 +257,8 @@ AnimatedList.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      length: PropTypes.number
     })
-  )
+  ),
 }
-
 
 export default ExpandGrid

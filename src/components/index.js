@@ -10,7 +10,6 @@ import OneSection from "./DualSection/OneSection"
 import DualSection from "./DualSection/DualSection"
 import AnimatedTransitionContinous from "./animatedTransitionContinous/AnimatedTransitionContinous"
 import BannerTop from "./Banners/BannerTop"
-import BannerHead from "./BannerHead/BannerHead"
 import Professionals from "./Professionals/Professionals"
 import FeaturedBlogs from "./FeaturedBlogs/FeaturedBlogs"
 import Layaout from "./layout"
@@ -31,7 +30,6 @@ export {
   DualSection,
   AnimatedTransitionContinous,
   BannerTop,
-  BannerHead,
   Professionals,
   FeaturedBlogs,
   Layaout,
