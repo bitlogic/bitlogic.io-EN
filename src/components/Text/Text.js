@@ -4,44 +4,24 @@ import "./Text.scss"
 import PropTypes from "prop-types"
 
 export default function Text({ data }) {
-  const title = data?.title
-  const description = data?.text
-  const bgImage = data?.backgroundImage?.url
-
+  const { title, text, titlePosition, backgroundImage } = data
+  const bgImage = backgroundImage?.url
   return (
     <div
-      className="container-text"
+      className="Text mt-3"
       style={{
-        backgroundImage: `url(${bgImage})`,
-        backgroundPosition: "center",
+        backgroundImage: bgImage ? `url(${bgImage})` : "",
       }}
     >
-      {title !== "" && title !== undefined && title !== null ? (
-        <div className="container text d-flex flex-column flex-lg-row gap-3 gap-xl-5">
-          <div className="title">
-            <h2 className="titleText">{title}</h2>
-          </div>
-          <div className="description">
-            <MarkdownView
-              markdown={description}
-              dangerouslySetInnerHTML={{ __html: description }}
-              style={{ margin: !bgImage && "0rem" }}
-            />
-          </div>
+      <div className={`Text__wrapper container ${titlePosition || "Left"}`}>
+        {title && <h2 className="Text__title">{title}</h2>}
+        <div className="Text__description">
+          <MarkdownView
+            markdown={text}
+            dangerouslySetInnerHTML={{ __html: text }}
+          />
         </div>
-      ) : (
-        <div
-          className="container container-markdown"
-          style={{ padding: !bgImage && "0rem" }}
-        >
-          <div className="notTitle">
-            <MarkdownView
-              markdown={description}
-              dangerouslySetInnerHTML={{ __html: description }}
-            />
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   )
 }
@@ -49,6 +29,7 @@ export default function Text({ data }) {
 Text.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string,
+    titlePosition: PropTypes.string,
     text: PropTypes.string.isRequired,
     backgroundImage: PropTypes.shape({
       url: PropTypes.string,
