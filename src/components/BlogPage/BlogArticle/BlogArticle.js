@@ -19,7 +19,7 @@ const BlogArticle = ({ title, summary, image, slug, text }) => {
         height={170}
       />
       <div className="article__description">
-        <h6>{`${title}`}</h6>
+        <h3>{`${title}`}</h3>
         <div>
           <MarkdownView
             markdown={`${summary}`}
