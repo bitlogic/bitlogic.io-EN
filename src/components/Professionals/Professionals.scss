@@ -17,6 +17,9 @@
         font-weight: 700;
         text-transform: uppercase;
     }
+    h3 {
+        font-size: 20px;
+    }
 }
 .pro {
     color: $primary;
@@ -73,7 +76,8 @@
         }
         &__descr {
             display: block;
-            h6 {
+            h3 {
+                font-size: 20px;
                 margin-bottom: 10px;
             }
             a {
