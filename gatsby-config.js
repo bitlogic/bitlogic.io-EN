@@ -71,14 +71,18 @@ module.exports = {
         policy: [{ userAgent: "*", allow: "/" }],
       },
     },
-    {
-      resolve: "gatsby-plugin-google-tagmanager",
-      options: {
-        id: process.env.GTM_ID,
-        includeInDevelopment: false,
-        enableWebVitalsTracking: true,
-      },
-    },
+    ...(process.env.ENV_PROD === 'produccion'
+      ? [
+          {
+            resolve: "gatsby-plugin-google-tagmanager",
+            options: {
+              id: process.env.GTM_ID,
+              includeInDevelopment: false,
+              enableWebVitalsTracking: true,
+            },
+          },
+        ]
+      : []),
     "gatsby-plugin-react-helmet",
     {
       resolve: `gatsby-source-filesystem`,
