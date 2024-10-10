@@ -32,7 +32,7 @@ const Professionals = ({ data }) => {
         </div>
         <div className="col-6 col-md-12">
           <div className="pro__descr">
-            <h6 className="pro__descr_title">{name}</h6>
+            <h3 className="pro__descr_title">{name}</h3>
             {linkedin && (
               <a
                 href={linkedin}
@@ -43,7 +43,7 @@ const Professionals = ({ data }) => {
                 <FaLinkedinIn size={23} />
               </a>
             )}
-            {position && <h6 className="pro__descr_position">{position}</h6>}
+            {position && <h3 className="pro__descr_position">{position}</h3>}
             <p className="pro__descr_text">{quote}</p>
           </div>
         </div>
@@ -54,7 +54,7 @@ const Professionals = ({ data }) => {
   return (
     <div className="container pt-5 pb-1 prosSection">
       {title && <h2>{title}</h2>}
-      {summary && <h6 className="prosSection__summary px-lg-3">{summary}</h6>}
+      {summary && <h3 className="prosSection__summary px-lg-3">{summary}</h3>}
       {professionalsCards !== undefined && professionalsCards.length > 0 && (
         <div className="cases row">{professionalsCards}</div>
       )}
