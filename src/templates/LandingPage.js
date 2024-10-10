@@ -105,6 +105,7 @@ export const query = graphql`
           show
           profileDescription
           imagePosition
+          titlePosition
           form_url
           concactFormAnchor
           contactForm

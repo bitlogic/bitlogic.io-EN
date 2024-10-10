@@ -1,16 +1,15 @@
 const path = require("path")
-const FilterWarningsPlugin = require("webpack-filter-warnings-plugin");
+const FilterWarningsPlugin = require("webpack-filter-warnings-plugin")
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     plugins: [
       new FilterWarningsPlugin({
-        exclude:
-          /mini-css-extract-plugin[^]*Conflicting order. Following module has been added:/,
+        exclude: /mini-css-extract-plugin[^]*Conflicting order. Following module has been added:/,
       }),
     ],
-  });
-};
+  })
+}
 
 exports.createSchemaCustomization = ({ actions }) => {
   const blogSchema = require("./src/schema/blogSchema")
@@ -25,7 +24,6 @@ exports.createSchemaCustomization = ({ actions }) => {
 
   const { createTypes } = actions
   const typeDefs =
-    blogSchema.value +
     blogSchema.value +
     caseSchema.value +
     globalSeoSchema.value +
@@ -62,9 +60,9 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: "/blog/" + node.slug,
       component: BlogDetail,
-      context: { 
+      context: {
         slug: node.slug,
-        lastmod: node.updated_at
+        lastmod: node.updated_at,
       },
     })
   })
@@ -88,14 +86,14 @@ exports.createPages = async ({ graphql, actions }) => {
     reporter.panicOnBuild("Error creando paginas de landing")
   }
 
-  const landings = LandingQueryData.allStrapiLandingPage.nodes;
+  const landings = LandingQueryData.allStrapiLandingPage.nodes
 
   function getUrl(node) {
     if (!node) return ""
 
     if (node.parent_page) {
-      const parentPage = landings.find((landing) =>
-        landing.slug === node.parent_page.slug
+      const parentPage = landings.find(
+        landing => landing.slug === node.parent_page.slug
       )
       const parentUrl = getUrl(parentPage)
       return `${parentUrl}/${node.slug}`
@@ -110,9 +108,9 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path: url,
       component: LandingPage,
-      context: { 
+      context: {
         slug: node.slug,
-        lastmod: node.updated_at 
+        lastmod: node.updated_at,
       },
     })
   })

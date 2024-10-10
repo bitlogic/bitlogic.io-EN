@@ -1,39 +1,34 @@
 const blogSchema = `
-type StrapiEnglishProfessional implements Node {
-    id: ID!
+  type StrapiEnglishProfessional implements Node {
     parent: Node
     children: [Node!]!
     internal: Internal!
-    name: String
+    id: ID!
+    strapiId: Int
+    name: String!
+    quote: String!
     position: String
-    quote: String
     linkedin: String
+    photo: LocalFile
     published_at(
       formatString: String
       fromNow: Boolean
       difference: String
       locale: String
-    ): Date
+    ): Date!
     created_at(
       formatString: String
       fromNow: Boolean
       difference: String
       locale: String
-    ): Date
+    ): Date!
     updated_at(
       formatString: String
       fromNow: Boolean
       difference: String
       locale: String
     ): Date
-    photo: LocalFile
-    strapiId: ID
   }
-
-  type LocalFile {
-    localFile: File @link(from: "localFile___NODE")
-  }
-  
 `
 
 module.exports = {
