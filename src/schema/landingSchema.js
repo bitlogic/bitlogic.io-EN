@@ -1,133 +1,47 @@
 const landingSchema = `
-type StrapiEnglishLandingPage implements Node {
+  type StrapiEnglishLandingPage implements Node {
+    parent: Node
+    children: [Node!]!
+    internal: Internal!
+    id: ID!
+    strapiId: Int
+    name: String!
+    slug: String!
     body: [BodyComponent]
-    name: String
-    slug: String
-    navigation: StrapiNavigation
+    navigation: StrapiComponentNavigation
     parent_page: StrapiEnglishLandingPage
+    seo: ComponentSeo
     published_at(
       formatString: String
       fromNow: Boolean
       difference: String
       locale: String
-    ): Date
+    ): Date!
     created_at(
       formatString: String
       fromNow: Boolean
       difference: String
       locale: String
-    ): Date
+    ): Date!
     updated_at(
       formatString: String
       fromNow: Boolean
       difference: String
       locale: String
-    ): Date
-    strapiId: Int
-    id: ID!
-    parent: Node
-    children: [Node!]!
-    internal: Internal!
-    seo: StrapiLandingPageSeo
-  }
-  
-  type StrapiLandingPageSeo {
-    id: Int
-    pageTitle: String
-    pageDescription: String
-    pageKeywords: String
+    ): Date!
   }
 
-  type StrapiNavigation {
+  type StrapiComponentNavigation {
+    id: Int
     title: String
     showSiblingPages: Boolean
-    relatedPages: StrapiNavigationRelatedPages
+    relatedPages: StrapiComponentNavigationRelatedPages
   }
 
-  type StrapiNavigationRelatedPages {
-    title: String
-    pages: [Button]
-  }
-
-  type BodyComponent {
-    id: ID!
-    title: String
-    subtitle: String
-    summary: String
-    text: String
-    description: String
-    concactFormAnchor: String
-    callToAction: String
-    videoUrl: String
-    variant: String
-    imagePosition: String
-    titlePosition: String
-    color: String
-    profileDescription: String
-    form_url: String
-    content: String
-    animation: JSON
-    contactForm: Boolean
-    allBlog: Boolean
-    show: Boolean
-    image: LocalFile
-    imageDark: LocalFile
-    backgroundImage: LocalFile
-    backgroundImageDark: LocalFile
-    video: LocalFile
-    profile: LocalFile
-    button: Button
-    media: [CustomImage]
-    items: [GridItems]
-    dualSectionPart: [SectionPart]
-    Card: [Card]
-    ListItem: [Card]
-    eng_professionals: [StrapiEnglishProfessional]
-    english_articles: [StrapiEnglishArticle]
-  }
-
-  type Card {
-    id: ID!
-    title: String
-    description: String
-    english_landing_page: StrapiEnglishLandingPage
-    icon: LocalFile
-  }
-
-  type GridItems {
-    id: ID!
+  type StrapiComponentNavigationRelatedPages {
+    id: Int
     title: String!
-    text: String
-    english_landing_page: StrapiEnglishLandingPage
-    image: LocalFile
-  }
-
-  type CustomImage {
-    id: ID!
-    name: String
-    img: LocalFile
-    imageDark: LocalFile
-  }
-
-  type SectionPart {
-    id: ID!
-    title: String
-    description: String
-    button: Button
-    image: LocalFile
-    backgroundImage: LocalFile
-    backgroundImageDark: LocalFile
-  }
-
-  type Button {
-    id: ID
-    content: String!
-    url: String
-    english_landing_page: StrapiEnglishLandingPage
-  }
-
-  type LocalFile {
-    localFile: File @link(from: "localFile___NODE")
+    pages: [ComponentButton]
   }
 `
 module.exports = {

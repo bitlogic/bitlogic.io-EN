@@ -71,7 +71,7 @@ module.exports = {
         policy: [{ userAgent: "*", allow: "/" }],
       },
     },
-    ...(process.env.ENV_PROD === 'produccion'
+    ...(process.env.ENV_PROD === "produccion"
       ? [
           {
             resolve: "gatsby-plugin-google-tagmanager",
@@ -83,7 +83,6 @@ module.exports = {
           },
         ]
       : []),
-    "gatsby-plugin-react-helmet",
     {
       resolve: `gatsby-source-filesystem`,
       options: {

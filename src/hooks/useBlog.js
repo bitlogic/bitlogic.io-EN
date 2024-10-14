@@ -3,12 +3,14 @@ import { useStaticQuery, graphql } from "gatsby"
 const useBlog = () => {
   const query = useStaticQuery(graphql`
     {
-      allStrapiBlogCategory:allStrapiEnglishBlogCategory {
+      allStrapiBlogCategory: allStrapiEnglishBlogCategory {
         nodes {
           name
         }
       }
-      allStrapiArticle:allStrapiEnglishArticle(sort: { fields: published_at, order: DESC }) {
+      allStrapiArticle: allStrapiEnglishArticle(
+        sort: { fields: published_at, order: DESC }
+      ) {
         nodes {
           title
           id
@@ -32,7 +34,7 @@ const useBlog = () => {
               }
             }
           }
-            
+
           blog_category {
             name
           }
@@ -40,7 +42,7 @@ const useBlog = () => {
       }
       allStrapiBlogPage: allStrapiEnglishBlogPage {
         nodes {
-          
+          callToAction
           seo: pageMetadata {
             pageTitle
             pageKeywords
@@ -51,11 +53,12 @@ const useBlog = () => {
             title
             variant
             summary
+            animation
             button {
               content
               id
               url
-              landing_page:english_landing_page {
+              landing_page: english_landing_page {
                 name
                 slug
                 id
@@ -64,10 +67,13 @@ const useBlog = () => {
             image {
               alternativeText
               url
+              localFile {
+                childImageSharp {
+                  gatsbyImageData
+                }
+              }
             }
-            animation
           }
-          callToAction  
         }
       }
     }
