@@ -15,6 +15,7 @@ const Professionals = ({ data }) => {
     .slice(0, 6)
 
   const professionalsCards = professionalsList.map(pro => {
+    if (!pro) return null;
     const { name, position, quote, linkedin, photo } = pro
 
     return (
