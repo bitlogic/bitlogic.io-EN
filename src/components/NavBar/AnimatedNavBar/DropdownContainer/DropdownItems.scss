@@ -94,9 +94,7 @@
   }
 
   .subLandingPages {
-    list-style-type: none; 
-    // padding: 0;          
-    // margin: 3%;         
+    list-style-type: none;          
     text-align: start;
     margin-left: 1.7rem;
   
@@ -109,7 +107,6 @@
       }
   
       &_section {
-        // Cambia el estilo si es necesario
         padding-top: 28px;
         padding-right: 28px;
         padding-bottom: 14px;
@@ -135,7 +132,6 @@
   
     .subLandingPages {
       margin-left: 1.3rem;
-      // display: none; // Oculta los subitems en mobile
     }
   }
   
