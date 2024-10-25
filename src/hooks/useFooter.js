@@ -53,6 +53,7 @@ const useFooter = () => {
               }
             }
             logo {
+              url
               alternativeText
               localFile {
                 childImageSharp {

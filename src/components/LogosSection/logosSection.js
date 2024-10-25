@@ -69,7 +69,7 @@ const LogosSection = ({ data }) => {
       id={data.strapi_component + "-" + data.id}
     >
       {title && <h2 className="logos__title">{title}</h2>}
-      {summary && <h6 className="logos__summary px-lg-3">{summary}</h6>}
+      {summary && <h3 className="logos__summary px-lg-3">{summary}</h3>}
 
       <Carousel
         responsive={responsive}

@@ -1,535 +1,145 @@
 const layoutSchema = `
-type StrapiLayoutFooter {
-    id: Int
+  type StrapiEnglishLayout implements Node {
+    parent: Node
+    children: [Node!]!
+    internal: Internal!
+    id: ID!
+    footer: StrapiLayoutFooter
+    navbar: StrapiLayoutNavbar
+    Menu: [StrapiLayoutMenu]
+    Sites: StrapiLayoutSites
+    published_at(
+      formatString: String
+      fromNow: Boolean
+      difference: String
+      locale: String
+    ): Date!
+    created_at(
+      formatString: String
+      fromNow: Boolean
+      difference: String
+      locale: String
+    ): Date!
+    updated_at(
+      formatString: String
+      fromNow: Boolean
+      difference: String
+      locale: String
+    ): Date
+  }
+
+  type StrapiLayoutFooter {
+    id: ID!
     subscription: StrapiLayoutFooterSubscription
     navegation: StrapiLayoutFooterNavegation
     socialMedia: StrapiLayoutFooterSocialMedia
-    location: StrapiLayoutFooterLocation
-    contact: StrapiLayoutFooterContact
+    location: StrapiLayoutFooterListIcon
+    contact: StrapiLayoutFooterListIcon
     internalLink: StrapiLayoutFooterInternalLink
     navbar: StrapiLayoutNavbar
     logo: LocalFile
   }
 
-  type StrapiLayoutMenu {
-    title: String
-    id: Int
+  type StrapiLayoutFooterSubscription {
+    id: ID!
+    title: String!
+    callToAction: String
     url: String
-    visible: Boolean
-    dropdown:Boolean
-    english_landing_page: StrapiMenuEnglishLandingPage
-    landing_page: StrapiMenuLandingPage
-    toplevelItem: StrapiMenuDropdownItem
-    dropdownItems: [StrapiMenuDropdownItem]
+    english_landing_page: StrapiEnglishLandingPage
   }
 
-  type StrapiMenuDropdownItem {
-    id: Int
-    label: String
-    icon: LocalFile
-    url: String
-    text: String
-    english_landing_page: StrapiMenuEnglishLandingPage
-    landing_page: StrapiMenuLandingPage
-  }
-
-  type StrapiMenuDropdownItemIcon {
-    id: Int
-    name: String
-    alternativeText: String
-    caption: String
-    width: Int
-    height: Int
-    hash: String
-    ext: String
-    mime: String
-    size: Float
-    url: String
-    provider: String
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    localFile: File
-  }
-
-  type StrapiMenuLandingPage {
-    id: Int
-    name: String
-    slug: String
-    published_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-  }
-
-  type StrapiMenuEnglishLandingPage {
-    id: Int
-    name: String
-    slug: String
-    published_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
+  type StrapiLayoutFooterNavegation {
+    id: ID!
+    title: String!
+    pageLink: [StrapiLayoutFooterNavegationPageLink]
   }
   
+  type StrapiLayoutFooterNavegationPageLink {
+    id: Int!
+    name: String!
+    pathTo: String
+  }
+
+  type StrapiLayoutFooterSocialMedia {
+    id: ID!
+    socialMedia: [StrapiLayoutFooterSocialMediaSocialMedia]
+  }
+  
+  type StrapiLayoutFooterSocialMediaSocialMedia {
+    id: Int!
+    url: String!
+    name: String!
+    icon: StrapiIcon
+  }
+
+  type StrapiLayoutFooterListIcon {
+    id: ID!
+    title: String!
+    iconText: [StrapiLayoutFooterListIconIconText]
+  }
+  
+  type StrapiLayoutFooterListIconIconText {
+    id: Int!
+    name: String!
+    icon: StrapiIcon
+  }
+
+  type StrapiLayoutFooterInternalLink {
+    id: ID!
+    name: String!
+    pathTo: String
+  }
+
   type StrapiLayoutNavbar {
-    id: Int
+    id: ID!
     navbarItem: [StrapiLayoutNavbarNavbarItem]
     logo: LocalFile
     logoDark: LocalFile
-    navButton: StrapiLayoutNavbarNavButton
+    navButton: ComponentButton
   }
-
-
-type StrapiLayoutNavbarNavButton {
-  id: Int
-  content: String
-  url: String
-  english_landing_page: StrapiLayoutNavbarNavButtonLanding_page
-}
-
-type StrapiLayoutNavbarNavButtonLanding_page {
-  id: Int
-  name: String
-  slug: String
-  published_at(
-    formatString: String
-    fromNow: Boolean
-    difference: String
-    locale: String
-  ): Date
-  created_at(
-    formatString: String
-    fromNow: Boolean
-    difference: String
-    locale: String
-  ): Date
-  updated_at(
-    formatString: String
-    fromNow: Boolean
-    difference: String
-    locale: String
-  ): Date
-}
   
   type StrapiLayoutNavbarNavbarItem {
-    id: Int
-    label: String
-    english_landing_page: StrapiLayoutNavbarNavbarItemLanding
+    id: Int!
+    label: String!
+    english_landing_page: StrapiEnglishLandingPage
     url: String
     visible: Boolean
     dropdown: Boolean
     singleType: String
   }
-  
-  type StrapiLayoutNavbarNavbarItemLanding {
-    id: Int
-    name: String
-    slug: String
-    published_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-  }
-  
-  type StrapiLayoutNavbarLogo {
-    id: Int
-    name: String
-    alternativeText: String
-    caption: String
-    width: Int
-    height: Int
-    hash: String
-    ext: String
-    mime: String
-    size: Float
+
+  type StrapiLayoutMenu {
+    id: Int!
+    title: String!
     url: String
-    provider: String
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    localFile: File
-  }
-  
-  type StrapiLayoutFooterSubscription {
-    id: Int
-    title: String
-    callToAction: String
-    url: String
-    english_landing_page: StrapiLayoutFooterSubscriptionEnglishLandingPage
+    visible: Boolean
+    dropdown:Boolean
+    english_landing_page: StrapiEnglishLandingPage
+    toplevelItem: StrapiMenuDropdownItem
+    dropdownItems: [StrapiMenuDropdownItem]
   }
 
-  type StrapiLayoutFooterSubscriptionEnglishLandingPage{
-    id: Int
-    name: String
-    slug: String
-    published_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-  }
-  
-  type StrapiLayoutFooterNavegation {
-    id: Int
-    title: String
-    pageLink: [StrapiLayoutFooterNavegationPageLink]
-  }
-  
-  type StrapiLayoutFooterNavegationPageLink {
-    id: Int
-    name: String
-    pathTo: String
-  }
-  
-  type StrapiLayoutFooterSocialMedia {
-    id: Int
-    socialMedia: [StrapiLayoutFooterSocialMediaSocialMedia]
-  }
-  
-  type StrapiLayoutFooterSocialMediaSocialMedia {
-    id: Int
+  type StrapiMenuDropdownItem {
+    id: Int!
+    label: String!
+    icon: LocalFile
     url: String
-    name: String
-    icon: StrapiLayoutFooterSocialMediaSocialMediaIcon
-    order: Int
-  }
-  
-  type StrapiLayoutFooterSocialMediaSocialMediaIcon {
-    id: Int
-    name: String
-    code: String
-    type: String
-    published_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    icon: StrapiLayoutFooterSocialMediaSocialMediaIconIcon
-  }
-  
-  type StrapiLayoutFooterSocialMediaSocialMediaIconIcon {
-    id: Int
-    name: String
-    alternativeText: String
-    caption: String
-    width: Int
-    height: Int
-    hash: String
-    ext: String
-    mime: String
-    size: Float
-    url: String
-    provider: String
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    localFile: File
-  }
-  
-  type StrapiLayoutFooterLocation {
-    id: Int
-    title: String
-    iconText: [StrapiLayoutFooterLocationIconText]
-  }
-  
-  type StrapiLayoutFooterLocationIconText {
-    id: Int
-    name: String
-    icon: StrapiLayoutFooterLocationIconTextIcon
-  }
-  
-  type StrapiLayoutFooterLocationIconTextIcon {
-    id: Int
-    name: String
-    code: String
-    type: String
-    published_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    icon: StrapiLayoutFooterLocationIconTextIconIcon
-  }
-  
-  type StrapiLayoutFooterLocationIconTextIconIcon {
-    id: Int
-    name: String
-    alternativeText: String
-    caption: String
-    width: Int
-    height: Int
-    hash: String
-    ext: String
-    mime: String
-    size: Float
-    url: String
-    provider: String
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(fromNow: Boolean, difference: String, locale: String): Date
-    localFile: File
-  }
-  
-  type StrapiLayoutFooterContact {
-    id: Int
-    title: String
-    iconText: [StrapiLayoutFooterContactIconText]
-  }
-  
-  type StrapiLayoutFooterContactIconText {
-    id: Int
-    name: String
-    icon: StrapiLayoutFooterContactIconTextIcon
-  }
-  
-  type StrapiLayoutFooterContactIconTextIcon {
-    id: Int
-    name: String
-    code: String
-    type: String
-    published_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    icon: StrapiLayoutFooterContactIconTextIconIcon
-  }
-  
-  type StrapiLayoutFooterContactIconTextIconIcon {
-    id: Int
-    name: String
-    alternativeText: String
-    caption: String
-    width: Int
-    height: Int
-    hash: String
-    ext: String
-    mime: String
-    size: Float
-    url: String
-    provider: String
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    localFile: File
-  }
-  
-  type StrapiLayoutFooterInternalLink {
-    id: Int
-    name: String
-    pathTo: String
-  }
-  
-  type StrapiLayoutFooterLogo {
-    id: Int
-    name: String
-    alternativeText: String
-    caption: String
-    width: Int
-    height: Int
-    hash: String
-    ext: String
-    mime: String
-    size: Float
-    url: String
-    provider: String
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    localFile: File
+    text: String
+    english_landing_page: StrapiEnglishLandingPage
+    english_sub_landing_pages: [StrapiEnglishLandingPage]
   }
 
   type StrapiLayoutSites {
-    id: Int
+    id: ID!
     title: String!
     websites: [StrapiLayoutSitesWebsites]
   }
 
   type StrapiLayoutSitesWebsites {
-    id: Int
-    name: String
-    url: String
+    id: Int!
+    name: String!
+    url: String!
     icon: LocalFile
-  }
-  
-  type StrapiEnglishLayout implements Node {
-    id: ID!
-    parent: Node
-    children: [Node!]!
-    internal: Internal!
-    published_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    created_at(
-      formatString: String
-      fromNow: Boolean
-      difference: String
-      locale: String
-    ): Date
-    updated_at(
-      formatString: String
-      fromNow: Boolean
-  
-      # Returns the difference between this date and the current time. Defaults to "milliseconds" but you can also pass in as the measurement "years", "months", "weeks", "days", "hours", "minutes", and "seconds".
-      difference: String
-      locale: String
-    ): Date
-    footer: StrapiLayoutFooter
-    navbar: StrapiLayoutNavbar
-    Menu: [StrapiLayoutMenu]
-    Sites: StrapiLayoutSites
-    strapiId: Int
-  }
-
-  type LocalFile {
-    localFile: File @link(from: "localFile___NODE")
   }
 `
 module.exports = {

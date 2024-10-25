@@ -24,7 +24,7 @@ const FeaturedBlogs = ({ data }) => {
       id={data.strapi_component + "-" + data.id}
     >
       <h2>{data.title}</h2>
-      <h6 className="px-md-3">{data.subtitle}</h6>
+      <h3 className="px-md-3">{data.subtitle}</h3>
 
       <div className="featured-blogs">
         {data.english_articles
