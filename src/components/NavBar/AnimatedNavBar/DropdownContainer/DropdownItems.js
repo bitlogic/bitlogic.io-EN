@@ -1,28 +1,48 @@
-import React, { memo } from "react"
+import React, { memo, useState, useEffect } from "react"
 import "./DropdownItems.scss"
 import CustomImage from "../../../CustomImage/CustomImage"
 import CustomLink from "../../../CustomLink/CustomLink"
 import PropTypes from "prop-types"
+import { FaAngleDown } from "react-icons/fa"
 
 const RenderSection = ({section, className }) => {
+    const { icon, label, url, english_landing_page, english_sub_landing_pages = [] } = section || {};
+    const hasSubLandingPages = english_sub_landing_pages.length > 0;
+    const [openSubLandingPages, setOpenSubLandingPages] = useState(false);
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth < 1200);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobileView(window.innerWidth < 1200);
+        };
+        window.addEventListener("resize", handleResize);
+    }, []);
+
+    const toggleSubLandingPages = () => {
+        if (isMobileView) setOpenSubLandingPages(prev => !prev);
+    };
+
     return (
         <>
-            <div className={className}>
+            <div 
+                className={className}
+            >
                 <CustomImage 
-                    image={section?.icon}
-                    alt={section?.icon?.alternativeText || "NavLink Icon"}
+                    image={icon}
+                    alt={icon?.alternativeText || "NavLink Icon"}
                     className="navbarItemIcon"
                     width={28}
                     height={28}
                 />
                 <CustomLink 
-                    content={section.label}
-                    url={section?.url}
-                    landing={section?.english_landing_page}
+                    content={label}
+                    url={url}
+                    landing={english_landing_page}
                     className="dropdownItem_link-inner"
                 />
+                {hasSubLandingPages && <FaAngleDown className={`dropdownItem_icon ${openSubLandingPages ? "open" : ""}`} onClick={toggleSubLandingPages}/>}
             </div>
-            {section?.english_sub_landing_pages && section.english_sub_landing_pages.length > 0 && (
+            {(hasSubLandingPages && (openSubLandingPages || !isMobileView)) && (
                 <ul 
                     className={`subLandingPages ${
                         section.english_sub_landing_pages.length > 5 ? 'two-column-list' : ''
