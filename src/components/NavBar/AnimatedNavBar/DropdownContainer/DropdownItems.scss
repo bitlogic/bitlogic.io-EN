@@ -107,39 +107,8 @@
     list-style: none;
   }
 
-  @media only screen and (max-width: 1200px) {
-    .dropdownItem {
-      &_container {
-        flex-direction: column; 
-      }
-  
-      &_section {
-        padding-top: 28px;
-        padding-right: 28px;
-        padding-bottom: 14px;
-        padding-left: 28px;
-        display: flex;
-        flex-direction: column;
-      }
-  
-      &_content {
-        flex-direction: column; 
-        width: 100%; 
-        gap: 16px;
-      }
-  
-      &_topLevel {
-        width: 100%; 
-        border-right: none; 
-        margin-right: 0; 
-        padding-bottom: 8px;
-        border-bottom: 2px solid #808080;
-      }
-    }
-  
-    .subLandingPages {
-      margin-left: 1.3rem;
-    }
+  .dropdownItem_icon {
+    display: none;
   }
   
   @media only screen and (max-width: 1200px) {

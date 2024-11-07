@@ -27,9 +27,6 @@ const RenderSection = ({section, className }) => {
             <div 
                 className={className}
                 onClick={toggleSubLandingPages}
-                onKeyPress={(e) => e.key === "Enter" && toggleSubLandingPages()} // to avoid warning
-                role="button"
-                tabIndex={0}
             >
                 <CustomImage 
                     image={icon}
