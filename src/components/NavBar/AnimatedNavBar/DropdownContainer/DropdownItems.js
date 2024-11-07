@@ -24,9 +24,12 @@ const RenderSection = ({section, className }) => {
 
     return (
         <>
-            <div 
+            <button 
                 className={className}
                 onClick={toggleSubLandingPages}
+                onKeyPress={(e) => e.key === "Enter" && toggleSubLandingPages()} // to avoid warning
+                // role="button"
+                tabIndex={0}
             >
                 <CustomImage 
                     image={icon}
@@ -42,7 +45,7 @@ const RenderSection = ({section, className }) => {
                     className="dropdownItem_link-inner"
                 />
                 {hasSubLandingPages && <FaAngleDown className={`dropdownItem_icon ${openSubLandingPages ? "open" : ""}`} />}
-            </div>
+            </button>
             {(hasSubLandingPages && (openSubLandingPages || !isMobileView)) && (
                 <ul 
                     className={`subLandingPages ${
