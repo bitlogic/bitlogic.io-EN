@@ -42,6 +42,7 @@ const RenderSection = ({section, className }) => {
                 />
                 {hasSubLandingPages && <FaAngleDown className={`dropdownItem_icon ${openSubLandingPages ? "open" : ""}`} onClick={toggleSubLandingPages}/>}
             </div>
+            {section?.text && <p className="navItemP">{section.text}</p>}
             {(hasSubLandingPages && (openSubLandingPages || !isMobileView)) && (
                 <ul 
                     className={`subLandingPages ${
