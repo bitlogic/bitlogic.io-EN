@@ -101,8 +101,6 @@
   .two-column-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    max-height: calc(5 * 2rem);
-    overflow: hidden;
     padding: 0;
     list-style: none;
   }
@@ -137,14 +135,18 @@
       &_topLevel {
         width: 100%; // Asegura que el top level ocupe todo el ancho
         border-right: none; // Elimina la línea de separación si no es necesaria
-        // margin-right: 0; // Elimina el margen derecho
-        // padding-bottom: 8px; // Añade un poco de espacio debajo del top level
         border-bottom: 2px solid #808080;
       }
     }
   
     .subLandingPages {
       margin-left: 1.3rem;
+
+      &-item{
+        height: 44px;
+        display: flex;
+        align-items: center;
+      }
       
     }
 
