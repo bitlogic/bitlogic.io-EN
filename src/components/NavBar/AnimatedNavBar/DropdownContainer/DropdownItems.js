@@ -55,6 +55,7 @@ const RenderSection = ({section, className, isOpen, toggleSubLandingPages, isMob
 
 RenderSection.propTypes = {
     section: PropTypes.shape({
+        id: PropTypes.number.isRequired, 
         icon: PropTypes.shape({
             alternativeText: PropTypes.string
         }),
@@ -64,68 +65,85 @@ RenderSection.propTypes = {
         english_landing_page: PropTypes.string,
         english_sub_landing_pages: PropTypes.arrayOf(
             PropTypes.shape({
-                id: PropTypes.number.isRequired,
+                id: PropTypes.number.isRequired, 
                 name: PropTypes.string.isRequired,
                 slug: PropTypes.string.isRequired
             })
         )
     }).isRequired,
-    className: PropTypes.string
+    className: PropTypes.string,
+    isOpen: PropTypes.bool.isRequired,
+    toggleSubLandingPages: PropTypes.func.isRequired,
+    isMobileView: PropTypes.bool.isRequired
 };
+
+
+const DropdownItems = memo(({ sections, topLevel }) => {
+
+    const [openSectionId, setOpenSectionId] = useState(null);
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth < 1200);
+
+    // Actualizar el estado `isMobileView` según el tamaño de la pantalla
+    useEffect(() => {
+        const handleResize = () => {
+        setIsMobileView(window.innerWidth < 1200);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const toggleSubLandingPages = (sectionId) => {
+        if (isMobileView) {
+          setOpenSectionId((prevId) => (prevId === sectionId ? null : sectionId));
+        }
+    };
+    
+    return (
+        <div className="dropdownItem_container" style={!sections ? { maxHeight: "0" } : {}}>
+            <div className="dropdownItem_section" data-first-dropdown-section>
+                {topLevel && (
+                    <div
+                        className="dropdownItem_topLevel"
+                        style={{
+                            marginRight: "15px",
+                            paddingBottom: "8px",
+                        }}
+                    >
+                        <RenderSection
+                            section={topLevel}
+                            className={"dropdownItem_link-topLevel"}
+                            isOpen={openSectionId === topLevel.id}
+                            toggleSubLandingPages={toggleSubLandingPages}
+                            isMobileView={isMobileView}
+                        />
+                    </div>    
+                )}
+                <div className="dropdownItem_content">
+                    {sections?.map(section => (
+                        <div key={section.id} className="dropdownItem">
+                            <RenderSection
+                                section={section}
+                                className={"dropdownItem_link"}
+                                isOpen={openSectionId === section.id}
+                                toggleSubLandingPages={toggleSubLandingPages}
+                                isMobileView={isMobileView}
+                            />
+                        </div>   
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+})
 
 DropdownItems.propTypes = {
     sections: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        label: PropTypes.string.isRequired,
-        text: PropTypes.string,
-        url: PropTypes.string,
-        landing_page: PropTypes.shape({
-          slug: PropTypes.string.isRequired,
-        }),
-        sub_landing_pages: PropTypes.arrayOf(
-          PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            slug: PropTypes.string.isRequired,
-          })
-        ),
-        icon: PropTypes.shape({
-          url: PropTypes.string,
-          alternativeText: PropTypes.string,
-          localFile: PropTypes.shape({
-            childImageSharp: PropTypes.shape({
-              gatsbyImageData: PropTypes.object.isRequired,
-            }),
-          }),
-        }),
-      })
-    ),
-    topLevel: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      label: PropTypes.string.isRequired,
-      text: PropTypes.string,
-      url: PropTypes.string,
-      landing_page: PropTypes.shape({
-        slug: PropTypes.string.isRequired,
-      }),
-      sub_landing_pages: PropTypes.arrayOf(
         PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired,
-          slug: PropTypes.string.isRequired,
+            id: PropTypes.number.isRequired,
         })
-      ),
-      icon: PropTypes.shape({
-        url: PropTypes.string,
-        alternativeText: PropTypes.string,
-        localFile: PropTypes.shape({
-          childImageSharp: PropTypes.shape({
-            gatsbyImageData: PropTypes.object.isRequired,
-          }),
-        }),
-      }),
-    }),
-  };
+    ),
+    topLevel: PropTypes.object,
+};
+
 
 export default DropdownItems
