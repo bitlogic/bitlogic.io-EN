@@ -7,15 +7,13 @@ import CustomImage from "../CustomImage/CustomImage"
 
 const Professionals = ({ data }) => {
   const { title, summary, eng_professionals } = data
-  const professionalsData = useProfessionals().allStrapiProfessional?.nodes
-  const professionalsList = eng_professionals
-    .map(pro =>
-      professionalsData?.find(professional => professional.strapiId === pro.id)
-    )
-    .slice(0, 6)
+  const professionalsData = useProfessionals()?.allStrapiProfessional?.nodes
 
-  const professionalsCards = professionalsList.map(pro => {
-    if (!pro) return null;
+  const professionalsList = eng_professionals?.map(pro =>
+    professionalsData?.find(professional => professional.strapiId === parseInt(pro.id, 10))
+  ).slice(0, 6);
+    
+  const professionalsCards = professionalsList?.map(pro => {
     const { name, position, quote, linkedin, photo } = pro
 
     return (
@@ -70,7 +68,7 @@ Professionals.propTypes = {
     eng_professionals: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
-        name: PropTypes.string,
+        name: PropTypes.string.isRequired,
         position: PropTypes.string,
         quote: PropTypes.string,
         linkedin: PropTypes.string,
