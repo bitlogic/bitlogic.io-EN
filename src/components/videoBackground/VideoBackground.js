@@ -233,7 +233,7 @@ VideoBackground.propTypes = {
     button: PropTypes.shape({
       content: PropTypes.string.isRequired,
       url: PropTypes.string,
-      landing_page: PropTypes.shape({
+      english_landing_page: PropTypes.shape({
         slug: PropTypes.string.isRequired,
       }),
     }),
