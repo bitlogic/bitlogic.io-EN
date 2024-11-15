@@ -110,7 +110,7 @@ function getVideoContent(video, videoRef, isIntersecting, pausePlay, handleKeyDo
 
 const VideoBackground = ({ data }) => {
 
-  const { image , video, description, button, backgroundImage, videoUrl } = data
+  const { image, video, description, button, backgroundImage, videoUrl } = data
   const [isVideoPause, setIsVideoPause] = useState(false)
   const [isIntersecting, setIsIntersecting] = useState(false)
   const videoRef = useRef(null)
@@ -174,7 +174,7 @@ const VideoBackground = ({ data }) => {
     localStorage.setItem("videoPaused", isVideoPause)
   }, [isVideoPause])
 
-  
+
 
 
 
@@ -200,7 +200,7 @@ const VideoBackground = ({ data }) => {
                 <CustomLink
                   content={button.content}
                   url={button?.url}
-                  landing={button?.landing_page}
+                  landing={button?.english_landing_page}
                   className=""
                 />
               )}
@@ -233,7 +233,7 @@ VideoBackground.propTypes = {
     button: PropTypes.shape({
       content: PropTypes.string.isRequired,
       url: PropTypes.string,
-      landing_page: PropTypes.shape({
+      english_landing_page: PropTypes.shape({
         slug: PropTypes.string.isRequired,
       }),
     }),
