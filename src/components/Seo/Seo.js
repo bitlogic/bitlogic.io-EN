@@ -23,7 +23,11 @@ function Seo({ description, lang, meta, title, keywords }) {
         lang,
       }}
       title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      titleTemplate={defaultTitle 
+        ? ((title.length + defaultTitle.length) <= 50 
+              ? `%s | ${defaultTitle}` 
+              : `%s`)  
+        : null}
       meta={[
         {
           name: `robots`,
