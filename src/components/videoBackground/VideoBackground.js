@@ -116,7 +116,6 @@ const VideoBackground = ({ data }) => {
   const [isIntersecting, setIsIntersecting] = useState(false)
   const videoRef = useRef(null)
 
-
   const pausePlay = () => {
     if (isVideoPause) {
       videoRef?.current?.play()
