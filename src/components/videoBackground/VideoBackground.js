@@ -5,6 +5,7 @@ import PropTypes from "prop-types"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 function getIOSVersion() {
+  if (typeof window === "undefined" || typeof navigator === "undefined") { return null; }
   const userAgent = navigator.userAgent;
 
   // Check if it's an iOS device
@@ -232,7 +233,7 @@ VideoBackground.propTypes = {
     button: PropTypes.shape({
       content: PropTypes.string.isRequired,
       url: PropTypes.string,
-      landing_page: PropTypes.shape({
+      english_landing_page: PropTypes.shape({
         slug: PropTypes.string.isRequired,
       }),
     }),
