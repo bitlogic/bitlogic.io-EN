@@ -11,6 +11,7 @@
     }
 
     &_section{
+      background-color: #2b2b2b;
         display: flex;
         width: 100%;
         padding: 20px;
@@ -38,12 +39,11 @@
         flex-direction: row;
         align-items: center;
         font-size: 18px;
-        padding-bottom: 0.1rem;
 
         &-inner {
             text-align: start;
             color: $primary;
-            padding: 2% 0;
+            padding: 8px 0;
             font-weight: $standard;
             
             &:hover {
@@ -56,7 +56,6 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            border-right: "2px solid #808080";
         }
 
         &-subLanding {
@@ -97,52 +96,28 @@
     list-style-type: none;          
     text-align: start;
     margin-left: 1.7rem;
-  
   }
 
-  @media only screen and (max-width: 1200px) {
-    .dropdownItem {
-      &_container {
-        flex-direction: column; // Cambia a una disposición vertical
-      }
-  
-      &_section {
-        padding-top: 28px;
-        padding-right: 28px;
-        padding-bottom: 14px;
-        padding-left: 28px;
-        display: flex;
-        flex-direction: column; // Asegura que los subitems se alineen verticalmente
-      }
-  
-      &_content {
-        flex-direction: column; // Asegura que los items dentro también sean verticales
-        width: 100%; // Ocupará el 100% del ancho
-        gap: 16px;
-      }
-  
-      &_topLevel {
-        width: 100%; // Asegura que el top level ocupe todo el ancho
-        border-right: none; // Elimina la línea de separación si no es necesaria
-        margin-right: 0; // Elimina el margen derecho
-        padding-bottom: 8px; // Añade un poco de espacio debajo del top level
-        border-bottom: 2px solid #808080;
-      }
-    }
-  
-    .subLandingPages {
-      margin-left: 1.3rem;
-    }
+  .two-column-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+    list-style: none;
+  }
+
+  .dropdownItem_icon {
+    display: none;
   }
   
   @media only screen and (max-width: 1200px) {
     .dropdownItem {
+      background-color: #2b2b2b;
       &_container {
         flex-direction: column; // Cambia a una disposición vertical
       }
   
       &_section {
-        // Cambia el estilo si es necesario
+        
         padding-top: 28px;
         padding-right: 28px;
         padding-bottom: 14px;
@@ -160,14 +135,27 @@
       &_topLevel {
         width: 100%; // Asegura que el top level ocupe todo el ancho
         border-right: none; // Elimina la línea de separación si no es necesaria
-        margin-right: 0; // Elimina el margen derecho
-        padding-bottom: 8px; // Añade un poco de espacio debajo del top level
         border-bottom: 2px solid #808080;
       }
     }
   
     .subLandingPages {
       margin-left: 1.3rem;
-      // display: none; // Oculta los subitems en mobile
+
+      &-item{
+        height: 36px;
+        display: flex;
+        align-items: center;
+      }
+      
+    }
+
+    .dropdownItem_icon {
+      display: block;
+      color: $primary;
+      
+      &.open {
+        transform: rotate(180deg);
+      }
     }
   }

@@ -17,13 +17,23 @@ function Seo({ description, lang, meta, title, keywords }) {
   const preventIndex = robots ? `index, follow` : `noindex, nofollow`
   const defaultKeywords = keywords || siteKeywords
 
+  let titleTemplateValue = null;
+
+  if (defaultTitle) {
+    if (title?.length + defaultTitle?.length <= 50) {
+      titleTemplateValue = `%s | ${defaultTitle}`; // Concatenar si la longitud total es corta
+    } else {
+      titleTemplateValue = `%s`; // Usar solo el título particular
+    }
+  }
+
   return (
     <Helmet
       htmlAttributes={{
         lang,
       }}
       title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      titleTemplate={titleTemplateValue}
       meta={[
         {
           name: `robots`,

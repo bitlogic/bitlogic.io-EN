@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env`, // Asegúrate de que apunte al archivo correcto
+});
+
 module.exports = {
   trailingSlash: "always",
   siteMetadata: {
@@ -161,6 +165,13 @@ module.exports = {
             },
           },
         ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        printRejected: true,     // Muestra las clases eliminadas en la consola
+        develop: false,          // PurgeCSS solo se ejecuta en producción
       },
     },
     "gatsby-plugin-offline",

@@ -1,32 +1,45 @@
-import React, { memo } from "react"
+import React, { memo, useState, useEffect } from "react"
 import "./DropdownItems.scss"
 import CustomImage from "../../../CustomImage/CustomImage"
 import CustomLink from "../../../CustomLink/CustomLink"
 import PropTypes from "prop-types"
+import { FaAngleDown } from "react-icons/fa"
 
-const RenderSection = ({section, className }) => {
+const RenderSection = ({section, className, isOpen, toggleSubLandingPages, isMobileView}) => {
+    const { icon, label, url, english_landing_page, english_sub_landing_pages = [] } = section || {};
+    const hasSubLandingPages = english_sub_landing_pages.length > 0;
+
     return (
         <>
-            <div className={className}>
+            <div 
+                className={className}
+            >
                 <CustomImage 
-                    image={section?.icon}
-                    alt={section?.icon?.alternativeText || "NavLink Icon"}
+                    image={icon}
+                    alt={icon?.alternativeText || "NavLink Icon"}
                     className="navbarItemIcon"
                     width={28}
                     height={28}
                 />
                 <CustomLink 
-                    content={section.label}
-                    url={section?.url}
-                    landing={section?.english_landing_page}
+                    content={label}
+                    url={url}
+                    landing={english_landing_page}
                     className="dropdownItem_link-inner"
                 />
+                {hasSubLandingPages && 
+                    <FaAngleDown 
+                        className={`dropdownItem_icon ${isOpen ? "open" : ""}`} 
+                        onClick={() => toggleSubLandingPages(section.id)}
+                    />
+                }
             </div>
             {section?.text && <p className="navItemP">{section.text}</p>}
-            {section?.english_sub_landing_pages && section.english_sub_landing_pages.length > 0 && (
-                <ul className="subLandingPages">
-                    {section.english_sub_landing_pages.map(subItem => (
-                        <li key={subItem.id}>
+
+            {(hasSubLandingPages && (isOpen || !isMobileView)) && (
+                <ul className={`subLandingPages ${section.english_sub_landing_pages.length > 5 ? 'two-column-list' : ''}`} >
+                    {english_sub_landing_pages.map(subItem => (
+                        <li key={subItem.id} className="subLandingPages-item">
                             <CustomLink 
                                 content={subItem.name}
                                 url={`/${subItem.slug}`}
@@ -42,6 +55,7 @@ const RenderSection = ({section, className }) => {
 
 RenderSection.propTypes = {
     section: PropTypes.shape({
+        id: PropTypes.number.isRequired, 
         icon: PropTypes.shape({
             alternativeText: PropTypes.string
         }),
@@ -51,16 +65,39 @@ RenderSection.propTypes = {
         english_landing_page: PropTypes.string,
         english_sub_landing_pages: PropTypes.arrayOf(
             PropTypes.shape({
-                id: PropTypes.number.isRequired,
+                id: PropTypes.number.isRequired, 
                 name: PropTypes.string.isRequired,
                 slug: PropTypes.string.isRequired
             })
         )
     }).isRequired,
-    className: PropTypes.string
+    className: PropTypes.string,
+    isOpen: PropTypes.bool.isRequired,
+    toggleSubLandingPages: PropTypes.func.isRequired,
+    isMobileView: PropTypes.bool.isRequired
 };
 
+
 const DropdownItems = memo(({ sections, topLevel }) => {
+
+    const [openSectionId, setOpenSectionId] = useState(null);
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth < 1200);
+
+    // Actualizar el estado `isMobileView` según el tamaño de la pantalla
+    useEffect(() => {
+        const handleResize = () => {
+        setIsMobileView(window.innerWidth < 1200);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const toggleSubLandingPages = (sectionId) => {
+        if (isMobileView) {
+          setOpenSectionId((prevId) => (prevId === sectionId ? null : sectionId));
+        }
+    };
+    
     return (
         <div className="dropdownItem_container" style={!sections ? { maxHeight: "0" } : {}}>
             <div className="dropdownItem_section" data-first-dropdown-section>
@@ -75,6 +112,9 @@ const DropdownItems = memo(({ sections, topLevel }) => {
                         <RenderSection
                             section={topLevel}
                             className={"dropdownItem_link-topLevel"}
+                            isOpen={openSectionId === topLevel.id}
+                            toggleSubLandingPages={toggleSubLandingPages}
+                            isMobileView={isMobileView}
                         />
                     </div>    
                 )}
@@ -84,6 +124,9 @@ const DropdownItems = memo(({ sections, topLevel }) => {
                             <RenderSection
                                 section={section}
                                 className={"dropdownItem_link"}
+                                isOpen={openSectionId === section.id}
+                                toggleSubLandingPages={toggleSubLandingPages}
+                                isMobileView={isMobileView}
                             />
                         </div>   
                     ))}
