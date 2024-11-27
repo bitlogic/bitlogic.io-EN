@@ -25,12 +25,12 @@ export default function BannerList({ data }) {
         <div className="card_item col-9 pe-2">
           {item?.english_landing_page ? (
             <Link to={getUrl(item.english_landing_page.slug)}>
-              <h2>{item.title}</h2>
+              <h3>{item.title}</h3>
               <p>{item.description}</p>
             </Link>
           ) : (
             <>
-              <h2>{item.title}</h2>
+              <h3>{item.title}</h3>
               <p>{item.description}</p>
             </>
           )}
@@ -42,12 +42,12 @@ export default function BannerList({ data }) {
   return (
     <div className="container pt-5">
       <div className="bannerList d-md-flex flex-row">
-        <h1 className="bannerList__title col-md-6 col-xl-6 align-self-center mb-4">
+        <h2 className="bannerList__title col-md-6 col-xl-6 align-self-center mb-4">
           {title}
           {contactForm && concactFormAnchor && callToAction && (
             <a href={concactFormAnchor}>{callToAction}</a>
           )}
-        </h1>
+        </h2>
         <div className="bannerList__cards col-md-6 col-xl-6">{cards}</div>
       </div>
     </div>
