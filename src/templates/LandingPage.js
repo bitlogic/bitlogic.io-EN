@@ -16,11 +16,11 @@ const LandingPage = ({ data, location }) => {
     ref: wrapperRef,
   }
 
-  const { pageKeywords, pageDescription } = seo || {}
+  const {pageTitle, pageKeywords, pageDescription } = seo || {}
 
   return (
     <Layout location={location} options={{ hasHeader: true }}>
-      <Seo title={name} description={pageDescription} keywords={pageKeywords} />
+      <Seo title={pageTitle} description={pageDescription} keywords={pageKeywords} />
       {body?.length > 0 && navigation ? (
         <>
           <CustomSection sections={body.slice(0, 1)} />
@@ -72,6 +72,7 @@ export const query = graphql`
           slug
         }
         seo {
+          pageTitle
           pageKeywords
           pageDescription
         }

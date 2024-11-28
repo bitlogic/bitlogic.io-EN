@@ -38,6 +38,11 @@ const useBlog = () => {
           blog_category {
             name
           }
+          seo {
+            pageTitle
+            pageKeywords
+            pageDescription
+          }
         }
       }
       allStrapiBlogPage: allStrapiEnglishBlogPage {
