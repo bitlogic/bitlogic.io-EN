@@ -30,7 +30,7 @@ const AnimatedTransitionContinous = ({ data }) => {
                   className={""}
                 />
               )}
-              <h1 style={{ color: color }}>{innerText || ""}</h1>
+              <h2 style={{ color: color }}>{innerText || ""}</h2>
               {(imagePosition === "last" || !imagePosition) && image && (
                 <CustomImage
                   image={image}
