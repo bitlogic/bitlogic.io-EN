@@ -37,7 +37,7 @@ const RenderSection = ({section, className, isOpen, toggleSubLandingPages, isMob
             {section?.text && <p className="navItemP">{section.text}</p>}
 
             {(hasSubLandingPages && (isOpen || !isMobileView)) && (
-                <ul className={`subLandingPages ${section.english_sub_landing_pages.length > 5 ? 'two-column-list' : ''}`} >
+                <ul className={`subLandingPages ${english_sub_landing_pages.length > 5 ? 'two-column-list' : ''}`} >
                     {english_sub_landing_pages.map(subItem => (
                         <li key={subItem.id} className="subLandingPages-item">
                             <CustomLink 
