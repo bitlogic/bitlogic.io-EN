@@ -42,7 +42,8 @@ const RenderSection = ({section, className, isOpen, toggleSubLandingPages, isMob
                         <li key={subItem.id} className="subLandingPages-item">
                             <CustomLink 
                                 content={subItem.name}
-                                url={`/${subItem.slug}`}
+                                landing={subItem}
+                                url={subItem?.url}
                                 className="dropdownItem_link-subLanding"
                             />
                         </li>
