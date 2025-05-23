@@ -76,7 +76,16 @@ function Seo({ description, lang, meta, title, keywords }) {
           content: metaDescription,
         },
       ].concat(meta)}
-    // link={[]}
+      link={[{
+              rel: "alternate",
+              hrefLang: 'es',
+              href:'https://es.bitlogic.io',
+        },
+        {
+              rel: "alternate",
+              hrefLang: 'en',
+              href:'https://en.bitlogic.io',
+        }]}
     />
   )
 }
