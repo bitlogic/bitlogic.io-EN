@@ -41,7 +41,7 @@ export default function BannerList({ data }) {
 
   return (
     <div className="container pt-5">
-      <div className="bannerList d-md-flex flex-row">
+      <div className="bannerList d-md-flex flex-row" data-nosnippet>
         <h2 className="bannerList__title col-md-6 col-xl-6 align-self-center mb-4">
           {title}
           {contactForm && concactFormAnchor && callToAction && (

@@ -10,7 +10,7 @@ const BlogArticle = ({ title, summary, image, slug, text }) => {
 
 
   return (
-    <div className="article__container">
+    <div className="article__container" data-nosnippet>
       <CustomImage
         image={image}
         alt={image?.alternativeText || title}
