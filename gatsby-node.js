@@ -3,6 +3,18 @@ const FilterWarningsPlugin = require("webpack-filter-warnings-plugin")
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
+    resolve: {
+      extensions: ['.mjs', '.js'],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.mjs$/,
+          include: /node_modules/,
+          type: 'javascript/auto',
+        },
+      ],
+    },
     plugins: [
       new FilterWarningsPlugin({
         exclude: /mini-css-extract-plugin[^]*Conflicting order. Following module has been added:/,
