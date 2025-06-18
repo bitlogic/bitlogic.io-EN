@@ -8,7 +8,6 @@ function getIOSVersion() {
   if (typeof window === "undefined" || typeof navigator === "undefined") { return null; }
   const userAgent = navigator.userAgent;
 
-  // Check if it's an iOS device
   const regex = /iPhone.*OS (\d+)_?(\d+)_?(\d+)?/;
   const iosMatch = regex.exec(userAgent);
   if (iosMatch) {
@@ -17,7 +16,7 @@ function getIOSVersion() {
     const patch = iosMatch[3] ? parseInt(iosMatch[3], 10) : 0;
     return { major, minor, patch };
   } else {
-    return null; // It's not an iOS device
+    return null;
   }
 }
 
@@ -25,29 +24,17 @@ function isIOSPriorTo(version) {
   const currentVersion = getIOSVersion();
 
   if (!currentVersion) {
-    return false; // It's not an iOS device
+    return false;
   }
 
   const [majorVersion, minorVersion] = version.split(".").map(Number);
 
-  // Major compare
-  if (currentVersion.major < majorVersion) {
-    return true;
-  }
-  if (currentVersion.major > majorVersion) {
-    return false;
-  }
+  if (currentVersion.major < majorVersion) return true;
+  if (currentVersion.major > majorVersion) return false;
+  if (currentVersion.minor < minorVersion) return true;
+  if (currentVersion.minor > minorVersion) return false;
 
-  // If major equals, then compare minor version
-  if (currentVersion.minor < minorVersion) {
-    return true;
-  }
-  if (currentVersion.minor > minorVersion) {
-    return false;
-  }
-
-  // If major and minor version equals to current version's, then do patch compare
-  return currentVersion.patch < 0; // If no patch, it's prior
+  return currentVersion.patch < 0;
 }
 
 function getVideoContent(video, videoRef, isIntersecting, pausePlay, handleKeyDown, videoUrl, image) {
@@ -57,32 +44,28 @@ function getVideoContent(video, videoRef, isIntersecting, pausePlay, handleKeyDo
   let code = url?.substring(url?.lastIndexOf("/") + 1, url?.length)
   const codeIndex = code?.indexOf("?")
 
-
   code = (codeIndex !== -1 && code !== undefined) ? code.substring(0, code.indexOf("?")) : code;
 
   if (!isIOSPriorTo("17.4")) {
-    // Si el video URL está disponible, se renderiza el video el video
     if (video?.url !== null && video?.url !== undefined) {
       videoContent = (
         <video
-        ref={videoRef}
-        muted
-        loop
-        playsInline
-        tabIndex={0}
-        controls={false}
-        autoPlay={isIntersecting}
-        poster="/posterBitlogic.webp"
-        preload="auto"
-        onClick={pausePlay}
-        onKeyDown={handleKeyDown}
+          ref={videoRef}
+          muted
+          loop
+          playsInline
+          tabIndex={0}
+          controls={false}
+          autoPlay={isIntersecting}
+          poster="/posterBitlogic.webp"
+          preload="auto"
+          onClick={pausePlay}
+          onKeyDown={handleKeyDown}
         >
           {isIntersecting && <source src={video.url} type={video?.mime} />}
         </video>
       );
     } else if (videoUrl !== null && videoUrl !== undefined) {
-      // Si el video URL alternativo está disponible, se renderiza el iframe
-
       videoContent = (
         <iframe
           className="video"
@@ -102,7 +85,6 @@ function getVideoContent(video, videoRef, isIntersecting, pausePlay, handleKeyDo
           mozallowfullscreen="true"
         ></iframe>
       );
-
     }
   } else {
     videoContent = imageData ? <GatsbyImage width={290} height={200} className="image" image={imageData} alt={image.alternativeText || "Image"} /> : <div><br /></div>
@@ -112,7 +94,6 @@ function getVideoContent(video, videoRef, isIntersecting, pausePlay, handleKeyDo
 }
 
 const VideoBackground = ({ data }) => {
-
   const { image, video, description, button, backgroundImage, videoUrl } = data
   const [isVideoPause, setIsVideoPause] = useState(false)
   const [isIntersecting, setIsIntersecting] = useState(false)
@@ -140,7 +121,9 @@ const VideoBackground = ({ data }) => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsIntersecting(true)
-          observer.unobserve(videoRef?.current)
+          if (videoRef?.current instanceof Element) {
+            observer.unobserve(videoRef.current)
+          }
         }
       },
       {
@@ -154,7 +137,7 @@ const VideoBackground = ({ data }) => {
     }
 
     return () => {
-      if (videoElement) {
+      if (videoElement && videoElement instanceof Element) {
         observer.unobserve(videoElement)
       }
     }
@@ -176,11 +159,6 @@ const VideoBackground = ({ data }) => {
     localStorage.setItem("videoPaused", isVideoPause)
   }, [isVideoPause])
 
-
-
-
-
-  // variable para los diferentes tipos de contenido
   let videoContent = getVideoContent(video, videoRef, isIntersecting, pausePlay, handleKeyDown, videoUrl, image)
 
   return (
