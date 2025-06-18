@@ -26,7 +26,7 @@ const Quote = ({ data }) => {
   }
 
   return (
-    <div className={`Quote ${variant} container`}>
+    <div className={`Quote ${variant} container`} data-nosnippet>
       {image ? (
         <div className="Quote__body image">
           <CustomImage
