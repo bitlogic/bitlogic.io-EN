@@ -65,15 +65,17 @@ function getVideoContent(video, videoRef, isIntersecting, pausePlay, handleKeyDo
     if (video?.url !== null && video?.url !== undefined) {
       videoContent = (
         <video
-          className="video"
-          ref={videoRef}
-          muted
-          loop
-          tabIndex={0}
-          controls={false}
-          autoPlay={isIntersecting}
-          onClick={pausePlay}
-          onKeyDown={handleKeyDown}
+        ref={videoRef}
+        muted
+        loop
+        playsInline
+        tabIndex={0}
+        controls={false}
+        autoPlay={isIntersecting}
+        poster="/posterBitlogic.webp"
+        preload="auto"
+        onClick={pausePlay}
+        onKeyDown={handleKeyDown}
         >
           {isIntersecting && <source src={video.url} type={video?.mime} />}
         </video>
