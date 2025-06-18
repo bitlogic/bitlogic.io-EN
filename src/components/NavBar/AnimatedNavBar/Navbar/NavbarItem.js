@@ -1,7 +1,7 @@
 import { Link } from "gatsby"
 import React from "react"
 import "./navbarItems.scss"
-import { FaAngleDown } from "react-icons/fa";
+import FaAngleDown from "react-icons/lib/fa/angle-down"
 import PropTypes from "prop-types"
 
 

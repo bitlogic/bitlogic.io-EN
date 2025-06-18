@@ -1,7 +1,8 @@
 import React from "react"
 import { useProfessionals } from "../../hooks"
 import "./Professionals.scss"
-import { FaLinkedinIn } from "react-icons/fa"
+
+import  FaLinkedinIn  from "react-icons/lib/fa/linkedin"
 import PropTypes from "prop-types"
 import CustomImage from "../CustomImage/CustomImage"
 
