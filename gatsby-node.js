@@ -126,4 +126,33 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     })
   })
+
+   // 3) Category pages
+   const categoryResult = await graphql(`
+    {
+      allStrapiEnglishBlogCategory {
+        nodes {
+          name
+          slug
+        }
+      }
+    }
+  `)
+  if (categoryResult.errors) {
+    reporter.panicOnBuild(
+      "Error creating category pages",
+      categoryResult.errors
+    )
+  }
+  const categoryTemplate = path.resolve("./src/templates/CategoryPage.js")
+  categoryResult.data.allStrapiEnglishBlogCategory.nodes.forEach(category => {
+    const slugLower = category.slug.toLowerCase()
+    createPage({
+      path: `/blog/${slugLower}`,
+      component: categoryTemplate,
+      context: {
+        name: category.name,
+      },
+    })
+  })
 }
