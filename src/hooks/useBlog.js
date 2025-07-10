@@ -6,6 +6,7 @@ const useBlog = () => {
       allStrapiBlogCategory: allStrapiEnglishBlogCategory {
         nodes {
           name
+          slug
         }
       }
       allStrapiArticle: allStrapiEnglishArticle(
@@ -16,6 +17,7 @@ const useBlog = () => {
           id
           summary
           slug
+          destacado
           image {
             url
             alternativeText
@@ -37,6 +39,7 @@ const useBlog = () => {
 
           blog_category {
             name
+            slug
           }
           seo {
             pageTitle

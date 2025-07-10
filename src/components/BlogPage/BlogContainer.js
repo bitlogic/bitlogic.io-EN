@@ -2,50 +2,62 @@ import React from "react"
 import { useBlog } from "../../hooks"
 import BlogGrid from "./BlogGrid/BlogGrid"
 import BlogArticle from "./BlogArticle/BlogArticle"
-import { Layaout } from ".."
-import Banner from "../Banner/Banner"
 import Seo from "../Seo/Seo"
-
-
+import Layout from "../layout"
+import Banner from "../Banner/Banner"
 import "./BlogContainer.scss"
 
 const Blog = () => {
+  const { allStrapiBlogCategory, allStrapiArticle, allStrapiBlogPage } = useBlog()
+  const categorias = allStrapiBlogCategory.nodes
+  const articulos = allStrapiArticle.nodes
+  const { seo, banner } = allStrapiBlogPage.nodes[0] || {}
+  const callToAction = allStrapiBlogPage.nodes[0]?.callToActionArticle
 
-  const blogData = useBlog()
-  const data = blogData?.allStrapiBlogCategory?.nodes
-  const dataArticles = blogData?.allStrapiArticle?.nodes
-  const defaultCategory = data[0]?.name
-  const filterArticle = data.map(category => dataArticles.filter(article => category.name === article?.blog_category?.name || defaultCategory))
-  const { seo, banner, callToAction } = blogData.allStrapiBlogPage.nodes[0]
-
+  // Para cada categoría, tomo los primeros 3 artículos
+  const articulosPorCategoria = categorias
+    .map(categoria => {
+      const articulosCat = articulos.filter(
+        art => art.blog_category?.slug === categoria.slug
+      )
+      return {
+        name: categoria.name,
+        slug: categoria.slug,
+        items: articulosCat.slice(0, 3),
+      }
+    })
+    .filter(grupo => grupo.items.length > 0)
 
   return (
-    <Layaout>
+    <Layout>
       <Seo
-        title={seo.pageTitle}
-        description={seo.pageDescription}
-        keywords={seo.pageKeywords}
+        title={seo?.pageTitle}
+        description={seo?.pageDescription}
+        keywords={seo?.pageKeywords}
       />
       <Banner data={banner} />
-      {data.length > 0 && (
-        <div className="blog__container container">
-          {filterArticle?.map((category, idx) => (
-            <BlogGrid key={data[idx].name} title={category[0]?.blog_category?.name}>
-              {category.map(item => (
-                <BlogArticle
-                  key={item.id}
-                  image={item.image}
-                  title={item.title}
-                  summary={item.summary}
-                  slug={"/blog/" + item.slug}
-                  text={callToAction}
-                />
-              ))}
-            </BlogGrid>
-          ))}
-        </div>
-      )}
-    </Layaout>
+
+      <div className="blog__container container">
+        {articulosPorCategoria.map(({ name, slug, items }) => (
+          <BlogGrid
+            key={slug}
+            title={name}
+            viewAllHref={`/blog/${slug.toLowerCase()}`}
+          >
+            {items.map(item => (
+              <BlogArticle
+                key={item.id}
+                image={item.image || item.imagePage}
+                title={item.title}
+                summary={item.summary}
+                slug={`/blog/${item.slug}`}
+                text={callToAction}
+              />
+            ))}
+          </BlogGrid>
+        ))}
+      </div>
+    </Layout>
   )
 }
 
