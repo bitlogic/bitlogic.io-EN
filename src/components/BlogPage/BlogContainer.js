@@ -14,20 +14,30 @@ const Blog = () => {
   const { seo, banner } = allStrapiBlogPage.nodes[0] || {}
   const callToAction = allStrapiBlogPage.nodes[0]?.callToActionArticle
 
-  // Para cada categoría, tomo los primeros 3 artículos
+  // Para cada categoría, tomo los primeros 3 artículos sin lógica de destacados
   const articulosPorCategoria = categorias
-    .map(categoria => {
-      const articulosCat = articulos.filter(
-        art => art.blog_category?.slug === categoria.slug
-      )
-      return {
-        name: categoria.name,
-        slug: categoria.slug,
-        items: articulosCat.slice(0, 3),
-      }
-    })
-    .filter(grupo => grupo.items.length > 0)
+  .map(categoria => {
+    const articulosCat = articulos
+      .filter(art => art.blog_category?.slug === categoria.slug)
+      .sort((a, b) => {
+        // Primero los destacados (true = 1, false = 0)
+        if (a.destacado !== b.destacado) {
+          return a.destacado ? -1 : 1
+        }
 
+        // Si ambos son igual en destacado, ordenar por fecha (más nuevo primero)
+        const fechaA = new Date(a.publishedAt)
+        const fechaB = new Date(b.publishedAt)
+        return fechaB - fechaA
+      })  // <-- cierra el sort
+
+    return {
+      name: categoria.name,
+      slug: categoria.slug,
+      items: articulosCat.slice(0, 3),  // Tomar solo los primeros 3
+    }
+  })  
+  .filter(grupo => grupo.items.length > 0)  
   return (
     <Layout>
       <Seo
