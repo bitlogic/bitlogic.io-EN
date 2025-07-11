@@ -7,6 +7,7 @@ const useBlog = () => {
         nodes {
           name
           slug
+          orden
         }
       }
       allStrapiArticle: allStrapiEnglishArticle(
