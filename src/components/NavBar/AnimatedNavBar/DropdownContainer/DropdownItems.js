@@ -3,7 +3,7 @@ import "./DropdownItems.scss"
 import CustomImage from "../../../CustomImage/CustomImage"
 import CustomLink from "../../../CustomLink/CustomLink"
 import PropTypes from "prop-types"
-import { FaAngleDown } from "react-icons/fa"
+import FaAngleDown  from "react-icons/lib/fa/angle-down";
 
 const RenderSection = ({section, className, isOpen, toggleSubLandingPages, isMobileView}) => {
     const { icon, label, url, english_landing_page, english_sub_landing_pages = [] } = section || {};

@@ -20,7 +20,7 @@ const FeaturedBlogs = ({ data }) => {
 
   return (
     <div
-      className="container featured pb-3"
+      className="container featured pb-3" data-nosnippet
       id={data.strapi_component + "-" + data.id}
     >
       <h2>{data.title}</h2>

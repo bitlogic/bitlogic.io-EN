@@ -3,6 +3,18 @@ const FilterWarningsPlugin = require("webpack-filter-warnings-plugin")
 
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
+    resolve: {
+      extensions: ['.mjs', '.js'],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.mjs$/,
+          include: /node_modules/,
+          type: 'javascript/auto',
+        },
+      ],
+    },
     plugins: [
       new FilterWarningsPlugin({
         exclude: /mini-css-extract-plugin[^]*Conflicting order. Following module has been added:/,
@@ -111,6 +123,35 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         slug: node.slug,
         lastmod: node.updated_at,
+      },
+    })
+  })
+
+   // 3) Category pages
+   const categoryResult = await graphql(`
+    {
+      allStrapiEnglishBlogCategory {
+        nodes {
+          name
+          slug
+        }
+      }
+    }
+  `)
+  if (categoryResult.errors) {
+    reporter.panicOnBuild(
+      "Error creating category pages",
+      categoryResult.errors
+    )
+  }
+  const categoryTemplate = path.resolve("./src/templates/CategoryPage.js")
+  categoryResult.data.allStrapiEnglishBlogCategory.nodes.forEach(category => {
+    const slugLower = category.slug.toLowerCase()
+    createPage({
+      path: `/blog/${slugLower}`,
+      component: categoryTemplate,
+      context: {
+        name: category.name,
       },
     })
   })
