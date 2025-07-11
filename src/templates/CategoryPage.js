@@ -6,11 +6,18 @@ import Layout from "../components/layout"
 import BlogGrid from "../components/BlogPage/BlogGrid/BlogGrid"
 import BlogArticle from "../components/BlogPage/BlogArticle/BlogArticle"
 import Seo from "../components/Seo/Seo"
-import "./CategoryPage.scss" // estilos específicos para esta plantilla
+import "./CategoryPage.scss" 
 
 const CategoryPage = ({ data }) => {
   const categoryName = data.strapiEnglishBlogCategory.name
   const articles = data.allStrapiEnglishArticle.nodes
+
+// Separar destacados (máximo 3) y los demás
+const destacados = articles.filter(article => article.destacado).slice(0, 3)
+const noDestacados = articles.filter(article => !article.destacado)
+
+// Unir destacados + no destacados
+const todosLosArticulos = [...destacados, ...noDestacados]
 
   return (
     <Layout>
@@ -46,6 +53,7 @@ export const query = graphql`
         title
         summary
         slug
+        destacado
         image {
           alternativeText
           localFile {
