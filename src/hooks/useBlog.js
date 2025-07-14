@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from "gatsby"
 const useBlog = () => {
   const query = useStaticQuery(graphql`
     {
-      allStrapiBlogCategory: allStrapiEnglishBlogCategory {
+      allStrapiBlogCategory: allStrapiEnglishBlogCategory(sort: { fields: orden, order: ASC }) {
         nodes {
           name
           slug
