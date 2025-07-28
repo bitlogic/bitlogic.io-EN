@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import "./videoBackground.scss"
 import CustomLink from "../CustomLink/CustomLink"
 import PropTypes from "prop-types"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from "gatsby-plugin-image" 
 
 function getIOSVersion() {
   if (typeof window === "undefined" || typeof navigator === "undefined") return null
@@ -43,7 +43,20 @@ function getVideoContent(
   const codeIndex = code.indexOf("?")
   if (codeIndex !== -1) code = code.substring(0, codeIndex)
 
-  if (!isIOSPriorTo("17.4")) {
+  const isMobile =
+    typeof window !== "undefined" && window.innerWidth <= 768
+  const isOldIOS = isIOSPriorTo("17.4")
+  if (isOldIOS && posterSharp) {
+    return (
+      <GatsbyImage
+        className="video-poster"
+        image={posterSharp}
+        alt={posterData.alternativeText || "Video poster"}
+        loading="eager"
+      />
+    )
+  }
+  if (!isMobile && !isOldIOS) {
     if (video?.url) {
       return (
         <video
@@ -55,7 +68,7 @@ function getVideoContent(
           controls={false}
           autoPlay={isIntersecting}
           poster={posterUrl}
-          preload="auto"
+          preload="none"
           onClick={pausePlay}
           onKeyDown={handleKeyDown}
         >
@@ -88,6 +101,7 @@ function getVideoContent(
         className="video-poster"
         image={posterSharp}
         alt={posterData.alternativeText || "Video poster"}
+        loading="eager"
       />
     )
   }
@@ -162,22 +176,25 @@ const VideoBackground = ({ data }) => {
     poster
   )
 
+  const bgSharp = backgroundImage?.localFile && getImage(backgroundImage.localFile) 
+
   return (
-    <div
-      style={{
-        backgroundImage: backgroundImage
-          ? `url(${backgroundImage.url})`
-          : "",
-        backgroundRepeatY: "no-repeat",
-        backgroundPosition: "center",
-      }}
-    >
+    <div className="videoBackground-wrapper"> 
+      {bgSharp && (
+        <GatsbyImage
+          image={bgSharp}
+          alt={description || "Video background"}
+          className="videoBackground-bg"
+          loading="eager"
+          fetchpriority="high"
+        />
+      )}
+
       <div className="container videoBackground-container">
         <section className="videoBackground">
-          {videoContent}
           {description && (
             <div className="videoBackground-card">
-              <h2>{description}</h2>
+              <h2 id="main-title" className="videoBackground-title">{description}</h2>
               {button && (
                 <CustomLink
                   content={button.content}
@@ -187,6 +204,7 @@ const VideoBackground = ({ data }) => {
               )}
             </div>
           )}
+          {videoContent}
         </section>
       </div>
     </div>
@@ -198,7 +216,7 @@ VideoBackground.propTypes = {
     video: PropTypes.shape({ url: PropTypes.string.isRequired, mime: PropTypes.string.isRequired }),
     videoUrl: PropTypes.string,
     description: PropTypes.string,
-    backgroundImage: PropTypes.shape({ url: PropTypes.string.isRequired }),
+    backgroundImage: PropTypes.shape({ url: PropTypes.string.isRequired, localFile: PropTypes.object }),
     image: PropTypes.shape({
       alternativeText: PropTypes.string,
       localFile: PropTypes.object,
