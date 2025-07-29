@@ -20,14 +20,15 @@ const Layout = ({ children, options = {}, location }) => {
 
   useEffect(() => {
     const hash = location?.state?.component
-    const el = hash && document.getElementById(hash)
-    if (el) el.scrollIntoView({ behavior: "smooth" })
+    let el = hash && document.getElementById(hash)
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" })
+    }
   }, [location?.state?.component])
 
   const userLanguage =
     typeof window !== "undefined" ? navigator.language : undefined
 
-  // ✅ Consulta directa al bloque `home.video-background`
   const { strapiEnglishHome } = useStaticQuery(graphql`
     query GetVideoBackgroundImage {
       strapiEnglishHome {
@@ -66,23 +67,6 @@ const Layout = ({ children, options = {}, location }) => {
     <ThemeProvider>
       <Helmet>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {fullHeroUrl && (
-          <link
-            rel="preload"
-            as="image"
-            href={fullHeroUrl}
-            imagesrcset={fullHeroUrl}
-            imagesizes="100vw"
-            crossorigin="anonymous"
-          />
-        )}
-        <link
-          rel="preload"
-          href="/fonts/plain-bold-webfont.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
       </Helmet>
 
       {options.hasHeader && <Header />}
