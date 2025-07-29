@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import "./videoBackground.scss"
 import CustomLink from "../CustomLink/CustomLink"
 import PropTypes from "prop-types"
-import { GatsbyImage, getImage } from "gatsby-plugin-image" // ✅ CAMBIO: usamos GatsbyImage
+import { GatsbyImage, getImage } from "gatsby-plugin-image" 
 
 function getIOSVersion() {
   if (typeof window === "undefined" || typeof navigator === "undefined") return null
@@ -180,7 +180,6 @@ const VideoBackground = ({ data }) => {
     localStorage.setItem("videoPaused", isVideoPause)
   }, [isVideoPause])
 
-  // ✅ CAMBIO: usamos imagen optimizada con GatsbyImage como fondo principal
   const backgroundSharp =
     backgroundImage?.localFile && getImage(backgroundImage.localFile)
 
@@ -196,9 +195,8 @@ const VideoBackground = ({ data }) => {
   )
 
   return (
-    <div className="videoBackground-wrapper"> {/* ✅ CAMBIO: sin inline style de background */}
-      
-      {/* ✅ CAMBIO: render de fondo con GatsbyImage (mejor para LCP) */}
+    <div className="videoBackground-wrapper"> 
+     
       {backgroundSharp && (
         <GatsbyImage
           image={backgroundSharp}
