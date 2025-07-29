@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import "./videoBackground.scss"
 import CustomLink from "../CustomLink/CustomLink"
 import PropTypes from "prop-types"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from "gatsby-plugin-image" 
 
 function getIOSVersion() {
   if (typeof window === "undefined" || typeof navigator === "undefined") return null
@@ -35,51 +35,86 @@ function getVideoContent(
   image,
   posterData
 ) {
-  const posterUrl = posterData?.url
+  
+  const posterUrl = posterData?.url?.startsWith("http")
+  ? getImage(posterData.url)
+  : getImage(`https://strapi-s3-bitlogic.s3.sa-east-1.amazonaws.com${posterData?.url}`)
   const posterSharp = posterData?.localFile && getImage(posterData.localFile)
+
 
   const url = videoUrl?.replace("watch?v=", "embed/")
   let code = url?.substring(url.lastIndexOf("/") + 1) || ""
   const codeIndex = code.indexOf("?")
   if (codeIndex !== -1) code = code.substring(0, codeIndex)
 
-  if (!isIOSPriorTo("17.4")) {
-    if (video?.url) {
-      return (
-        <video
-          ref={videoRef}
-          muted
-          loop
-          playsInline
-          tabIndex={0}
-          controls={false}
-          autoPlay={isIntersecting}
-          poster={posterUrl}
-          preload="auto"
-          onClick={pausePlay}
-          onKeyDown={handleKeyDown}
-        >
-          {isIntersecting && <source src={video.url} type={video.mime} />}
-        </video>
-      )
-    }
-    if (videoUrl) {
-      return (
-        <iframe
-          className="video"
-          loading="lazy"
-          type="text/html"
-          srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;height:100%;object-fit:cover;top:0;bottom:0}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;margin:auto;text-shadow:0 0 0.5em black}</style><a href=${url}?rel=0><img src=https://img.youtube.com/vi/${code}/hqdefault.jpg alt='Video'><span>▶</span></a>`}
-          src={`${url}?rel=0`}
-          frameBorder="0"
-          allowFullScreen
-          title="benefits_video"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          webkitallowfullscreen
-          mozallowfullscreen
-        />
-      )
-    }
+  const isOldIOS = isIOSPriorTo("17.4")
+
+  if (isOldIOS && posterSharp) {
+    return (
+      <GatsbyImage
+        className="video-poster"
+        image={posterSharp}
+        alt={posterData.alternativeText || "Video poster"}
+        loading="eager"
+        style={{ width: "100%", maxWidth: "100vw", height: "auto" }}
+      />
+    )
+  }
+
+  if (video?.url) {
+    return (
+      <video
+        ref={videoRef}
+        muted
+        loop
+        playsInline
+        tabIndex={0}
+        controls={false}
+        autoPlay={isIntersecting}
+        poster={posterUrl || undefined}
+        preload="auto"
+        onClick={pausePlay}
+        onKeyDown={handleKeyDown}
+        style={{
+          width: "100%",
+          maxWidth: "100vw",
+          height: "auto",
+          objectFit: "cover",
+          aspectRatio: "16/9",
+          display: "block",
+          borderRadius: "5px",
+        }}
+      >
+        {isIntersecting && <source src={video.url} type={video.mime} />}
+      </video>
+    )
+  }
+
+  if (videoUrl) {
+    return (
+      <iframe
+        className="video"
+        loading="lazy"
+        type="text/html"
+        srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;height:100%;object-fit:cover;top:0;bottom:0}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;margin:auto;text-shadow:0 0 0.5em black}</style><a href=${url}?rel=0><img src=https://img.youtube.com/vi/${code}/hqdefault.jpg alt='Video'><span>▶</span></a>`}
+        src={`${url}?rel=0`}
+        frameBorder="0"
+        allowFullScreen
+        title="benefits_video"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        webkitallowfullscreen
+        mozallowfullscreen
+        style={{
+          width: "100%",
+          maxWidth: "100vw",
+          height: "auto",
+          objectFit: "cover",
+          aspectRatio: "16/9",
+          display: "block",
+          borderRadius: "5px",
+        }}
+      />
+    )
   }
 
   if (posterSharp) {
@@ -88,11 +123,13 @@ function getVideoContent(
         className="video-poster"
         image={posterSharp}
         alt={posterData.alternativeText || "Video poster"}
+        loading="eager"
+        style={{ width: "100%", maxWidth: "100vw", height: "auto" }}
       />
     )
   }
 
-  return <div><br /></div>
+  return null
 }
 
 const VideoBackground = ({ data }) => {
@@ -111,8 +148,8 @@ const VideoBackground = ({ data }) => {
   const videoRef = useRef(null)
 
   const pausePlay = () => {
-    if (isVideoPause) videoRef.current.play()
-    else videoRef.current.pause()
+    if (isVideoPause) videoRef.current?.play()
+    else videoRef.current?.pause()
     setIsVideoPause(prev => !prev)
   }
 
@@ -125,6 +162,7 @@ const VideoBackground = ({ data }) => {
 
   useEffect(() => {
     const elem = videoRef.current
+    if (!elem) return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -134,22 +172,16 @@ const VideoBackground = ({ data }) => {
       },
       { rootMargin: "0px 0px 200px 0px", threshold: 0.1 }
     )
-    if (elem) observer.observe(elem)
-    return () => elem && observer.unobserve(elem)
-  }, [])
-
-  useEffect(() => {
-    const stored =
-      typeof window !== "undefined" && localStorage.getItem("videoPaused")
-    if (stored === "true") {
-      videoRef.current.pause()
-      setIsVideoPause(true)
-    }
+    observer.observe(elem)
+    return () => observer.disconnect()
   }, [])
 
   useEffect(() => {
     localStorage.setItem("videoPaused", isVideoPause)
   }, [isVideoPause])
+
+  const backgroundSharp =
+    backgroundImage?.localFile && getImage(backgroundImage.localFile)
 
   const videoContent = getVideoContent(
     video,
@@ -163,15 +195,18 @@ const VideoBackground = ({ data }) => {
   )
 
   return (
-    <div
-      style={{
-        backgroundImage: backgroundImage
-          ? `url(${backgroundImage.url})`
-          : "",
-        backgroundRepeatY: "no-repeat",
-        backgroundPosition: "center",
-      }}
-    >
+    <div className="videoBackground-wrapper"> 
+     
+      {backgroundSharp && (
+        <GatsbyImage
+          image={backgroundSharp}
+          alt={description || "Video background"}
+          className="videoBackground-bg"
+          loading="eager"
+          fetchpriority="high"
+        />
+      )}
+
       <div className="container videoBackground-container">
         <section className="videoBackground">
           {videoContent}
@@ -195,10 +230,16 @@ const VideoBackground = ({ data }) => {
 
 VideoBackground.propTypes = {
   data: PropTypes.shape({
-    video: PropTypes.shape({ url: PropTypes.string.isRequired, mime: PropTypes.string.isRequired }),
+    video: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      mime: PropTypes.string.isRequired,
+    }),
     videoUrl: PropTypes.string,
     description: PropTypes.string,
-    backgroundImage: PropTypes.shape({ url: PropTypes.string.isRequired }),
+    backgroundImage: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      localFile: PropTypes.object,
+    }),
     image: PropTypes.shape({
       alternativeText: PropTypes.string,
       localFile: PropTypes.object,
@@ -206,12 +247,16 @@ VideoBackground.propTypes = {
     poster: PropTypes.shape({
       url: PropTypes.string.isRequired,
       alternativeText: PropTypes.string,
-      localFile: PropTypes.shape({ childImageSharp: PropTypes.object.isRequired }),
+      localFile: PropTypes.shape({
+        childImageSharp: PropTypes.object.isRequired,
+      }),
     }),
     button: PropTypes.shape({
       content: PropTypes.string.isRequired,
       url: PropTypes.string,
-      landing_page: PropTypes.shape({ slug: PropTypes.string.isRequired }),
+      landing_page: PropTypes.shape({
+        slug: PropTypes.string.isRequired,
+      }),
     }),
   }),
 }
