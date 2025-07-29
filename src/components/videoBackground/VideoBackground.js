@@ -35,14 +35,12 @@ function getVideoContent(
   image,
   posterData
 ) {
-  const posterUrl =
-    posterData?.url && posterData.url.startsWith("http")
-      ? posterData.url
-      : posterData?.url
-      ? `https://strapi-s3-bitlogic.s3.sa-east-1.amazonaws.com${posterData.url}`
-      : null
-
+  
+  const posterUrl = posterData?.url?.startsWith("http")
+  ? getImage(posterData.url)
+  : getImage(`https://strapi-s3-bitlogic.s3.sa-east-1.amazonaws.com${posterData?.url}`)
   const posterSharp = posterData?.localFile && getImage(posterData.localFile)
+
 
   const url = videoUrl?.replace("watch?v=", "embed/")
   let code = url?.substring(url.lastIndexOf("/") + 1) || ""
@@ -51,7 +49,6 @@ function getVideoContent(
 
   const isOldIOS = isIOSPriorTo("17.4")
 
-  // ✅ CAMBIO: si es iOS viejo, mostramos directamente el poster
   if (isOldIOS && posterSharp) {
     return (
       <GatsbyImage
