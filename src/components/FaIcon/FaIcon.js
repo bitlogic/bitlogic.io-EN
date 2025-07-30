@@ -1,15 +1,23 @@
 import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEnvelope, faLocationDot } from "@fortawesome/free-solid-svg-icons"
-import { faLinkedin, faTwitter, faInstagram, faYoutube, faSpotify } from "@fortawesome/free-brands-svg-icons"
+import {
+  faLinkedin,
+  faTwitter,
+  faXTwitter, 
+  faInstagram,
+  faYoutube,
+  faSpotify
+  
+} from "@fortawesome/free-brands-svg-icons"
 import PropTypes from "prop-types"
 
-// Mapeo de los íconos que se usan
 const iconMap = {
   "fa-envelope": faEnvelope,
   "fa-location-dot": faLocationDot,
   "fa-linkedin": faLinkedin,
   "fa-twitter": faTwitter,
+  "fa-x-twitter": faXTwitter, 
   "fa-instagram": faInstagram,
   "fa-youtube": faYoutube,
   "fa-spotify": faSpotify,
@@ -31,4 +39,6 @@ FaIcon.propTypes = {
   code: PropTypes.string.isRequired,
 }
 
+
 export default FaIcon
+
