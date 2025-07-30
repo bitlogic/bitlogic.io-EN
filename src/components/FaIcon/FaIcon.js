@@ -8,6 +8,7 @@ import {
   faInstagram,
   faYoutube,
   faSpotify
+  
 } from "@fortawesome/free-brands-svg-icons"
 import PropTypes from "prop-types"
 
