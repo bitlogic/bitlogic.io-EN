@@ -31,4 +31,5 @@ FaIcon.propTypes = {
   code: PropTypes.string.isRequired,
 }
 
+
 export default FaIcon
