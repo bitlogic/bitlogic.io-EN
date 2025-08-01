@@ -7,7 +7,7 @@ import Layout from "../layout"
 import Banner from "../Banner/Banner"
 import "./BlogContainer.scss"
 
-const Blog = () => {
+const Blog = ({location}) => {
   const { allStrapiBlogCategory, allStrapiArticle, allStrapiBlogPage } = useBlog()
   const categorias = allStrapiBlogCategory.nodes
   const articulos = allStrapiArticle.nodes
@@ -44,6 +44,7 @@ const Blog = () => {
         title={seo?.pageTitle}
         description={seo?.pageDescription}
         keywords={seo?.pageKeywords}
+        location={location}
       />
       <Banner data={banner} />
 
