@@ -80,7 +80,7 @@ function Seo({ description, lang, meta, title, keywords, location }) {
       link={[
         {
           rel: "alternate",
-          href: `https://en.bitlogic${pathname}` 
+          href: `https://bitlogic${pathname}` 
         },
         {
           rel: "alternate",
