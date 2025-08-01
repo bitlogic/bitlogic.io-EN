@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react"
 import "./videoBackground.scss"
 import CustomLink from "../CustomLink/CustomLink"
 import PropTypes from "prop-types"
-import { GatsbyImage, getImage } from "gatsby-plugin-image" 
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
+// ✅ CAMBIO: detectar versión de iOS
 function getIOSVersion() {
   if (typeof window === "undefined" || typeof navigator === "undefined") return null
   const userAgent = navigator.userAgent
@@ -35,20 +36,17 @@ function getVideoContent(
   image,
   posterData
 ) {
-  
   const posterUrl = posterData?.url?.startsWith("http")
   ? getImage(posterData.url)
   : getImage(`https://strapi-s3-bitlogic.s3.sa-east-1.amazonaws.com${posterData?.url}`)
   const posterSharp = posterData?.localFile && getImage(posterData.localFile)
-
 
   const url = videoUrl?.replace("watch?v=", "embed/")
   let code = url?.substring(url.lastIndexOf("/") + 1) || ""
   const codeIndex = code.indexOf("?")
   if (codeIndex !== -1) code = code.substring(0, codeIndex)
 
-  const isOldIOS = isIOSPriorTo("17.4")
-
+  const isOldIOS = isIOSPriorTo("17.4") 
   if (isOldIOS && posterSharp) {
     return (
       <GatsbyImage
@@ -71,7 +69,7 @@ function getVideoContent(
         tabIndex={0}
         controls={false}
         autoPlay={isIntersecting}
-        poster={posterUrl || undefined}
+        poster={posterUrl}
         preload="auto"
         onClick={pausePlay}
         onKeyDown={handleKeyDown}
@@ -180,9 +178,6 @@ const VideoBackground = ({ data }) => {
     localStorage.setItem("videoPaused", isVideoPause)
   }, [isVideoPause])
 
-  const backgroundSharp =
-    backgroundImage?.localFile && getImage(backgroundImage.localFile)
-
   const videoContent = getVideoContent(
     video,
     videoRef,
@@ -195,18 +190,15 @@ const VideoBackground = ({ data }) => {
   )
 
   return (
-    <div className="videoBackground-wrapper"> 
-     
-      {backgroundSharp && (
-        <GatsbyImage
-          image={backgroundSharp}
-          alt={description || "Video background"}
-          className="videoBackground-bg"
-          loading="eager"
-          fetchpriority="high"
-        />
-      )}
-
+    <div
+      style={{
+        backgroundImage: backgroundImage
+          ? `url(${backgroundImage.url})`
+          : "",
+        backgroundRepeatY: "no-repeat",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="container videoBackground-container">
         <section className="videoBackground">
           {videoContent}
@@ -236,10 +228,7 @@ VideoBackground.propTypes = {
     }),
     videoUrl: PropTypes.string,
     description: PropTypes.string,
-    backgroundImage: PropTypes.shape({
-      url: PropTypes.string.isRequired,
-      localFile: PropTypes.object,
-    }),
+    backgroundImage: PropTypes.shape({ url: PropTypes.string.isRequired }),
     image: PropTypes.shape({
       alternativeText: PropTypes.string,
       localFile: PropTypes.object,
