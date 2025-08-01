@@ -19,7 +19,6 @@ const OneSection = ({ data: { dualSectionPart } }) => {
     <div
       className="one_sec-background"
       style={{
-        backgroundRepeat: "repeat",
         backgroundPosition: "center",
         backgroundImage: `url(${
           theme === "dark" && backgroundImageDark?.url
