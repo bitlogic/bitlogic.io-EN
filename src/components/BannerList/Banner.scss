@@ -54,11 +54,16 @@
     a {
       margin-top: 10px;
       @include primaryBtn;
-      align-self: baseline;
+      align-self: flex-start;
 
-      @media screen and (max-width: ($breakpoint-md - 1px)) {
-        display: none;
-      }
+     @media screen and (max-width: ($breakpoint-md - 1px)) {
+      display: inline-block;
+      @include primaryBtn;
+      //margin: 10px auto 0; 
+      text-align: center;
+      align-self:flex-start;
+    }
+      
     }
   }
 }

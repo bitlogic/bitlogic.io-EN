@@ -3,9 +3,10 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useGlobalSeo } from "../../hooks"
 
-function Seo({ description, lang, meta, title, keywords }) {
+function Seo({ description, lang, meta, title, keywords, location }) {
   const data = useGlobalSeo()
 
+  const pathname = location?.pathname || "/"
   const {
     author,
     robots,
@@ -78,16 +79,12 @@ function Seo({ description, lang, meta, title, keywords }) {
       ].concat(meta)}
       link={[
         {
-          rel: "canonical",
-          href: `https://bitlogic.io`
+          rel: "alternate",
+          href: `https://bitlogic.io${pathname}` 
         },
         {
           rel: "alternate",
-          href: `https://en.bitlogic.io`
-        },
-        {
-          rel: "alternate",
-          href: `https://www.bitlogic.io`
+          href: `https://www.bitlogic.io${pathname}`
         }
        
       ]}
@@ -99,6 +96,7 @@ Seo.defaultProps = {
   lang: `en`,
   meta: [],
   description: ``,
+  location: null,
 }
 
 Seo.propTypes = {
@@ -106,7 +104,8 @@ Seo.propTypes = {
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
-  keywords: PropTypes.string
+  keywords: PropTypes.string,
+  location: PropTypes.object, 
 }
 
 export default Seo

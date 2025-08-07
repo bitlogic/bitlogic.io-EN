@@ -2,10 +2,10 @@
 
 .videoBackground {
   max-width: 100%;
-  height: fit-content;
 
   &-container {
-    padding-block: 32px;
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
 
   video,
@@ -23,10 +23,9 @@
 
   &-card {
     width: 100%;
-    min-height: 120px;
     backdrop-filter: blur(14px);
+    color: white;
     border-radius: 5px;
-    color: $grey;
     background: #e8e8e8c5;
     box-shadow: 0px 0px 3px #00000044;
     word-wrap: break-all;
@@ -48,13 +47,16 @@
   h2 {
     font-size: 28px;
     width: 100%;
+    margin-bottom: 8px;
     color: $grey;
-    margin-bottom: 16px;
   }
 
   a {
     @include secondaryBtn;
     color: $grey;
+    display: block;
+    width: max-content;
+    padding: 8px 16px;
   }
 }
 

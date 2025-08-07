@@ -20,7 +20,7 @@ const LandingPage = ({ data, location }) => {
 
   return (
     <Layout location={location} options={{ hasHeader: true }}>
-      <Seo title={pageTitle} description={pageDescription} keywords={pageKeywords} />
+      <Seo title={pageTitle} description={pageDescription} keywords={pageKeywords} location={location} />
       {body?.length > 0 && navigation ? (
         <>
           <CustomSection sections={body.slice(0, 1)} />
@@ -234,6 +234,14 @@ export const query = graphql`
               slug
             }
           }
+            arrayButtons {
+              content
+        
+              english_landing_page {
+                id
+                slug
+              }
+            }
           backgroundImageDark {
             url
           }
