@@ -11,7 +11,6 @@ const Banner = ({ data }) => {
   const { theme } = useTheme()
   const { title, variant, summary, animation, image, imageDark, arrayButtons, button } = data
 
-  console.log("arrayButtons:", arrayButtons)
 
   const defaultOptions = {
     loop: true,
