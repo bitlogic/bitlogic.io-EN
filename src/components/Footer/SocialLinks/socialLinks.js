@@ -8,20 +8,21 @@ import PropTypes from "prop-types"
 export default function SocialLinks({ image, socialMedia }) {
   const logo = getImage(image?.localFile?.childImageSharp?.gatsbyImageData)
 
-  const socialMediaItems = socialMedia?.map(item => {
-    return (
-      <a
-        key={item.id}
-        href={item.url}
-        target="_blank"
-        className={`btn-social m-2 btn-social-icon btn-${item.icon?.name}`}
-        rel="noreferrer"
-        aria-label={`Link externo a ${item?.name}`}
-      >
+  const socialMediaItems = socialMedia?.map(item => (
+    <a
+      key={item.id}
+      href={item.url}
+      target="_blank"
+      className={`btn-social m-2 btn-social-icon btn-${item.icon?.name}`}
+      rel="noreferrer"
+      aria-label={`External link to ${item?.name}`}
+    >
+      <>
         <FaIcon type={item.icon?.type} code={item.icon?.code} />
-      </a>
-    )
-  })
+        <span className="visually-hidden">Link to {item.name}</span>
+      </>
+    </a>
+  ))
 
   return (
     <div className="Footer__socialMedia d-flex flex-column">
@@ -33,10 +34,10 @@ export default function SocialLinks({ image, socialMedia }) {
 
       {logo && (
         <div className="Footer__socialMedia__Logo text-center">
-          <Link to="/">
+          <Link to="/en">
             <GatsbyImage
               image={logo}
-              alt={image?.alternativeText || "Logo Bitlogic"}
+              alt={image?.alternativeText || "Bitlogic Logo"}
             />
           </Link>
         </div>
@@ -60,6 +61,9 @@ SocialLinks.propTypes = {
       url: PropTypes.string,
       name: PropTypes.string,
       icon: PropTypes.shape({
+        name: PropTypes.string,
+        type: PropTypes.string,
+        code: PropTypes.string,
         url: PropTypes.string,
         alternativeText: PropTypes.string,
         localFile: PropTypes.shape({
