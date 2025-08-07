@@ -96,7 +96,7 @@ const generalSchema = `
 
   type ComponentButton {
     id: Int
-    content: String!
+    content: String
     url: String
     english_landing_page: StrapiEnglishLandingPage
   }
@@ -196,6 +196,7 @@ const generalSchema = `
     summary: String
     image: LocalFile 
     button: ComponentButton
+    arrayButtons: [ComponentButton]
     imageDark: LocalFile 
     animation: JSON
     navTitle: String

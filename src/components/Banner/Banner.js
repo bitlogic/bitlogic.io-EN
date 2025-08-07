@@ -9,7 +9,9 @@ import CustomImage from "../CustomImage/CustomImage"
 
 const Banner = ({ data }) => {
   const { theme } = useTheme()
-  const { title, variant, summary, animation, image, imageDark, button } = data
+  const { title, variant, summary, animation, image, imageDark, arrayButtons, button } = data
+
+  console.log("arrayButtons:", arrayButtons)
 
   const defaultOptions = {
     loop: true,
@@ -39,14 +41,27 @@ const Banner = ({ data }) => {
                 dangerouslySetInnerHTML={{ __html: summary }}
               />
             }
-            {button && (
-              <CustomLink
-                content={button?.content}
-                url={button?.url}
-                landing={button?.english_landing_page}
-                className={"button"}
-              />
+            {Array.isArray(arrayButtons) && arrayButtons.length > 0 && (
+              <div className="banner__buttons">
+                {arrayButtons.map((btn, index) => (
+                  <CustomLink
+                    key={index}
+                    content={btn.content}
+                    url={btn.url}
+                    landing={btn.english_landing_page}
+                    className="button"
+                  />
+                ))}
+              </div>
             )}
+            {button && (
+                <CustomLink
+                  content={button.content}
+                  url={button?.url}
+                  landing={button?.landing_page}
+                  className={'button'}
+                />
+              )}
           </div>
         </div>
 
@@ -81,6 +96,15 @@ Banner.propTypes = {
     title: PropTypes.string.isRequired,
     variant: PropTypes.string.isRequired,
     summary: PropTypes.string,
+    arrayButtons: PropTypes.arrayOf(
+    PropTypes.shape({
+      content: PropTypes.string,
+      url: PropTypes.string,
+      english_landing_page: PropTypes.shape({
+        slug: PropTypes.string.isRequired,
+      }),
+    })
+  ),
     button: PropTypes.shape({
       content: PropTypes.string.isRequired,
       url: PropTypes.string,
