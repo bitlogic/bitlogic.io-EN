@@ -58,6 +58,7 @@ const generalSchema = `
     summary: String
     text: String
     description: String
+    descripcion: String
     concactFormAnchor: String
     callToAction: String
     videoUrl: String
@@ -72,6 +73,8 @@ const generalSchema = `
     contactForm: Boolean
     allBlog: Boolean
     show: Boolean
+    tieneHowTo: Boolean
+    totalMinutes: Int
     image: LocalFile 
     imageDark: LocalFile 
     backgroundImage: LocalFile 
@@ -86,12 +89,33 @@ const generalSchema = `
     ListItem: [ComponentContentPageCard]
     eng_professionals: [StrapiEnglishProfessional]
     english_articles: [StrapiEnglishArticle]
+    tools: [ComponentHowtoTool]
+    steps: [ComponentHowtoStep]
   }
 
   type ComponentSeo {
     pageTitle: String!
     pageDescription: String!
     pageKeywords: String
+  }
+
+  type ComponentHowtoHowTo {
+    id: ID!
+    tieneHowTo: Boolean
+    title: String
+    descripcion: String
+    totalMinutes: Int
+    tools: [ComponentHowtoTool]
+    steps: [ComponentHowtoStep]
+  }
+  type ComponentHowtoStep {
+    id: ID!
+    name: String
+    text: String
+  }
+  type ComponentHowtoTool {
+    id: ID!
+    name: String
   }
 
   type ComponentButton {
