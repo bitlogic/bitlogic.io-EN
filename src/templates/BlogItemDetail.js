@@ -43,7 +43,7 @@ const BlogDetail = ({ data }) => {
     "dateModified": updated_at, 
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://en.bitlogic.io/blog/${data?.allStrapiArticle?.nodes[0]?.slug}`, // <-- EN
+      "@id": `https://en.bitlogic.io/blog/${data?.allStrapiArticle?.nodes[0]?.slug}`, 
     },
     "publisher": {
       "@type": "Organization",
@@ -183,7 +183,7 @@ BlogDetail.propTypes = {
 
 export const query = graphql`
   query($slug: String!) {
-    allStrapiArticle: allStrapiEnglishArticle(filter: { slug: { eq: $slug } }) {  # <-- alias mantiene el mismo nombre en props
+    allStrapiArticle: allStrapiEnglishArticle(filter: { slug: { eq: $slug } }) {  
       nodes {
         title
         description
@@ -198,8 +198,13 @@ export const query = graphql`
             descripcion
             totalMinutes
             tieneHowTo
-            tools { name }
-            steps { name text }
+            tools {
+              name
+            }
+            steps {
+              name
+              text
+            }
           }
         }
         seo {
@@ -215,7 +220,10 @@ export const query = graphql`
           localFile {
             childImageSharp {
               gatsbyImageData
-              original { width height }
+              original{
+                width
+                height
+              }
             }
           }
         }
@@ -227,7 +235,10 @@ export const query = graphql`
           localFile {
             childImageSharp {
               gatsbyImageData
-              original { width height }
+              original{
+                width
+                height
+              }
             }
           }
         }
