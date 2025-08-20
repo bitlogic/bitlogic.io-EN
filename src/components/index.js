@@ -16,6 +16,7 @@ import Layaout from "./layout"
 import PipedriveForm from "./Form/PipedriveForm"
 import CustomSection from "./CustomSection/CustomSection"
 import Navigation from "./Navigation/Navigation"
+import CustomImage from "./CustomImage/CustomImage"
 
 export {
   Seo,
@@ -36,4 +37,5 @@ export {
   PipedriveForm,
   CustomSection,
   Navigation,
+  CustomImage
 }
