@@ -10,8 +10,6 @@ const LandingPage = ({ data, location }) => {
     data?.allStrapiLandingPage?.nodes[0] || {}
 
   const wrapperRef = useRef(null)
-
-  // ---- FAQs (MISMA LÓGICA QUE ESPAÑOL) ----
   const faqs = (body || [])
     .filter(block => block.strapi_component === "components.banner-list")
     .flatMap(block =>
