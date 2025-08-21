@@ -1,14 +1,50 @@
 import React, { useRef } from "react"
 import { graphql } from "gatsby"
+import PropTypes from "prop-types"
+import { Helmet } from "react-helmet"
 import Layout from "../components/layout"
 import { CustomSection, Seo, Navigation } from "../components/index"
-import PropTypes from "prop-types"
 
 const LandingPage = ({ data, location }) => {
   const { name, slug, parent_page, seo, body, navigation } =
     data?.allStrapiLandingPage?.nodes[0] || {}
 
   const wrapperRef = useRef(null)
+
+  // ---- FAQs (MISMA LÓGICA QUE ESPAÑOL) ----
+  const faqs = (body || [])
+    .filter(block => block.strapi_component === "components.banner-list")
+    .flatMap(block =>
+      (block.Card || [])
+        .filter(card => card.description && card.description.trim() !== "")
+        .map(({ id, title, description }) => ({
+          "@type": "Question",
+          name: title,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: description,
+          },
+          "@id": `#faq-${id}`,
+        }))
+    )
+
+  const pageLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: seo?.pageTitle || name,
+    description: seo?.pageDescription,
+    url: `https://en.bitlogic.io/${slug}`,
+  }
+
+  const faqLd =
+    faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs,
+        }
+      : null
+
   const landing = {
     name,
     slug,
@@ -16,11 +52,24 @@ const LandingPage = ({ data, location }) => {
     ref: wrapperRef,
   }
 
-  const {pageTitle, pageKeywords, pageDescription } = seo || {}
-
   return (
     <Layout location={location} options={{ hasHeader: true }}>
-      <Seo title={pageTitle} description={pageDescription} keywords={pageKeywords} location={location} />
+      <Seo
+        title={seo?.pageTitle || name}
+        description={seo?.pageDescription}
+        keywords={seo?.pageKeywords}
+      />
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(pageLd)}
+        </script>
+        {faqLd && (
+          <script type="application/ld+json">
+            {JSON.stringify(faqLd)}
+          </script>
+        )}
+      </Helmet>
+
       {body?.length > 0 && navigation ? (
         <>
           <CustomSection sections={body.slice(0, 1)} />
@@ -49,7 +98,7 @@ LandingPage.propTypes = {
           name: PropTypes.string.isRequired,
           body: PropTypes.arrayOf(PropTypes.object),
           seo: PropTypes.shape({
-            pageTitle: PropTypes.string,
+            pageTitle: PropTypes.string.isRequired,
             pageDescription: PropTypes.string.isRequired,
             pageKeywords: PropTypes.string,
           }),
@@ -234,14 +283,13 @@ export const query = graphql`
               slug
             }
           }
-            arrayButtons {
-              content
-        
-              english_landing_page {
-                id
-                slug
-              }
+          arrayButtons {
+            content
+            english_landing_page {
+              id
+              slug
             }
+          }
           backgroundImageDark {
             url
           }
