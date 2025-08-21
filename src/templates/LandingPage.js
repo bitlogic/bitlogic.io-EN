@@ -5,10 +5,10 @@ import { Helmet } from "react-helmet"
 import Layout from "../components/layout"
 import { CustomSection, Seo, Navigation } from "../components/index"
 
+
 const LandingPage = ({ data, location }) => {
   const { name, slug, parent_page, seo, body, navigation } =
     data?.allStrapiLandingPage?.nodes[0] || {}
-
   const wrapperRef = useRef(null)
   const faqs = (body || [])
     .filter(block => block.strapi_component === "components.banner-list")
