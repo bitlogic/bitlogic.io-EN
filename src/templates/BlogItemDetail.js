@@ -2,42 +2,76 @@ import React from "react"
 import { graphql } from "gatsby"
 import MarkdownView from "react-showdown"
 import Layout from "../components/layout"
-import { Seo, BannerTop } from "../components/index.js"
-import "./BlogItemDetail.scss"
+import { Seo, BannerTop, CustomImage } from "../components/index.js"
 import PropTypes from "prop-types"
-import { Helmet } from "react-helmet"
-import { getImage, GatsbyImage } from "gatsby-plugin-image"
+import { Helmet } from "react-helmet" 
+import "./BlogItemDetail.scss"
+
+const stripHtml = s => (s ? s.replace(/<[^>]+>/g, "").trim() : s) 
+const toISODuration = m => (m ? `PT${Math.max(0, Number(m))}M` : undefined) 
+const pickHowTo = (blocks = []) => 
+  blocks.find(b => {
+    const uid = b?.strapi_component || b?.__component
+    return uid && uid.includes("howto") && b?.tieneHowTo === true
+  })
 
 const BlogDetail = ({ data }) => {
-  const { title, description, image, imagePage, author, seo, published_at, updated_at } =
+  const { title, description, image, imagePage, author, seo, published_at, updated_at, body } =
     data?.allStrapiArticle?.nodes[0] || {}
 
   const bannerTop = imagePage ? { title, imagePage } : { title, image }
+  const img       = imagePage || image;
+  const imgWidth  = img.width  || img.localFile.childImageSharp.original.width;
+  const imgHeight = img.height || img.localFile.childImageSharp.original.height;
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": seo?.pageTitle || title, // Usa pageTitle de SEO o el título
+    "@type": "BlogPosting",
+    "headline": seo?.pageTitle || title, 
     "description": seo?.pageDescription || description,
-    "image": imagePage?.url || image?.url, // Imagen principal
+    "image": {
+      "@type": "ImageObject",
+      "url": img.url,
+      "width": imgWidth,
+      "height": imgHeight
+    },
     "author": author?.map(auth => ({
       "@type": "Person",
       "name": auth.name,
     })),
-    "datePublished": published_at, // Ajusta con la fecha real
-    "dateModified": updated_at, // Ajusta con la fecha real
+    "datePublished": published_at, 
+    "dateModified": updated_at, 
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://es.bitlogic.io/blog/${data?.allStrapiArticle?.nodes[0]?.slug}`,
+      "@id": `https://en.bitlogic.io/blog/${data?.allStrapiArticle?.nodes[0]?.slug}`, 
     },
     "publisher": {
       "@type": "Organization",
       "name": "Bitlogic",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://bitlogic.io/static/64f396cb88cfcbfda46b86c5218242f2/de081/Logo_Bit_azul_7e725e9726.webp", // URL del logo del sitio
-      },
+        "url": "https://bitlogic.io/static/64f396cb88cfcbfda46b86c5218242f2/de081/Logo_Bit_azul_7e725e9726.webp",
+        "width": 633,
+        "height": 187
+      }
     },
+  }
+
+  const blocks = Array.isArray(body) ? body : [] 
+  const howto = pickHowTo(blocks)                
+
+  const structuredHowTo = howto && {             
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: howto.title || title,
+    description: stripHtml(howto.descripcion || howto.description),
+    totalTime: toISODuration(howto.totalMinutes),
+    tool: (howto.tools || []).map(t => t?.name).filter(Boolean),
+    step: (howto.steps || []).map(s => ({
+      "@type": "HowToStep",
+      name: s?.name,
+      text: stripHtml(s?.text),
+    })),
   }
 
   return (
@@ -52,6 +86,14 @@ const BlogDetail = ({ data }) => {
           {JSON.stringify(structuredData)}
         </script>
       </Helmet>
+      {structuredHowTo && (
+        <Helmet>
+          <script type="application/ld+json">
+            {JSON.stringify(structuredHowTo)}
+          </script>
+        </Helmet>
+      )}
+
       <BannerTop banner={bannerTop} />
       <div className="detail__container row">
         <div className="col-lg-12">
@@ -62,15 +104,14 @@ const BlogDetail = ({ data }) => {
             />
             <div className="detail__description-author">
               {author?.map(author => (
-                <div className="detail__box-author" key={author.id}>
-                  {author.image && (
-                    <div className="detail__box-author-image">
-                      <GatsbyImage
-                        image={getImage(author?.image?.localFile)}
-                        alt={author.image.alternativeText || author?.name}
-                      />
-                    </div>
-                  )}
+                <div className="detail__box-author" key={author.name}>
+                  <div className="detail__box-author-image">
+                    <CustomImage
+                      image={author?.image}
+                      alt={author?.image?.alternativeText || author.name}
+                      className=""
+                    />
+                  </div>
                   <div className="detail__box-autor-description">
                     <h5>{author?.name}</h5>
                     <h6>{author?.subTitle}</h6>
@@ -94,6 +135,12 @@ BlogDetail.propTypes = {
           title: PropTypes.string.isRequired,
           description: PropTypes.string.isRequired,
           slug: PropTypes.string.isRequired,
+          body: PropTypes.array,
+          seo: PropTypes.shape({
+            pageTitle: PropTypes.string,
+            pageDescription: PropTypes.string,
+            pageKeywords: PropTypes.string,
+          }),
           image: PropTypes.shape({
             url: PropTypes.string.isRequired,
             alternativeText: PropTypes.string,
@@ -104,7 +151,7 @@ BlogDetail.propTypes = {
             }),
           }),
           imagePage: PropTypes.shape({
-            url: PropTypes.string,
+            url: PropTypes.string.isRequired,
             alternativeText: PropTypes.string,
             localFile: PropTypes.shape({
               childImageSharp: PropTypes.shape({
@@ -114,12 +161,11 @@ BlogDetail.propTypes = {
           }),
           author: PropTypes.arrayOf(
             PropTypes.shape({
-              id: PropTypes.number.isRequired,
               name: PropTypes.string.isRequired,
               subTitle: PropTypes.string,
               summary: PropTypes.string,
               image: PropTypes.shape({
-                url: PropTypes.string,
+                url: PropTypes.string.isRequired,
                 alternativeText: PropTypes.string,
                 localFile: PropTypes.shape({
                   childImageSharp: PropTypes.shape({
@@ -137,7 +183,7 @@ BlogDetail.propTypes = {
 
 export const query = graphql`
   query($slug: String!) {
-    allStrapiArticle: allStrapiEnglishArticle(filter: { slug: { eq: $slug } }) {
+    allStrapiArticle: allStrapiEnglishArticle(filter: { slug: { eq: $slug } }) {  
       nodes {
         title
         description
@@ -145,6 +191,22 @@ export const query = graphql`
         published_at
         updated_at
         destacado
+        body {
+          ... on ComponentHowtoHowTo {
+            id
+            title
+            descripcion
+            totalMinutes
+            tieneHowTo
+            tools {
+              name
+            }
+            steps {
+              name
+              text
+            }
+          }
+        }
         seo {
           pageTitle
           pageDescription
@@ -153,26 +215,39 @@ export const query = graphql`
         image {
           url
           alternativeText
+          width
+          height
           localFile {
             childImageSharp {
               gatsbyImageData
+              original{
+                width
+                height
+              }
             }
           }
         }
         imagePage {
+          url
           alternativeText
+          width
+          height
           localFile {
             childImageSharp {
               gatsbyImageData
+              original{
+                width
+                height
+              }
             }
           }
         }
         author {
-          id
           name
           subTitle
           summary
           image {
+            url
             alternativeText
             localFile {
               childImageSharp {
